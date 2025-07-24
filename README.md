@@ -22,7 +22,7 @@ A ~1 000-hour solo project focused on advanced physics gameplay in Unity, coveri
 
 | Unity LTS + Web Module | First public commit |
 |------------------------|---------------------|
-| <img src="Docs/Img/Unity-6.0-LTS-install.png" width="420" alt="Unity 6 LTS + WebGL"> | <img src="Docs/Img/github-first-commit.png" width="420" alt="Initial commit"> |
+| <img src="Docs/Img/Unity-6.0-LTS-install.PNG" width="420" alt="Unity 6 LTS + WebGL"> | <img src="Docs/Img/github-first-commit.PNG" width="420" alt="Initial commit"> |
 
 ---
 
