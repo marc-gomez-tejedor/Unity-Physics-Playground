@@ -32,3 +32,12 @@ A ~1 000-hour solo project focused on advanced physics gameplay in Unity, coveri
 git clone git@github.com:marc-gomez-tejedor/Unity-Physics-Playground.git
 # Unity Hub → Add project → select repo root
 # Confirm it opens with Unity 6.0 LTS
+
+---
+
+## Demos
+
+| Name | Specific Document | Demo GIF |
+|-------|------:|------------------|
+| **Orbits** | /docs/orbits.md | … |
+
