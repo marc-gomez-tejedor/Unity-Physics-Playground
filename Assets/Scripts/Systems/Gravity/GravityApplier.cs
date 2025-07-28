@@ -3,7 +3,7 @@ using UnityEngine;
 public class GravityApplier : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private float gravity = 55f;
+    [SerializeField] private float gravity = 120f;
 
     private void FixedUpdate()
     {
