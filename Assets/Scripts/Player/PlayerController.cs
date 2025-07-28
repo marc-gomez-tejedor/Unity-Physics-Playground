@@ -1,7 +1,8 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IInitializable
 {
     [Header("References")]
     [SerializeField] private MovementBehaviour movementBehaviour;
@@ -11,33 +12,31 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpingForce;
     [SerializeField] private bool frozen = false;
 
-    private void Awake()
+    public void Initialize()
     {
         if (movementBehaviour == null)
         {
             movementBehaviour = gameObject.GetComponent<MovementBehaviour>();
         }
-    }
-    private void Start()
-    {
         movementBehaviour.Move(Vector2.zero, speed);
+        InputManager.Instance.OnJump += Jump;
     }
 
     private void OnEnable()
     {
-        InputManager.current.OnJump += Jump;
+        Initialize();
     }
 
     private void OnDisable()
     {
-        InputManager.current.OnJump -= Jump;
+        InputManager.Instance.OnJump -= Jump;
     }
 
     private void FixedUpdate()
     {
         if (!frozen)
         {
-            Vector2 inputDirection = InputManager.current.MoveInput;
+            Vector2 inputDirection = InputManager.Instance.MoveInput;
             movementBehaviour.Move(inputDirection, speed);
         }
     }

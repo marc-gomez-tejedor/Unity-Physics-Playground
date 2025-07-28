@@ -1,19 +1,26 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : MonoBehaviour
+public class InputManager : MonoBehaviour, IInitializable
 {
-    public static InputManager current;
+    public static InputManager Instance { get; private set; }
     private InputSystem_Actions inputActions;
 
     public Vector2 MoveInput { get; private set; }
 
     public event Action OnJump;
 
-    private void Awake()
+    public void Initialize()
     {
-        current = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
         inputActions = new InputSystem_Actions();
         DontDestroyOnLoad(gameObject);
     }

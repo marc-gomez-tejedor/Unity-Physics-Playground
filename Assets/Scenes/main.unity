@@ -535,6 +535,54 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 806615817}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1002315814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1002315815}
+  - component: {fileID: 1002315816}
+  m_Layer: 0
+  m_Name: Game
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1002315815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002315814}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.8449202, y: -0.84984016, z: 2.9445038}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1002315816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002315814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12ccd5dcc911b7f4799cfdbf30f89d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootSystemsScripts:
+  - {fileID: 1578711511}
+  oneDependencyScripts:
+  - {fileID: 1147030373}
 --- !u!1 &1062495572
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,7 +751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb43047d9f9e3bb42a8f65fa8e4a3954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRigidBody: {fileID: 449976514}
+  _rigidBody: {fileID: 449976514}
 --- !u!114 &1147030373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,3 +867,4 @@ SceneRoots:
   - {fileID: 1147030371}
   - {fileID: 1757795501}
   - {fileID: 425255262}
+  - {fileID: 1002315815}
