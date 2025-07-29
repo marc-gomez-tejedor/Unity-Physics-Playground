@@ -12,6 +12,6 @@ public class MovementBehaviour : MonoBehaviour
     }
     public void Jump(float jumpingForce)
     {
-        _rigidBody.AddForce(Vector3.up * jumpingForce);
+        _rigidBody.AddForce(Vector3.up * jumpingForce, ForceMode.Impulse);
     }
 }
