@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GravityApplier : MonoBehaviour
+public class SimpleDownwardsGravity : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float gravity = 120f;
