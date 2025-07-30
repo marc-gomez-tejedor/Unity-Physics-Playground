@@ -17,12 +17,19 @@ public class GameInitializer : MonoBehaviour
 
         for (int i = 0; i < rootSystemsScripts.Count; i++)
         {
-            rootSystemsScripts[i].GetComponent<IInitializable>().Initialize();
-            
+            MonoBehaviour script = rootSystemsScripts[i];
+            if (script is IInitializable initializable)
+            {
+                initializable.Initialize();
+            }
         }
         for (int i = 0; i < oneDependencyScripts.Count; i++)
         {
-            oneDependencyScripts[i].GetComponent<IInitializable>().Initialize();
+            MonoBehaviour script = oneDependencyScripts[i];
+            if (script is IInitializable initializable)
+            {
+                initializable.Initialize();
+            }
         }
     }
 }

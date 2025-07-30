@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using Unity.Mathematics;
 
 public class GravityBodyEmitter : MonoBehaviour, IInitializable
 {
@@ -18,10 +17,8 @@ public class GravityBodyEmitter : MonoBehaviour, IInitializable
         for (int i = 0; i < allMassBodies.Count; i++)
         {
             Rigidbody body = allMassBodies[i];
-            Debug.Log($"self is {this.gameObject} and {body}");
             if (body != _rigidbody)
             {
-                Debug.Log($"self is {this.gameObject} and {body} passed check");
                 allOtherMassBodies.Add(body);
             }
         }
