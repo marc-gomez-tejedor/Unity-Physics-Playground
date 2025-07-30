@@ -6,16 +6,19 @@ public class GravityBodyEmitter : MonoBehaviour, IInitializable
 {
     [SerializeField] private Rigidbody _rigidbody;
 
-    private List<Rigidbody> allOtherMassBodies;
+    private List<Rigidbody> allOtherMassBodies = new List<Rigidbody>();
     private int otherBodiesCount;
 
     public void Initialize()
     {
-        for (int i = 0; i < AllGravityBodies.MassBodies.Count; i++)
+        List<Rigidbody> allMassBodies = Game.Gravity.GetMassBodies();
+        for (int i = 0; i < allMassBodies.Count; i++)
         {
-            Rigidbody body = AllGravityBodies.MassBodies[i];
+            Rigidbody body = allMassBodies[i];
+            Debug.Log($"self is {this.gameObject} and {body}");
             if (body != _rigidbody)
             {
+                Debug.Log($"self is {this.gameObject} and {body} passed check");
                 allOtherMassBodies.Add(body);
             }
         }

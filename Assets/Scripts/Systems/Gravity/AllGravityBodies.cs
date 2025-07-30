@@ -1,8 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AllGravityBodies
+public class AllGravityBodies : MonoBehaviour
 {
-    public static List<Rigidbody> MassBodies { get; private set; }
+    [SerializeField] private List<Rigidbody> MassBodies;
     public static float NEWTONS_GRAVITATIONAL_CONSTANT { get; private set; } = 6f;
+    public List<Rigidbody> GetMassBodies()
+    { 
+        return MassBodies; 
+    }
 }
