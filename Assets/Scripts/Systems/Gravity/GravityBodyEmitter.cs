@@ -51,11 +51,10 @@ public class GravityBodyEmitter : MonoBehaviour, IInitializable
         Vector3 ur = r.normalized;
 
         float G = AllGravityBodies.NEWTONS_GRAVITATIONAL_CONSTANT;
-        float Gexp = AllGravityBodies.NEWTONS_GRAVITATIONAL_CONSTANT_EXP;
         float m1 = _rigidbody.mass;
         float m2 = targetBody.mass;
 
-        double numerator = (double)(G * m1 * m2) / (double)(math.pow(10, Gexp));
+        double numerator = (double)(G * m1 * m2);
         double denominator = (double)(r.magnitude * r.magnitude);
         double result = numerator / denominator;
 
