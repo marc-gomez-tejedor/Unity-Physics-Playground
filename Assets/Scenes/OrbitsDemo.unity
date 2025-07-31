@@ -1570,6 +1570,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 193881685293944854, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
+      propertyPath: MassBodies.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 193881685293944854, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: 'MassBodies.Array.data[0]'
       value: 
       objectReference: {fileID: 1197085984}
@@ -1584,19 +1588,27 @@ PrefabInstance:
     - target: {fileID: 193881685293944854, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: 'MassBodies.Array.data[3]'
       value: 
-      objectReference: {fileID: 1043493759}
+      objectReference: {fileID: 1847571003}
     - target: {fileID: 193881685293944854, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: 'MassBodies.Array.data[4]'
       value: 
-      objectReference: {fileID: 1847571003}
+      objectReference: {fileID: 584776918}
     - target: {fileID: 193881685293944854, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: 'MassBodies.Array.data[5]'
       value: 
-      objectReference: {fileID: 584776918}
+      objectReference: {fileID: 1043493759}
     - target: {fileID: 193881685293944854, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: 'MassBodies.Array.data[6]'
       value: 
       objectReference: {fileID: 1760891837}
+    - target: {fileID: 1829329320494182059, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
+      propertyPath: rootSystemsScripts.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1829329320494182059, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
+      propertyPath: oneDependencyScripts.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1829329320494182059, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: 'rootSystemsScripts.Array.data[0]'
       value: 
@@ -1612,15 +1624,15 @@ PrefabInstance:
     - target: {fileID: 1829329320494182059, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: 'rootSystemsScripts.Array.data[3]'
       value: 
-      objectReference: {fileID: 1043493760}
+      objectReference: {fileID: 1847571004}
     - target: {fileID: 1829329320494182059, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: 'rootSystemsScripts.Array.data[4]'
       value: 
-      objectReference: {fileID: 1847571004}
+      objectReference: {fileID: 584776917}
     - target: {fileID: 1829329320494182059, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: 'rootSystemsScripts.Array.data[5]'
       value: 
-      objectReference: {fileID: 584776917}
+      objectReference: {fileID: 1043493760}
     - target: {fileID: 1829329320494182059, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: 'rootSystemsScripts.Array.data[6]'
       value: 
@@ -1640,15 +1652,15 @@ PrefabInstance:
     - target: {fileID: 1829329320494182059, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: 'oneDependencyScripts.Array.data[3]'
       value: 
-      objectReference: {fileID: 1043493761}
+      objectReference: {fileID: 584776916}
     - target: {fileID: 1829329320494182059, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: 'oneDependencyScripts.Array.data[4]'
       value: 
-      objectReference: {fileID: 584776916}
+      objectReference: {fileID: 1043493761}
     - target: {fileID: 1829329320494182059, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: 'oneDependencyScripts.Array.data[5]'
       value: 
-      objectReference: {fileID: 1760891838}
+      objectReference: {fileID: 1760891839}
     - target: {fileID: 3521772083013028954, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
