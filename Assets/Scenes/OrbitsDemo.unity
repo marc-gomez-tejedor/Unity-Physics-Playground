@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0.3
+  m_AmbientIntensity: 0.5
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.9921569, g: 0.9921569, b: 0.9921569, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 2d056ac30ecc9e542b26e06133f23602, type: 2}
@@ -218,8 +218,8 @@ Transform:
   m_GameObject: {fileID: 584776914}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 193, y: 0, z: 6020}
-  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_LocalPosition: {x: 63405, y: 0, z: 0}
+  m_LocalScale: {x: 500, y: 500, z: 500}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 450829259}
@@ -323,7 +323,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c7a61e71bdb483c44bf4fb1c971a1200, type: 2}
+  - {fileID: 2100000, guid: d697779122db2fd4c8739e89b2a2204e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -412,8 +412,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 3
-  far clip plane: 20000
-  field of view: 65
+  far clip plane: 200000
+  field of view: 70
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -439,13 +439,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 660400963}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.24170968, y: 0.04063173, z: -0.010130627, w: 0.96944463}
-  m_LocalPosition: {x: -401.4703, y: 2000, z: -5550.4824}
+  m_LocalRotation: {x: 0.33380687, y: 0, z: 0, w: 0.94264156}
+  m_LocalPosition: {x: 0, y: 35000, z: -45000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 28, y: 4.8, z: 0}
+  m_LocalEulerAnglesHint: {x: 39, y: 0, z: 0}
 --- !u!114 &660400967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,8 +521,8 @@ Transform:
   m_GameObject: {fileID: 916774880}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2311, y: 0, z: -3375}
-  m_LocalScale: {x: 200, y: 200, z: 200}
+  m_LocalPosition: {x: -40000, y: 0, z: 0}
+  m_LocalScale: {x: 1600, y: 1600, z: 1600}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 450829259}
@@ -687,8 +687,8 @@ Transform:
   m_GameObject: {fileID: 1043493754}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7509, y: 0, z: 6731}
-  m_LocalScale: {x: 150, y: 150, z: 150}
+  m_LocalPosition: {x: 0, y: 0, z: 85000}
+  m_LocalScale: {x: 1500, y: 1500, z: 1500}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 450829259}
@@ -929,7 +929,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 400, y: 400, z: 400}
+  m_LocalScale: {x: 5000, y: 5000, z: 5000}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -968,8 +968,8 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 70000000
-  m_Range: 100000
+  m_Intensity: 2e+9
+  m_Range: 150000
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -1094,8 +1094,8 @@ Transform:
   m_GameObject: {fileID: 1422361525}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 988, y: 0, z: -877}
-  m_LocalScale: {x: 130, y: 130, z: 130}
+  m_LocalPosition: {x: 0, y: 0, z: -20000}
+  m_LocalScale: {x: 1000, y: 1000, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 450829259}
@@ -1426,8 +1426,8 @@ Transform:
   m_GameObject: {fileID: 1847570998}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 326, y: 0, z: 5842}
-  m_LocalScale: {x: 200, y: 200, z: 200}
+  m_LocalPosition: {x: 60000, y: 0, z: 0}
+  m_LocalScale: {x: 1800, y: 1800, z: 1800}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 450829259}
