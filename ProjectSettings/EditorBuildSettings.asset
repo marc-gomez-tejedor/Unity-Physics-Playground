@@ -8,12 +8,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: Assets/Scenes/main.unity
-    guid: 8f5fa65fa7879d24b97bfa0bce65f5aa
+  - enabled: 1
+    path: Assets/Scenes/MothershipInterior.unity
+    guid: 900e7e0537a8e164488f4325912e49cb
   - enabled: 1
     path: Assets/Scenes/OrbitsDemo.unity
     guid: cfc498d0e3b196b43a3f4d29fb17eb3c
+  - enabled: 0
+    path: Assets/Scenes/main.unity
+    guid: 8f5fa65fa7879d24b97bfa0bce65f5aa
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

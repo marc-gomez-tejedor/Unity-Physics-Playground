@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour, IInitializable
             movementBehaviour = gameObject.GetComponent<MovementBehaviour>();
         }
         movementBehaviour.Move(Vector2.zero, speed);
-        InputManager.Instance.OnJump += Jump;
+        Game.Input.OnJump += Jump;
     }
 
     private void OnEnable()
@@ -29,14 +29,14 @@ public class PlayerController : MonoBehaviour, IInitializable
 
     private void OnDisable()
     {
-        InputManager.Instance.OnJump -= Jump;
+        Game.Input.OnJump -= Jump;
     }
 
     private void FixedUpdate()
     {
         if (!frozen)
         {
-            Vector2 inputDirection = InputManager.Instance.MoveInput;
+            Vector2 inputDirection = Game.Input.MoveInput;
             movementBehaviour.Move(inputDirection, speed);
         }
     }

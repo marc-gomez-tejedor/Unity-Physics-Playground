@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour, IInitializable
 {
     public static InputManager Instance { get; private set; }
+
     private InputSystem_Actions inputActions;
 
     public Vector2 MoveInput { get; private set; }
@@ -27,6 +28,7 @@ public class InputManager : MonoBehaviour, IInitializable
 
     private void OnEnable()
     {
+        Initialize();
         inputActions.Enable();
 
         inputActions.Player.Move.performed += OnMovePerformed;

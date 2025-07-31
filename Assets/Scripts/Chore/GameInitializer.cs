@@ -5,7 +5,8 @@ using UnityEngine;
 public class GameInitializer : MonoBehaviour
 {
     [Header("Core Systems")]
-    [SerializeField] private AllGravityBodies _gravityBodies;
+    [SerializeField] private AllGravityBodies gravityBodies;
+    [SerializeField] private InputManager input;
 
     [Header("Initialitazion order")]
     [SerializeField] private List<MonoBehaviour> rootSystemsScripts;
@@ -13,7 +14,7 @@ public class GameInitializer : MonoBehaviour
 
     private void Awake()
     {
-        Game.Init(_gravityBodies);
+        Game.Init(gravityBodies, input);
 
         for (int i = 0; i < rootSystemsScripts.Count; i++)
         {
