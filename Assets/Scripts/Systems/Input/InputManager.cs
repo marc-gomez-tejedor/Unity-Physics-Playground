@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour, IInitializable
     public Vector2 MoveInput { get; private set; }
 
     public event Action OnJump;
+    public event Action OnInteract;
 
     public void Initialize()
     {
@@ -35,6 +36,7 @@ public class InputManager : MonoBehaviour, IInitializable
         inputActions.Player.Move.canceled += OnMoveCanceled;
 
         inputActions.Player.Jump.performed += OnJumpPerformed;
+        inputActions.Player.Interact.performed += OnInteractPerformed;
     }
 
     private void OnDisable()
@@ -43,6 +45,7 @@ public class InputManager : MonoBehaviour, IInitializable
         inputActions.Player.Move.canceled -= OnMoveCanceled;
 
         inputActions.Player.Jump.performed -= OnJumpPerformed;
+        inputActions.Player.Interact.performed -= OnInteractPerformed;
 
         inputActions.Disable();
     }
@@ -59,5 +62,9 @@ public class InputManager : MonoBehaviour, IInitializable
     private void OnJumpPerformed(InputAction.CallbackContext ctx)
     {
         OnJump?.Invoke();
+    }
+    private void OnInteractPerformed(InputAction.CallbackContext ctx)
+    {
+        OnInteract?.Invoke();
     }
 }

@@ -5,44 +5,30 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IInitializable
 {
     [Header("References")]
-    [SerializeField] private MovementBehaviour movementBehaviour;
-
-    [Header("Parameters")]
-    [SerializeField] private float speed;
-    [SerializeField] private float jumpingForce;
-    [SerializeField] private bool frozen = false;
+    public Rigidbody _rigidbody;
+    public PlayerState State;
+    public PlayerStateContainer States;
+    public MovementBehaviour movementBehaviour;
 
     public void Initialize()
     {
-        if (movementBehaviour == null)
-        {
-            movementBehaviour = gameObject.GetComponent<MovementBehaviour>();
-        }
-        movementBehaviour.Move(Vector2.zero, speed);
-        Game.Input.OnJump += Jump;
+        if (movementBehaviour == null) movementBehaviour = gameObject.GetComponent<MovementBehaviour>();
+        State = States.DefaultState;
+        State.TransitionIn();
     }
-
-    private void OnEnable()
-    {
-        Initialize();
-    }
-
-    private void OnDisable()
-    {
-        Game.Input.OnJump -= Jump;
-    }
-
     private void FixedUpdate()
     {
-        if (!frozen)
-        {
-            Vector2 inputDirection = Game.Input.MoveInput;
-            movementBehaviour.Move(inputDirection, speed);
-        }
+        State.Act();
     }
 
-    private void Jump()
+    public void TransitionTo(PlayerState state)
     {
-        movementBehaviour.Jump(jumpingForce);
+        state.TransitionOut();
+        State = state;
+        state.TransitionIn();
+    }
+    public RaycastHit GetRaycasts()
+    {
+        return new RaycastHit();
     }
 }
