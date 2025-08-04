@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerState : MonoBehaviour
 {
     public PlayerController PlayerController;
-    public virtual void TransitionIn() { }
+    public virtual void TransitionIn() { OnEnable(); }
     public virtual void TransitionOut() { }
     public virtual void Act() { }
     public virtual void Interact() { }
