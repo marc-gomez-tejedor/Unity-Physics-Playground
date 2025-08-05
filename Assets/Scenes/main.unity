@@ -623,11 +623,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 393850799354228954, guid: 534fb0b48d65a514db3c64ab8bdb7dfb, type: 3}
       propertyPath: jumpForce
-      value: 140
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4201327796294043413, guid: 534fb0b48d65a514db3c64ab8bdb7dfb, type: 3}
       propertyPath: gravity
-      value: 130
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 4201327796294043413, guid: 534fb0b48d65a514db3c64ab8bdb7dfb, type: 3}
       propertyPath: m_Enabled
