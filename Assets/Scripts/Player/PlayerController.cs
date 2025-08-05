@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour, IInitializable
     public PlayerState State;
     public PlayerStateContainer States;
     public MovementBehaviour movementBehaviour;
+    public FindEquilibrium findEquilibrium;
 
     public void Initialize()
     {

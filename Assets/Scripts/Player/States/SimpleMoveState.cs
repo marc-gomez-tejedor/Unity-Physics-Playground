@@ -8,6 +8,7 @@ public class SimpleMoveState : PlayerState
 
     public override void Act()
     {
+        base.PlayerController.findEquilibrium.Center();
         Vector2 inputDirection = Game.Input.MoveInput;
         PlayerController.movementBehaviour.Move(inputDirection, speed);
     }

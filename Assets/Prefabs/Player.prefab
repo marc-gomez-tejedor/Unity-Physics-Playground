@@ -118,7 +118,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3374076538944352482}
   serializedVersion: 4
-  m_Mass: 6
+  m_Mass: 0.6
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 2918540667135049137}
   - component: {fileID: 2476870328131697023}
   - component: {fileID: 4201327796294043413}
+  - component: {fileID: 6574253476870758381}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -268,6 +269,7 @@ MonoBehaviour:
   State: {fileID: 0}
   States: {fileID: 6007212175496567896}
   movementBehaviour: {fileID: 2918540667135049137}
+  findEquilibrium: {fileID: 0}
 --- !u!114 &2918540667135049137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,3 +313,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 9096632278789902757}
   gravity: 120
+--- !u!114 &6574253476870758381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504196509794538343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9464da6bf7692804eb906ddead7dbe05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 9096632278789902757}
