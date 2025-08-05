@@ -7,6 +7,6 @@ public class AllGravityBodies : MonoBehaviour
     public static float NEWTONS_GRAVITATIONAL_CONSTANT { get; private set; } = 800f;
     public List<Rigidbody> GetMassBodies()
     { 
-        return MassBodies; 
+        return MassBodies;
     }
 }
