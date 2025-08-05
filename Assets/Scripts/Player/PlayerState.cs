@@ -11,13 +11,16 @@ public class PlayerState : MonoBehaviour
     public virtual void Jump() { }
     public virtual void OnEnable()
     {
-        Game.Input.OnJump += Jump;
-        Game.Input.OnInteract += Interact;
+        if (Game.Input != null)
+        {
+            Game.Input.OnJump += Jump;
+            Game.Input.OnInteract += Interact;
+        }
     }
     public virtual void OnDisable()
     {
         Game.Input.OnJump -= Jump;
         Game.Input.OnInteract -= Interact;
     }
-
+    
 }
