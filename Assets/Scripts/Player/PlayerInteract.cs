@@ -41,6 +41,7 @@ public class PlayerInteract : MonoBehaviour, IInitializable
     // For debugging
     private void OnDrawGizmosSelected()
     {
+        if (!this.isActiveAndEnabled) return;
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, interactRange);
     }

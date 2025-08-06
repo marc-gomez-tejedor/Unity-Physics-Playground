@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour, IInitializable
         State = state;
         state.TransitionIn();
     }
+    
     public RaycastHit GetRaycasts()
     {
         return new RaycastHit();
