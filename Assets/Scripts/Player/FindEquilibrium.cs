@@ -22,13 +22,13 @@ public class FindEquilibrium : MonoBehaviour
     }
     void CompensateTorques(Collision collision)
     {
-        UpdatePointImpulses(collision);
+        UpdatePointImpulse(collision);
         DebugPointImpulse();
         ComputeCollisionTorque();
         DebugTorque();
         AddTorque();
     }
-    void UpdatePointImpulses(Collision collision)
+    void UpdatePointImpulse(Collision collision)
     {
         int i = 0;
         ContactPoint contact = collision.GetContact(0);
@@ -36,19 +36,14 @@ public class FindEquilibrium : MonoBehaviour
     }
     void AddTorque()
     {
-        float x = collisionTorque.x;
-        float y = collisionTorque.y;
-        float z = collisionTorque.z;
-
-        Vector3 result = new Vector3(-x, -y, -z) * rectifyingForce;
-        Debug.Log($"res {result}");
-        _rigidbody.AddTorque(result * rectifyingForce, ForceMode.Impulse);
+        Debug.Log($"res {-collisionTorque}");
+        _rigidbody.AddTorque(-collisionTorque * rectifyingForce, ForceMode.Force);
     }
 
     void ComputeCollisionTorque()
     {
         Vector3 r = _rigidbody.worldCenterOfMass - pointImpulse.Item1;
-        Vector3 f = pointImpulse.Item2;
+        Vector3 f = pointImpulse.Item2/Time.fixedDeltaTime;
         Vector3 t = Vector3.Cross(r, f);
 
         Debug.Log($"--TRANSPOSING WORLD TO LOCAL AND THEN COMPUTING TORQUES--");
@@ -59,12 +54,12 @@ public class FindEquilibrium : MonoBehaviour
     
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"collision enter: {collision}");
+        Debug.Log($"collision enter: {collision.impulse}");
         CompensateTorques(collision);
     }
     void OnCollisionStay(Collision collision)
     {
-        Debug.Log($"collision stay: {collision}");
+        Debug.Log($"collision stay: {collision.impulse}");
         CompensateTorques(collision);
     }
     void DebugPointImpulse()
