@@ -6,11 +6,11 @@ using UnityEngine;
 public class FindEquilibrium : MonoBehaviour
 {
     [Header("Parameters")]
-    public float rectifyingForce = 1f;
+    public float rectifyingForce = 0.8756839f;
 
     private Vector3 desiredOrientation = Vector3.up;  /* normal unit vector (default up for testing)
     * lerp this orientation with the current one based on rectifyingForce
-    * apply that to the rectifying torques to compensate external ones multiplied by the biased lerp force */
+    * apply that to the rectifying torques to compensate external ones multiplied by the biased lerp force (done-sort of)*/
 
     public Rigidbody _rigidbody;
     private List<(Vector3, Vector3, Vector3)> pointImpulses = new List<(Vector3, Vector3, Vector3)>();
@@ -18,11 +18,23 @@ public class FindEquilibrium : MonoBehaviour
 
     public void Center()
     {
-        // check floor with playercontroller.raycasts (for now will be vector.up)
-        /*DebugPointImpulses();
-        ComputeCollisionTorques();
+    }
+    void UpdatePointImpulses(Collision collision)
+    {
+        int i = 0;
+        pointImpulses = new List<(Vector3, Vector3, Vector3)>();
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            i++;
+            Vector3 point = contact.point;
+            Vector3 impulse = contact.impulse;
+            Vector3 normal = contact.normal;
+            pointImpulses.Add((point, impulse, normal));
+        }
+        DebugPointImpulses();
+        ComputeCollisionTorquesDebugged();
         DebugTorques();
-        AddTorques();*/
+        AddTorques();
     }
     void AddTorques()
     {
@@ -37,8 +49,8 @@ public class FindEquilibrium : MonoBehaviour
             zSum += collisionTorques[i].z;
         }
         Vector3 result = new Vector3(-xSum, -ySum, -zSum) * rectifyingForce;
-        // lerp eventually WIP
-        _rigidbody.AddTorque(result / Time.fixedDeltaTime);
+        Debug.Log($"res {result}");
+        _rigidbody.AddRelativeTorque(result * rectifyingForce, ForceMode.Impulse);
     }
 
     void ComputeCollisionTorques()
@@ -62,21 +74,25 @@ public class FindEquilibrium : MonoBehaviour
             collisionTorques.Add(t);
         }
     }
-    void UpdatePointImpulses(Collision collision)
+    void ComputeCollisionTorquesDebugged()
     {
         int i = 0;
-        pointImpulses = new List<(Vector3, Vector3, Vector3)>();
-        foreach (ContactPoint contact in collision.contacts)
+        collisionTorques = new List<Vector3>();
+        
+        Debug.Log($"--TRANSPOSING WORLD TO LOCAL AND THEN COMPUTING TORQUES--");
+        foreach (var pointImpulse in pointImpulses)
         {
+            Vector3 r = _rigidbody.worldCenterOfMass - pointImpulse.Item1;
+            Vector3 f = pointImpulse.Item2;
+            Vector3 t = Vector3.Cross(r, f);
+
+            Debug.Log($"Element n{i}, r:{r}, f:{f}, t:{t}");
+
+            collisionTorques.Add(t);
             i++;
-            Vector3 point = contact.point;
-            Vector3 impulse = contact.impulse;
-            Vector3 normal = contact.normal;
-            pointImpulses.Add((point, impulse, normal));
         }
-        ComputeCollisionTorques();
-        AddTorques();
     }
+    
     void OnCollisionEnter(Collision collision)
     {
         Debug.Log($"collision enter: {collision}");
@@ -89,6 +105,7 @@ public class FindEquilibrium : MonoBehaviour
     }
     void DebugPointImpulses()
     {
+        Debug.Log($"--DEBUGGING POINT IMPULSES--");
         for (int i = 0; i < pointImpulses.Count; i++)
         {
             Debug.Log($"Element n{i}, point:{pointImpulses[i].Item1}, impulse:{pointImpulses[i].Item2}, normal:{pointImpulses[i].Item3}");
@@ -96,6 +113,7 @@ public class FindEquilibrium : MonoBehaviour
     }
     void DebugTorques()
     {
+        Debug.Log($"--DEBUGGING TORQUES--");
         for (int i = 0; i < collisionTorques.Count; i++)
         {
             Debug.Log($"Element n{i}, torque:{collisionTorques[i]}");

@@ -8,8 +8,11 @@ public class SimpleDownwardsGravity : MonoBehaviour, IInitializable
 
     public void Initialize()
     {
-        _rigidbody.useGravity = false;
-        if (_rigidbody == null) _rigidbody = GetComponent<Rigidbody>();
+        if (this.isActiveAndEnabled)
+        {
+            _rigidbody.useGravity = false;
+            if (_rigidbody == null) _rigidbody = GetComponent<Rigidbody>();
+        }
     }
 
     private void FixedUpdate()
