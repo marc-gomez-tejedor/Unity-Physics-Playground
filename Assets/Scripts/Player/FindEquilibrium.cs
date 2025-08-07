@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics.Geometry;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FindEquilibrium : MonoBehaviour
@@ -13,111 +14,68 @@ public class FindEquilibrium : MonoBehaviour
     * apply that to the rectifying torques to compensate external ones multiplied by the biased lerp force (done-sort of)*/
 
     public Rigidbody _rigidbody;
-    private List<(Vector3, Vector3, Vector3)> pointImpulses = new List<(Vector3, Vector3, Vector3)>();
-    private List<Vector3> collisionTorques = new List<Vector3>();
+    private (Vector3,Vector3) pointImpulse;
+    private Vector3 collisionTorque;
 
     public void Center()
     {
     }
+    void CompensateTorques(Collision collision)
+    {
+        UpdatePointImpulses(collision);
+        DebugPointImpulse();
+        ComputeCollisionTorque();
+        DebugTorque();
+        AddTorque();
+    }
     void UpdatePointImpulses(Collision collision)
     {
         int i = 0;
-        pointImpulses = new List<(Vector3, Vector3, Vector3)>();
-        foreach (ContactPoint contact in collision.contacts)
-        {
-            i++;
-            Vector3 point = contact.point;
-            Vector3 impulse = contact.impulse;
-            Vector3 normal = contact.normal;
-            pointImpulses.Add((point, impulse, normal));
-        }
-        DebugPointImpulses();
-        ComputeCollisionTorquesDebugged();
-        DebugTorques();
-        AddTorques();
+        ContactPoint contact = collision.GetContact(0);
+        pointImpulse = (contact.point, contact.impulse);
     }
-    void AddTorques()
+    void AddTorque()
     {
-        float xSum = 0;
-        float ySum = 0;
-        float zSum = 0;
+        float x = collisionTorque.x;
+        float y = collisionTorque.y;
+        float z = collisionTorque.z;
 
-        for (int i = 0; i < collisionTorques.Count; i++)
-        {
-            xSum += collisionTorques[i].x;
-            ySum += collisionTorques[i].y;
-            zSum += collisionTorques[i].z;
-        }
-        Vector3 result = new Vector3(-xSum, -ySum, -zSum) * rectifyingForce;
+        Vector3 result = new Vector3(-x, -y, -z) * rectifyingForce;
         Debug.Log($"res {result}");
-        _rigidbody.AddRelativeTorque(result * rectifyingForce, ForceMode.Impulse);
+        _rigidbody.AddTorque(result * rectifyingForce, ForceMode.Impulse);
     }
 
-    void ComputeCollisionTorques()
+    void ComputeCollisionTorque()
     {
-        collisionTorques = new List<Vector3>();
-        Matrix4x4 localToWoldMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
+        Vector3 r = _rigidbody.worldCenterOfMass - pointImpulse.Item1;
+        Vector3 f = pointImpulse.Item2;
+        Vector3 t = Vector3.Cross(r, f);
 
-        foreach (var pointImpulse in pointImpulses)
-        {
-            // transpose world coordinates to local coords
-            Vector3 worldContactPoint = pointImpulse.Item1;
-            Vector3 worldImpulse = pointImpulse.Item2;
-
-            Vector3 localContactPoint = localToWoldMatrix.inverse.MultiplyPoint3x4(worldContactPoint);
-            Vector3 localImpulse = localToWoldMatrix.inverse.MultiplyPoint3x4(worldImpulse);
-
-            Vector3 r = transform.position - localContactPoint;
-            Vector3 f = localImpulse;
-            Vector3 t = Vector3.Cross(r,f);
-
-            collisionTorques.Add(t);
-        }
-    }
-    void ComputeCollisionTorquesDebugged()
-    {
-        int i = 0;
-        collisionTorques = new List<Vector3>();
-        
         Debug.Log($"--TRANSPOSING WORLD TO LOCAL AND THEN COMPUTING TORQUES--");
-        foreach (var pointImpulse in pointImpulses)
-        {
-            Vector3 r = _rigidbody.worldCenterOfMass - pointImpulse.Item1;
-            Vector3 f = pointImpulse.Item2;
-            Vector3 t = Vector3.Cross(r, f);
+        Debug.Log($"r:{r}, f:{f}, t:{t}");
 
-            Debug.Log($"Element n{i}, r:{r}, f:{f}, t:{t}");
-
-            collisionTorques.Add(t);
-            i++;
-        }
+        collisionTorque = t;
     }
     
     void OnCollisionEnter(Collision collision)
     {
         Debug.Log($"collision enter: {collision}");
-        UpdatePointImpulses(collision);
+        CompensateTorques(collision);
     }
     void OnCollisionStay(Collision collision)
     {
         Debug.Log($"collision stay: {collision}");
-        UpdatePointImpulses(collision);
+        CompensateTorques(collision);
     }
-    void DebugPointImpulses()
+    void DebugPointImpulse()
     {
         Debug.Log($"--DEBUGGING POINT IMPULSES--");
-        for (int i = 0; i < pointImpulses.Count; i++)
-        {
-            Debug.Log($"Element n{i}, point:{pointImpulses[i].Item1}, impulse:{pointImpulses[i].Item2}, normal:{pointImpulses[i].Item3}");
-        }
+        Debug.Log($"point:{pointImpulse.Item1}, impulse:{pointImpulse.Item2}");
     }
-    void DebugTorques()
+    void DebugTorque()
     {
         Debug.Log($"--DEBUGGING TORQUES--");
-        for (int i = 0; i < collisionTorques.Count; i++)
-        {
-            Debug.Log($"Element n{i}, torque:{collisionTorques[i]}");
-        }
+        Debug.Log($"torque:{collisionTorque}");
     }
 
     // For debugging
