@@ -4,7 +4,7 @@ using UnityEngine;
 public class SimpleDownwardsGravity : MonoBehaviour, IInitializable
 {
     [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private float gravity = 120f;
+    [SerializeField] private float gravity = 9.81f;
 
     public void Initialize()
     {

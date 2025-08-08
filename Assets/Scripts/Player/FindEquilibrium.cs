@@ -7,7 +7,10 @@ using UnityEngine;
 public class FindEquilibrium : MonoBehaviour
 {
     [Header("Parameters")]
-    public float rectifyingForce = 0.8756839f;
+    public float rectifyingForce = 1f;
+    public float rectifyingSpeedForce = 1f;
+
+    bool onCollision = false;
 
     private Vector3 desiredOrientation = Vector3.up;  /* normal unit vector (default up for testing)
     * lerp this orientation with the current one based on rectifyingForce
@@ -19,28 +22,49 @@ public class FindEquilibrium : MonoBehaviour
 
     public void Center()
     {
+        if (onCollision) { Rotate(); }
+        ComputeAllForces();
+        DebugTorques();
+        AddTorques();
     }
-    void CompensateTorques(Collision collision)
+    private void Rotate()
     {
-        UpdatePointImpulse(collision);
-        DebugPointImpulse();
-        ComputeCollisionTorque();
-        DebugTorque();
-        AddTorque();
+        Vector3 dir = desiredOrientation - transform.up;
+        float angle = Vector3.Angle(desiredOrientation, transform.up);
+        float l = angle/180f;
+        Vector3 r = (_rigidbody.worldCenterOfMass + transform.up * transform.localScale.y) - _rigidbody.worldCenterOfMass;
+        Vector3 f = dir * l / Time.fixedDeltaTime;
+        Vector3 t = Vector3.Cross(r, f);
+        _rigidbody.AddTorque(t * rectifyingSpeedForce, ForceMode.Impulse);
     }
-    void UpdatePointImpulse(Collision collision)
+
+    private void ComputeAllForces()
     {
-        int i = 0;
-        ContactPoint contact = collision.GetContact(0);
-        pointImpulse = (contact.point, contact.impulse);
+        Vector3 forces = _rigidbody.GetAccumulatedForce();
+        //Debug.Log($"accForces: {forces}");
+        Vector3 torques = _rigidbody.GetAccumulatedTorque();
+        //Debug.Log($"accTorques: {torques}");
     }
-    void AddTorque()
+    private void AddTorques()
     {
         Debug.Log($"res {-collisionTorque}");
         _rigidbody.AddTorque(-collisionTorque * rectifyingForce, ForceMode.Force);
     }
 
-    void ComputeCollisionTorque()
+    //collision torque
+    private void CompensateCollisionTorques(Collision collision)
+    {
+        UpdatePointImpulse(collision);
+        DebugPointImpulse();
+        ComputeCollisionTorque();
+    }
+    private void UpdatePointImpulse(Collision collision)
+    {
+        int i = 0;
+        ContactPoint contact = collision.GetContact(0);
+        pointImpulse = (contact.point, contact.impulse);
+    }
+    private void ComputeCollisionTorque()
     {
         Vector3 r = _rigidbody.worldCenterOfMass - pointImpulse.Item1;
         Vector3 f = pointImpulse.Item2/Time.fixedDeltaTime;
@@ -52,32 +76,41 @@ public class FindEquilibrium : MonoBehaviour
         collisionTorque = t;
     }
     
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
+        onCollision = true;
         Debug.Log($"collision enter: {collision.impulse}");
-        CompensateTorques(collision);
+        CompensateCollisionTorques(collision);
     }
-    void OnCollisionStay(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
+        onCollision = true;
         Debug.Log($"collision stay: {collision.impulse}");
-        CompensateTorques(collision);
+        CompensateCollisionTorques(collision);
     }
-    void DebugPointImpulse()
+    private void OnCollisionExit(Collision collision)
+    {
+        onCollision = false;
+    }
+
+    // For debugging
+    private void DebugPointImpulse()
     {
         Debug.Log($"--DEBUGGING POINT IMPULSES--");
         Debug.Log($"point:{pointImpulse.Item1}, impulse:{pointImpulse.Item2}");
     }
-    void DebugTorque()
+    private void DebugTorques()
     {
         Debug.Log($"--DEBUGGING TORQUES--");
         Debug.Log($"torque:{collisionTorque}");
     }
 
-    // For debugging
     private void OnDrawGizmosSelected()
     {
         if (!this.isActiveAndEnabled) return;
         Gizmos.color = Color.cyan;
         Gizmos.DrawLine(transform.position, transform.position + desiredOrientation*3f);
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + transform.up * 3f);
     }
 }
