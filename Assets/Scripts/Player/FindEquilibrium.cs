@@ -89,7 +89,7 @@ public class FindEquilibrium : MonoBehaviour
         float d = Vector3.Dot(transform.up, desiredOrientation);
 
         Quaternion desRot;
-        if (d > 0.9999f) desRot = Quaternion.identity;
+        if (d > 0.99999f) desRot = Quaternion.identity;
         else desRot = Quaternion.FromToRotation(transform.up, desiredOrientation);
 
         Quaternion a = Quaternion.Slerp(Quaternion.identity, desRot, torqueImpulseMax);
