@@ -9,9 +9,13 @@ public class FindEquilibrium : MonoBehaviour
     [Header("Parameters")]
     public float rectifyingForce = 1f;
     public float rectifyingSpeedForce = 1f;
+    public float torqueImpulseMax = 0.6f;
 
-    bool onCollision = false;
+    private bool onCollision = false;
+    public bool testing = true;
 
+    [Header("References")]
+    public Transform targetObject;
     private Vector3 desiredOrientation = Vector3.up;  /* normal unit vector (default up for testing)
     * lerp this orientation with the current one based on rectifyingForce
     * apply that to the rectifying torques to compensate external ones multiplied by the biased lerp force (done-sort of)*/
@@ -22,6 +26,11 @@ public class FindEquilibrium : MonoBehaviour
 
     public void Center()
     {
+        if (testing)
+        {
+            Test();
+            return;
+        }
         if (onCollision) { Rotate(); }
         ComputeAllForces();
         DebugTorques();
@@ -29,6 +38,7 @@ public class FindEquilibrium : MonoBehaviour
     }
     private void Rotate()
     {
+        ComputeOffset();
         Vector3 dir = desiredOrientation - transform.up;
         float angle = Vector3.Angle(desiredOrientation, transform.up);
         float l = angle/180f;
@@ -36,6 +46,26 @@ public class FindEquilibrium : MonoBehaviour
         Vector3 f = dir * l / Time.fixedDeltaTime;
         Vector3 t = Vector3.Cross(r, f);
         _rigidbody.AddTorque(t * rectifyingSpeedForce, ForceMode.Impulse);
+    }
+
+    private void ComputeOffset()
+    {
+        Vector3 targetAngularVelocity;
+        Vector3 selfAngularVelocity = _rigidbody.angularVelocity;
+        if (targetObject == null)
+        {
+            desiredOrientation = targetObject.transform.up; 
+            desiredOrientation = desiredOrientation.normalized;
+
+            //targetAngularVelocity = targetObject.angularVelocity;
+        }
+        else
+        {
+            // set to up and zero so the player wants to stand upright for debugging and default by now
+            desiredOrientation = Vector3.up;
+            targetAngularVelocity = Vector3.zero;
+        }
+        float angle = Vector3.Angle(desiredOrientation, transform.up);
     }
 
     private void ComputeAllForces()
@@ -51,9 +81,30 @@ public class FindEquilibrium : MonoBehaviour
         _rigidbody.AddTorque(-collisionTorque * rectifyingForce, ForceMode.Force);
     }
 
+    void Test()
+    {
+        if (!onCollision) { return; }
+        desiredOrientation = -targetObject.up;
+        
+        float d = Vector3.Dot(transform.up, desiredOrientation);
+
+        Quaternion desRot;
+        if (d > 0.9999f) desRot = Quaternion.identity;
+        else desRot = Quaternion.FromToRotation(transform.up, desiredOrientation);
+
+        Quaternion a = Quaternion.Slerp(Quaternion.identity, desRot, torqueImpulseMax);
+        transform.rotation = a * transform.rotation;
+        Debug.Log($"quaternion {desRot}");
+    }
+
     //collision torque
     private void CompensateCollisionTorques(Collision collision)
     {
+        if (testing)
+        {
+            Test();
+            return;
+        }
         UpdatePointImpulse(collision);
         DebugPointImpulse();
         ComputeCollisionTorque();
@@ -79,6 +130,7 @@ public class FindEquilibrium : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         onCollision = true;
+        targetObject = collision.gameObject.transform;
         Debug.Log($"collision enter: {collision.impulse}");
         CompensateCollisionTorques(collision);
     }

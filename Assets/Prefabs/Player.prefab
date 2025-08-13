@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3374076538944352482}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.92, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -97,11 +97,11 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3374076538944352482}
   serializedVersion: 4
-  m_Mass: 0.6
+  m_Mass: 6
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaTensor: {x: 1, y: 0.5, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
@@ -111,7 +111,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -129,6 +129,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rectifyingForce: 1
+  rectifyingSpeedForce: 1
+  torqueImpulseMax: 0.8
+  testing: 1
+  targetObject: {fileID: 0}
   _rigidbody: {fileID: 9096632278789902757}
 --- !u!136 &782953501089255244
 CapsuleCollider:
@@ -165,6 +169,7 @@ GameObject:
   - component: {fileID: 6007212175496567896}
   - component: {fileID: 393850799354228954}
   - component: {fileID: 206238771956338803}
+  - component: {fileID: 6257034869079805723}
   m_Layer: 3
   m_Name: States
   m_TagString: Untagged
@@ -199,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6638ef3853966e2458a561fdb8c54b98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultState: {fileID: 206238771956338803}
+  DefaultState: {fileID: 6257034869079805723}
   Idle: {fileID: 206238771956338803}
   DefaultMove: {fileID: 393850799354228954}
   MovingOnSpaceship: {fileID: 0}
@@ -216,8 +221,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerController: {fileID: 6150816798411474477}
-  speed: 10
-  jumpForce: 100
+  speed: 5
+  jumpForce: 20
 --- !u!114 &206238771956338803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +236,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerController: {fileID: 6150816798411474477}
+--- !u!114 &6257034869079805723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8059913137222529668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d39314b4836a094ba4a86a98c8ef983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerController: {fileID: 6150816798411474477}
+  speed: 5
+  jumpForce: 20
 --- !u!1 &8504196509794538343
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,10 +341,10 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8504196509794538343}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f73c5a26503dfd34f991d49277d480b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 9096632278789902757}
-  gravity: 170
+  gravity: 9.81
