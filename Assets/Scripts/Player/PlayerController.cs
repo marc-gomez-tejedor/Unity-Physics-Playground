@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour, IInitializable
     public PlayerStateContainer States;
     public MovementBehaviour movementBehaviour;
     public FindEquilibrium findEquilibrium;
+    public PlayerSetParent setParent;
 
     public void Initialize()
     {
