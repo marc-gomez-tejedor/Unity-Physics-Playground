@@ -7,14 +7,16 @@ using UnityEngine;
 public class FindEquilibrium : MonoBehaviour
 {
     [Header("Manual")]
-    public float w = 1.0f;
-    public float i = 0.0f;
-    public float j = 0.0f;
-    public float k = 0.0f;
+    [Range(-1f, 1f)] public float w = 1.0f;
+    [Range(-1f, 1f)] public float i = 0.0f;
+    [Range(-1f, 1f)] public float j = 0.0f;
+    [Range(-1f, 1f)] public float k = 0.0f;
     public Quaternion QuatRotation;
     public Vector3 manualcross = Vector3.zero;
+    public Vector3 localManualCross = Vector3.zero;
     public float manualangle = 0.0f;
     public bool pressed = false;
+    public Transform manualObject;
     [Header("AutoCorrection")]
     public float wc = 1.0f;
     public float ic = 0.0f;
@@ -22,8 +24,12 @@ public class FindEquilibrium : MonoBehaviour
     public float kc = 0.0f;
     public Quaternion QuatCorrection;
     public Vector3 crss = new(0.0f, 0.0f, 0.0f);
+    public Vector3 crssLocal = new(0.0f, 0.0f, 0.0f);
+    public Vector3 localAutoCross = Vector3.zero;
     public float anglec;    
+    public float angleLc;    
     public bool pressed2 = false;
+    public Transform correctionObject;
     [Header("Parameters")]
     public bool running = true;
     public float rectifyingForce = 1f;
@@ -177,8 +183,10 @@ public class FindEquilibrium : MonoBehaviour
     {
         manualangle = Mathf.Acos(w);
         manualcross = new Vector3(i, j, k)/Mathf.Sin(manualangle);
+        localManualCross = transform.rotation * manualcross;
 
-        QuatRotation = new(i, j, k, w);
+        QuatRotation = new(-i, -j, -k, w);
+        manualObject.rotation = QuatRotation;
     }
     void UpdateAutoCorrectionParameters()
     {
@@ -186,12 +194,17 @@ public class FindEquilibrium : MonoBehaviour
         crss = crss.normalized;
         anglec = Vector3.Angle(transform.up, desiredOrientation) / 2;
         anglec *= Mathf.Deg2Rad;
-        crss *= Mathf.Sin(anglec);
+        crss = new Vector3(crss.x, crss.y, crss.z);
+
+        Quaternion undo = Quaternion.Inverse(transform.rotation);
+        localAutoCross = (undo * crss).normalized;
+        localAutoCross *= Mathf.Sin(anglec);
         wc = Mathf.Cos(anglec);
-        ic = crss.x;
-        jc = crss.y;
-        kc = crss.z;
-        QuatCorrection = new(ic, jc, kc, wc);
+        ic = localAutoCross.x;
+        jc = localAutoCross.y;
+        kc = localAutoCross.z;
+        QuatCorrection = new(-ic, -jc, -kc, wc);
+        correctionObject.rotation = QuatCorrection;
     }
     void RotateQuaternion()
     {
@@ -274,15 +287,25 @@ public class FindEquilibrium : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         if (!this.isActiveAndEnabled) return;
-        Gizmos.color = Color.cyan;
+        Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + desiredOrientation*3f);
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, transform.position + transform.up * 3f);
-        /*Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + transform.right * 3f);
+        Gizmos.DrawLine(transform.position, transform.position + transform.up * 2f);
+        Gizmos.DrawLine(transform.position, transform.position + transform.right * 2f);
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * 2f);
+        Gizmos.DrawLine(correctionObject.position, correctionObject.position + correctionObject.up * 2f);
+        Gizmos.DrawLine(correctionObject.position, correctionObject.position + correctionObject.right * 2f);
+        Gizmos.DrawLine(correctionObject.position, correctionObject.position + correctionObject.forward * 2f);
+        Gizmos.DrawLine(manualObject.position, manualObject.position + manualObject.up * 2f);
+        Gizmos.DrawLine(manualObject.position, manualObject.position + manualObject.right * 2f);
+        Gizmos.DrawLine(manualObject.position, manualObject.position + manualObject.forward * 2f);
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * 3f);*/
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + crss * 3f);
+        Gizmos.DrawLine(correctionObject.position, correctionObject.position + crss * 3f);
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(correctionObject.position, correctionObject.position + localAutoCross * 5f);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(manualObject.position, manualObject.position + manualcross * 3f);
+        Gizmos.color = Color.white;
+        Gizmos.DrawLine(manualObject.position, manualObject.position + localManualCross * 4f);
     }
 }
