@@ -7,6 +7,7 @@ public class PlayerInteract : MonoBehaviour, IInitializable
     [Header("Interaction")]
     [SerializeField] private float interactRange = 1.5f;
     [SerializeField] private LayerMask interactLayerMask;
+    [SerializeField] private Transform playerBody;
 
     public void Initialize()
     {
@@ -25,7 +26,7 @@ public class PlayerInteract : MonoBehaviour, IInitializable
 
     private void TryInteract()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, interactRange, interactLayerMask);
+        Collider[] hits = Physics.OverlapSphere(playerBody.position, interactRange, interactLayerMask);
         foreach (var hit in hits)
         {
             var interactable = hit.GetComponent<IInteractable>();
@@ -43,6 +44,6 @@ public class PlayerInteract : MonoBehaviour, IInitializable
     {
         if (!this.isActiveAndEnabled) return;
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, interactRange);
+        Gizmos.DrawWireSphere(playerBody.position, interactRange);
     }
 }

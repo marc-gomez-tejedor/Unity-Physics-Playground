@@ -10,7 +10,12 @@ public class PlayerController : MonoBehaviour, IInitializable
     public PlayerStateContainer States;
     public MovementBehaviour movementBehaviour;
     public FindEquilibrium findEquilibrium;
+    public RotateTowardsDesiredOrientation Orientate;
+    public SimpleForceApplier simpleForceApplier;
     public PlayerSetParent setParent;
+
+    [Header("Parameters")]
+    public Vector3 currentFieldForce = Vector3.down; //later update to public Field currentField
 
     public void Initialize()
     {
@@ -20,6 +25,7 @@ public class PlayerController : MonoBehaviour, IInitializable
     }
     private void FixedUpdate()
     {
+        currentFieldForce = simpleForceApplier.force;
         State.Act();
     }
 

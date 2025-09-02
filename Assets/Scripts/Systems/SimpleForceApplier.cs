@@ -1,10 +1,11 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SimpleDownwardsGravity : MonoBehaviour, IInitializable
+public class SimpleForceApplier : MonoBehaviour, IInitializable
 {
     [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private float gravity = 9.81f;
+    public float magnitude = 9.81f;
+    public Vector3 force = Vector3.down;
 
     public void Initialize()
     {
@@ -17,6 +18,7 @@ public class SimpleDownwardsGravity : MonoBehaviour, IInitializable
 
     private void FixedUpdate()
     {
-        _rigidbody.AddForce(Vector3.down * _rigidbody.mass * gravity);
+        force = force.normalized;
+        _rigidbody.AddForce(force * _rigidbody.mass * magnitude);
     }
 }

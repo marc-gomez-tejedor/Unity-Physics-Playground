@@ -4,6 +4,6 @@ public class IdleState : PlayerState
 {
     private void FixedUpdate()
     {
-        base.PlayerController.findEquilibrium.Center();
+        PlayerController.Orientate.Center();
     }
 }

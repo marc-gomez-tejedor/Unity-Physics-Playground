@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3193199941606014235}
   - component: {fileID: 9096632278789902757}
   - component: {fileID: 782953501089255244}
-  - component: {fileID: 5951681986269469090}
+  - component: {fileID: 6243316268848214775}
   m_Layer: 3
   m_Name: Capsule
   m_TagString: Untagged
@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5435c3c05a8b55d46aeb19b08c8f20a3, type: 2}
+  - {fileID: 2100000, guid: aad11e02f14016241b637f21eef2114a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -139,7 +139,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5951681986269469090
+--- !u!114 &6243316268848214775
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,20 +148,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3374076538944352482}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9464da6bf7692804eb906ddead7dbe05, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ae7fd54ef257234aad013a596cafacd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pressed2: 0
   running: 1
-  rectifyingForce: 1
-  rectifyingSpeedForce: 1
-  torqueImpulseMax: 0.8
-  appliedForce: {x: 0, y: 0, z: 0}
-  lastDir: {x: 0, y: 0, z: 0}
-  speed: 0
-  speed2: 0
   onCollision: 0
-  testing: 1
-  test2: 1
+  playerController: {fileID: 0}
   targetObject: {fileID: 0}
   _rigidbody: {fileID: 9096632278789902757}
 --- !u!1 &8059913137222529668
@@ -313,6 +306,9 @@ MonoBehaviour:
   States: {fileID: 6007212175496567896}
   movementBehaviour: {fileID: 2918540667135049137}
   findEquilibrium: {fileID: 0}
+  Orientate: {fileID: 6243316268848214775}
+  setParent: {fileID: 5143093563409190722}
+  currentFieldForce: {x: 0, y: 0, z: 0}
 --- !u!114 &2918540667135049137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,7 +346,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8504196509794538343}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f73c5a26503dfd34f991d49277d480b2, type: 3}
   m_Name: 

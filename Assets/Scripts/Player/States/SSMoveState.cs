@@ -8,7 +8,7 @@ public class SSMoveState : PlayerState
 
     public override void Act()
     {
-        base.PlayerController.findEquilibrium.Center();
+        PlayerController.Orientate.Center();
         Vector2 inputDirection = Game.Input.MoveInput;
         PlayerController.movementBehaviour.AddSpeed(inputDirection, speed);
     }
