@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MothershipInterior.unity
     guid: 900e7e0537a8e164488f4325912e49cb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/OrbitsDemo.unity
     guid: cfc498d0e3b196b43a3f4d29fb17eb3c
   - enabled: 0

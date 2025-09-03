@@ -7,12 +7,14 @@ public class InputManager : MonoBehaviour, IInitializable
 {
     public static InputManager Instance { get; private set; }
 
-    private InputSystem_Actions inputActions;
+    public InputSystem_Actions inputActions { get; private set; }
 
     public Vector2 MoveInput { get; private set; }
+    public Vector2 LookInput { get; private set; }
 
     public event Action OnJump;
     public event Action OnInteract;
+    public event Action OnMenu;
 
     public void Initialize()
     {
@@ -35,8 +37,12 @@ public class InputManager : MonoBehaviour, IInitializable
         inputActions.Player.Move.performed += OnMovePerformed;
         inputActions.Player.Move.canceled += OnMoveCanceled;
 
+        inputActions.Player.Look.performed += OnLookPerformed;
+        inputActions.Player.Look.performed += OnLookCanceled;
+
         inputActions.Player.Jump.performed += OnJumpPerformed;
         inputActions.Player.Interact.performed += OnInteractPerformed;
+        inputActions.Player.Menu.performed += OnMenuPerformed;
     }
 
     private void OnDisable()
@@ -44,8 +50,12 @@ public class InputManager : MonoBehaviour, IInitializable
         inputActions.Player.Move.performed -= OnMovePerformed;
         inputActions.Player.Move.canceled -= OnMoveCanceled;
 
+        inputActions.Player.Look.performed -= OnLookPerformed;
+        inputActions.Player.Look.performed -= OnLookCanceled;
+
         inputActions.Player.Jump.performed -= OnJumpPerformed;
         inputActions.Player.Interact.performed -= OnInteractPerformed;
+        inputActions.Player.Menu.performed -= OnMenuPerformed;
 
         inputActions.Disable();
     }
@@ -58,6 +68,14 @@ public class InputManager : MonoBehaviour, IInitializable
     {
         MoveInput = Vector2.zero;
     }
+    private void OnLookPerformed(InputAction.CallbackContext ctx)
+    {
+        LookInput = ctx.ReadValue<Vector2>();
+    }
+    private void OnLookCanceled(InputAction.CallbackContext ctx)
+    {
+        LookInput = Vector2.zero;
+    }
 
     private void OnJumpPerformed(InputAction.CallbackContext ctx)
     {
@@ -66,5 +84,9 @@ public class InputManager : MonoBehaviour, IInitializable
     private void OnInteractPerformed(InputAction.CallbackContext ctx)
     {
         OnInteract?.Invoke();
+    }
+    private void OnMenuPerformed(InputAction.CallbackContext ctx)
+    {
+        OnMenu?.Invoke();
     }
 }

@@ -8,19 +8,32 @@ public class SimpleSSMoveState : PlayerState
 
     public override void Act()
     {
-        PlayerController.findEquilibrium.running = false;
         Vector2 inputDirection = Game.Input.MoveInput;
-        if (PlayerController.findEquilibrium.onCollision)
+        Vector2 mouseInput = Game.Input.inputActions.Player.Look.ReadValue<Vector2>();
+        Debug.Log($"inpL: {mouseInput}");
+        Debug.Log($"inpM: {inputDirection}");
+        PlayerController.cameraMovementBehaviour.Move(mouseInput);
+        if (PlayerController.Orientate.onCollision)
         {
-            Vector3 normal = PlayerController.findEquilibrium.targetObject.forward;
-            PlayerController.setParent.SetParent(PlayerController.findEquilibrium.targetObject);
-            PlayerController.movementBehaviour.AddSpeed(inputDirection, speed);
-             
+            Transform target = PlayerController.Orientate.targetObject;
+            if (PlayerController.transform.parent != target)
+            {
+                PlayerController.setParent.SetTo(target);
+            }
+            //PlayerController.movementBehaviour.Move3D(inputDirection, speed);
         }
     }
     public override void Jump()
     {
         PlayerController.movementBehaviour.Jump(jumpForce);
+    }
+    public override void TransitionIn()
+    {
+        PlayerController._rigidbody.isKinematic = false;
+    }
+    public override void TransitionOut()
+    {
+        PlayerController._rigidbody.isKinematic = true;
     }
 }
 

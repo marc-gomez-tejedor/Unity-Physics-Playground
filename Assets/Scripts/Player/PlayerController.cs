@@ -9,10 +9,11 @@ public class PlayerController : MonoBehaviour, IInitializable
     public PlayerState State;
     public PlayerStateContainer States;
     public MovementBehaviour movementBehaviour;
+    public CameraMovementBehaviour cameraMovementBehaviour;
     public FindEquilibrium findEquilibrium;
     public RotateTowardsDesiredOrientation Orientate;
     public SimpleForceApplier simpleForceApplier;
-    public PlayerSetParent setParent;
+    public SetParent setParent;
 
     [Header("Parameters")]
     public Vector3 currentFieldForce = Vector3.down; //later update to public Field currentField

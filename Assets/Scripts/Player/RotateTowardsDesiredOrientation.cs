@@ -17,7 +17,7 @@ public class RotateTowardsDesiredOrientation : MonoBehaviour
 
     [Header("References")]
     public PlayerController playerController;
-    public Transform targetObject;
+    public Transform targetObject = null;
     private Vector3 desiredOrientation = Vector3.up;  /* normal unit vector (default up for testing)
     * lerp this orientation with the current one based on rectifyingForce
     * apply that to the rectifying torques to compensate external ones multiplied by the biased lerp force (done-sort of)*/
