@@ -11,7 +11,6 @@ public class RotateTowardsDesiredOrientation : MonoBehaviour
     private Vector3 crss = Vector3.zero;
     private Vector3 localAutoCross = Vector3.zero;
     private float anglec;
-    public bool pressed2 = false;
     [Header("Parameters")]
     public bool running = true;
     public bool onCollision = false;
@@ -32,8 +31,10 @@ public class RotateTowardsDesiredOrientation : MonoBehaviour
     }
     private void Rotate()
     {
-        pressed2 = true;
-        RotateQuaternion();
+        UpdateDesiredDirection();
+        UpdateAutoCorrectionParameters();
+        playerController._rigidbody.angularVelocity = Vector3.zero;
+        transform.rotation *= QuatCorrection;
     }
 
     private void UpdateAutoCorrectionParameters()
@@ -53,16 +54,6 @@ public class RotateTowardsDesiredOrientation : MonoBehaviour
         kc = localAutoCross.z;
         QuatCorrection = new(-ic, -jc, -kc, wc);
     }
-    private void RotateQuaternion()
-    {
-        UpdateDesiredDirection();
-        UpdateAutoCorrectionParameters();
-        if (pressed2)
-        {
-            pressed2 = false;
-            transform.rotation *= QuatCorrection;
-        }
-    }
     private void UpdateDesiredDirection()
     {
         Vector3 f;
@@ -72,13 +63,13 @@ public class RotateTowardsDesiredOrientation : MonoBehaviour
             return;
         }
         f = playerController.currentFieldForce;
-        Vector3 normal = -targetObject.up; //plane normal
-        Debug.Log(normal);
+        Vector3 normal = -targetObject.up.normalized; //plane normal
+        Debug.Log($"normal {normal}");
 
         float beta = GetBeta(normal, f);
-        Debug.Log(beta);
+        Debug.Log($"beta {beta}");
         desiredOrientation = Vector3.RotateTowards(-f, normal, -beta, 1);
-        Debug.Log(desiredOrientation);
+        Debug.Log($"deired orien {desiredOrientation}");
     }
     private float GetBeta(Vector3 normal, Vector3 f)
     {
@@ -114,5 +105,7 @@ public class RotateTowardsDesiredOrientation : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + desiredOrientation * 10f);
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.up * 3f);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position, transform.position + transform.up * 3f);
     }
 }

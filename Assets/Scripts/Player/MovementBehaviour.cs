@@ -13,6 +13,13 @@ public class MovementBehaviour : MonoBehaviour
         Vector3 velocityVector = new Vector3(inputVec.x, 0f, inputVec.y) * speed;
         _rigidBody.linearVelocity = new Vector3(velocityVector.x, _rigidBody.linearVelocity.y, velocityVector.z);
     }
+    public void Move3D(Vector2 inputVec, float speed=1)
+    {
+        Vector3 inputX = _rigidBody.transform.right * inputVec.x;
+        Vector3 inputY = _rigidBody.transform.forward * inputVec.y;
+        Vector3 worldInput3D = inputX + inputY;
+        //_rigidBody.lin move inputs referenced to camera not capsule
+    }
 
     public void AddSpeed(Vector2 inputVec, float speed=1)
     {

@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour, IInitializable
     }
     private void FixedUpdate()
     {
-        currentFieldForce = simpleForceApplier.force;
         State.Act();
     }
 
