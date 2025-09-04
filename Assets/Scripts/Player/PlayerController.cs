@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IInitializable
 {
+    [Header("Parameters")]
+    public Vector3 currentFieldForce = Vector3.down; //later update to public Field currentField
+
     [Header("References")]
     public Rigidbody _rigidbody;
     public PlayerState State;
     public PlayerStateContainer States;
     public MovementBehaviour movementBehaviour;
     public CameraMovementBehaviour cameraMovementBehaviour;
-    public FindEquilibrium findEquilibrium;
     public RotateTowardsDesiredOrientation Orientate;
-    public SimpleForceApplier simpleForceApplier;
-    public SetParent setParent;
-
-    [Header("Parameters")]
-    public Vector3 currentFieldForce = Vector3.down; //later update to public Field currentField
-
+    //public SimpleForceApplier simpleForceApplier;
+    
     public void Initialize()
     {
         if (movementBehaviour == null) movementBehaviour = gameObject.GetComponent<MovementBehaviour>();

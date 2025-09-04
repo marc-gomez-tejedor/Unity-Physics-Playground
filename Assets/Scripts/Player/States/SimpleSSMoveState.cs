@@ -18,7 +18,7 @@ public class SimpleSSMoveState : PlayerState
             Transform target = PlayerController.Orientate.targetObject;
             if (PlayerController.transform.parent != target)
             {
-                PlayerController.setParent.SetTo(target);
+                //PlayerController.setParent.SetTo(target);
             }
             //PlayerController.movementBehaviour.Move3D(inputDirection, speed);
         }
