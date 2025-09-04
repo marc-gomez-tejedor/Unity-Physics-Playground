@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour, IInitializable
     public PlayerState State;
     public PlayerStateContainer States;
     public MovementBehaviour movementBehaviour;
-    public CameraMovementBehaviour cameraMovementBehaviour;
+    public FPVRotations FPVrotation;
     public RotateTowardsDesiredOrientation Orientate;
     //public SimpleForceApplier simpleForceApplier;
     

@@ -8,9 +8,11 @@ public class SimpleMoveState : PlayerState
 
     public override void Act()
     {
-        //base.PlayerController.findEquilibrium.Center();
         Vector2 inputDirection = Game.Input.MoveInput;
-        PlayerController.movementBehaviour.Move(inputDirection, speed);
+        Vector2 mouseInput = Game.Input.inputActions.Player.Look.ReadValue<Vector2>();
+        Debug.Log($"inpL: {mouseInput}");
+        Debug.Log($"inpM: {inputDirection}");
+        PlayerController.FPVrotation.Move(mouseInput);
     }
     public override void Jump()
     {

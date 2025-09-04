@@ -12,7 +12,7 @@ public class SimpleSSMoveState : PlayerState
         Vector2 mouseInput = Game.Input.inputActions.Player.Look.ReadValue<Vector2>();
         Debug.Log($"inpL: {mouseInput}");
         Debug.Log($"inpM: {inputDirection}");
-        PlayerController.cameraMovementBehaviour.Move(mouseInput);
+        PlayerController.FPVrotation.Move(mouseInput);
         if (PlayerController.Orientate.onCollision)
         {
             Transform target = PlayerController.Orientate.targetObject;
