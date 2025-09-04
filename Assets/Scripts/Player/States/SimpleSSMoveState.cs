@@ -29,11 +29,11 @@ public class SimpleSSMoveState : PlayerState
     }
     public override void TransitionIn()
     {
-        PlayerController._rigidbody.isKinematic = false;
+        //PlayerController._rigidbody.isKinematic = true;
     }
     public override void TransitionOut()
     {
-        PlayerController._rigidbody.isKinematic = true;
+        //PlayerController._rigidbody.isKinematic = false;
     }
 }
 

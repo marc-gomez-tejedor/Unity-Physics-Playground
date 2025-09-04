@@ -18,7 +18,10 @@ public class SimpleForceApplier : MonoBehaviour, IInitializable
 
     private void FixedUpdate()
     {
-        force = force.normalized;
-        _rigidbody.AddForce(force * _rigidbody.mass * magnitude);
+        if (this.isActiveAndEnabled)
+        {
+            force = force.normalized;
+            _rigidbody.AddForce(force * _rigidbody.mass * magnitude);
+        }
     }
 }
