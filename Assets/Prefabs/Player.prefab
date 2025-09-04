@@ -34,6 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1830783580700952408}
+  - {fileID: 6270176972185974372}
   m_Father: {fileID: 4983478447285497800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1497439692092759533
@@ -111,7 +112,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -217,10 +218,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerController: {fileID: 6150816798411474477}
   speed: 5
-  jumpForce: 20
-  RideHeight: 0.3
-  RideSpringStrength: 300
+  jumpForce: 9
+  RideHeight: 0.5
+  RideSpringStrength: 100
   RideSpringDamper: 15
+  UprightSpringStrength: 100
+  UprightSpringDamper: 15
 --- !u!114 &206238771956338803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,11 +266,11 @@ Transform:
   m_GameObject: {fileID: 8307879974794067092}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 0.8, y: 1, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4983478447285497800}
+  m_Father: {fileID: 481806820514917231}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &7942343711423190025
 Camera:
@@ -395,8 +398,8 @@ GameObject:
   - component: {fileID: 4983478447285497800}
   - component: {fileID: 6150816798411474477}
   - component: {fileID: 2918540667135049137}
-  - component: {fileID: 8105658759926080976}
   - component: {fileID: 8008750608699236222}
+  - component: {fileID: 1516530244379918040}
   - component: {fileID: 7016438568971727954}
   - component: {fileID: 2974258831465558581}
   m_Layer: 3
@@ -419,7 +422,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6270176972185974372}
   - {fileID: 481806820514917231}
   - {fileID: 1972455788894906913}
   m_Father: {fileID: 0}
@@ -442,7 +444,7 @@ MonoBehaviour:
   States: {fileID: 8008750608699236222}
   movementBehaviour: {fileID: 2918540667135049137}
   FPVrotation: {fileID: 7016438568971727954}
-  Orientate: {fileID: 8105658759926080976}
+  Orientate: {fileID: 1516530244379918040}
   raycasts: {fileID: 2974258831465558581}
 --- !u!114 &2918540667135049137
 MonoBehaviour:
@@ -458,23 +460,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidBody: {fileID: 9096632278789902757}
   appliedForce: {x: 0, y: 0, z: 0}
---- !u!114 &8105658759926080976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8504196509794538343}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ae7fd54ef257234aad013a596cafacd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  running: 1
-  onCollision: 0
-  playerController: {fileID: 6150816798411474477}
-  targetObject: {fileID: 0}
-  _rigidbody: {fileID: 9096632278789902757}
 --- !u!114 &8008750608699236222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,6 +476,23 @@ MonoBehaviour:
   Idle: {fileID: 206238771956338803}
   DefaultMove: {fileID: 393850799354228954}
   MovingOnSpaceship: {fileID: 0}
+--- !u!114 &1516530244379918040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504196509794538343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae7fd54ef257234aad013a596cafacd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  running: 1
+  onCollision: 0
+  playerController: {fileID: 0}
+  targetObject: {fileID: 0}
+  _rigidbody: {fileID: 0}
 --- !u!114 &7016438568971727954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,7 +520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6830a57c4e6f54ba64ea03d0b154f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistanceThreshold: 1
+  maxDistanceThreshold: 0.8
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 128

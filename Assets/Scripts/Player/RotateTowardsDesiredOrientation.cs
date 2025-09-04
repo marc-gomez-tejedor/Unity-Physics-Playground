@@ -13,46 +13,46 @@ public class RotateTowardsDesiredOrientation : MonoBehaviour
     private float anglec;
     [Header("Parameters")]
     public bool running = true;
-    public bool onCollision = false;
 
     [Header("References")]
     public PlayerController playerController;
-    public Transform targetObject = null;
     private Vector3 desiredOrientation = Vector3.up;  /* normal unit vector (default up for testing)
     * lerp this orientation with the current one based on rectifyingForce
     * apply that to the rectifying torques to compensate external ones multiplied by the biased lerp force (done-sort of)*/
 
     public Rigidbody _rigidbody;
-    public void Center()
-    {
-        if (!running) { return; }
-        UpdateAutoCorrectionParameters();
-        if (onCollision) { Rotate(); }
-    }
-    private void Rotate()
+    public Quaternion GetQuaternion()
     {
         UpdateDesiredDirection();
         UpdateAutoCorrectionParameters();
-        playerController._rigidbody.angularVelocity = Vector3.zero;
-        transform.rotation *= QuatCorrection;
+        return QuatCorrection;
     }
 
+    public Quaternion GetQuaternion(Vector3 direction)
+    {
+        UpdateDesiredDirection(direction);
+        UpdateAutoCorrectionParameters();
+        return QuatCorrection;
+    }
     private void UpdateAutoCorrectionParameters()
     {
-        crss = Vector3.Cross(desiredOrientation, transform.up);
+        _rigidbody = playerController._rigidbody;
+        //QuatCorrection = Quaternion.LookRotation(playerController.transform.forward, desiredOrientation);
+        QuatCorrection = Quaternion.FromToRotation(_rigidbody.transform.up, desiredOrientation);
+        /*
+        crss = Vector3.Cross(desiredOrientation, _rigidbody.transform.up);
         crss = crss.normalized;
-        anglec = Vector3.Angle(transform.up, desiredOrientation) / 2;
+        anglec = Vector3.Angle(_rigidbody.transform.up, desiredOrientation) / 2;
         anglec *= Mathf.Deg2Rad;
-        crss = new Vector3(crss.x, crss.y, crss.z);
 
-        Quaternion undo = Quaternion.Inverse(transform.rotation);
+        Quaternion undo = Quaternion.Inverse(_rigidbody.transform.rotation);
         localAutoCross = (undo * crss).normalized;
         localAutoCross *= Mathf.Sin(anglec);
         wc = Mathf.Cos(anglec);
         ic = localAutoCross.x;
         jc = localAutoCross.y;
         kc = localAutoCross.z;
-        QuatCorrection = new(-ic, -jc, -kc, wc);
+        QuatCorrection = new(-ic, -jc, -kc, wc);   */
     }
     private void UpdateDesiredDirection()
     {
@@ -63,40 +63,11 @@ public class RotateTowardsDesiredOrientation : MonoBehaviour
             return;
         }
         f = playerController.currentFieldForce;
-        Vector3 normal = -targetObject.up.normalized; //plane normal
-        Debug.Log($"normal {normal}");
-
-        float beta = GetBeta(normal, f);
-        Debug.Log($"beta {beta}");
-        desiredOrientation = Vector3.RotateTowards(-f, normal, -beta, 1);
-        Debug.Log($"deired orien {desiredOrientation}");
+        desiredOrientation = -f;
     }
-    private float GetBeta(Vector3 normal, Vector3 f)
+    private void UpdateDesiredDirection(Vector3 direction)
     {
-        float dot = Vector3.Dot(normal, -f);
-        float alpha = 0;
-        if (dot > 0.999f) return 0;
-        float r = 0.5f * 1.5f; //sphere radius (sphere of the base of the capsule)
-        float d = 1f * 1.5f; //distance from center of the sphere to the centeer of the capsule
-        alpha = Vector3.Angle(normal, -f) * Mathf.Deg2Rad;
-        float h = r * Mathf.Sin(alpha);
-        float sinBeta = h / d;
-        float beta = Mathf.Asin(sinBeta);
-        return beta;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        onCollision = true;
-        targetObject = collision.gameObject.transform;
-    }
-    private void OnCollisionStay(Collision collision)
-    {
-        onCollision = true;
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        onCollision = false;
+        desiredOrientation = direction;
     }
     private void OnDrawGizmosSelected()
     {

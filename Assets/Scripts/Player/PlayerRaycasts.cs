@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 public class PlayerRaycasts : MonoBehaviour
 {
     [Header("General Parameters")]
-    private Vector3 DownDir;
+    public Vector3 DownDir { get; private set; }
     [SerializeField] private float maxDistanceThreshold = 1f;
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private Transform raycastOrigin; 
@@ -13,7 +13,7 @@ public class PlayerRaycasts : MonoBehaviour
     public (bool, RaycastHit) GetDownRaycastHit()
     {
         DownDir = -raycastOrigin.up;
-        DownDir = Vector3.down;
+        
         RaycastHit hit;
         if (Physics.Raycast(origin: raycastOrigin.position, direction: DownDir, out hit,
             maxDistance: maxDistanceThreshold, layerMask: groundLayerMask))

@@ -4,6 +4,6 @@ public class IdleState : PlayerState
 {
     private void FixedUpdate()
     {
-        PlayerController.Orientate.Center();
+        //PlayerController.Orientate.Center();
     }
 }

@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class MovementBehaviour : MonoBehaviour
@@ -35,6 +36,64 @@ public class MovementBehaviour : MonoBehaviour
         Vector3 input3D = inputX + inputY;
         */
         _rigidBody.AddForce(forceChange * speed);
+    }
+
+    public void UpdateFloatingSpringPosition(PlayerController player, 
+        float RideHeight, float RideSpringStrength, float RideSpringDamper)
+    {
+        (bool, RaycastHit) ray = player.raycasts.GetDownRaycastHit();
+        bool _rayDidHit = ray.Item1;
+        RaycastHit _rayHit = ray.Item2;
+        Vector3 DownDir = player.raycasts.DownDir;
+
+        Rigidbody _RB = player._rigidbody;
+
+        if (_rayDidHit)
+        {
+            Vector3 vel = _RB.linearVelocity;
+            Vector3 rayDir = transform.TransformDirection(DownDir); //this should be =to forcefield
+            
+            Vector3 otherVel = Vector3.zero;
+            Rigidbody hitBody = _rayHit.rigidbody;
+            if (hitBody != null)
+            {
+                otherVel = hitBody.linearVelocity;
+            }
+
+            float rayDirVel = Vector3.Dot(rayDir, vel);
+            float otherDirVel = Vector3.Dot(rayDir, otherVel);
+
+            float relVel = rayDirVel - otherDirVel;
+
+            float x = _rayHit.distance - RideHeight;
+
+            float springForce = (x * RideSpringStrength) - (relVel * RideSpringDamper);
+
+            //Debug.DrawLine(_RB.transform.position, _RB.transform.position + (rayDir * springForce), Color.yellow);
+
+            player._rigidbody.AddForce(rayDir * springForce);
+
+            if (hitBody != null)
+            {
+                hitBody.AddForceAtPosition(rayDir * -springForce, _rayHit.point);
+            }
+        }
+    }
+    
+    public void UpdateUprightForce(PlayerController player, float strength, float damper)
+    {
+        Quaternion characterCurrent = _rigidBody.transform.rotation;
+        Quaternion toGoal = player.Orientate.GetQuaternion();
+
+        Vector3 rotAxis;
+        float rotDegrees;
+
+        toGoal.ToAngleAxis(out rotDegrees, out rotAxis);
+        rotAxis.Normalize();
+
+        float rotRadians = rotDegrees * Mathf.Deg2Rad;
+
+        _rigidBody.AddTorque((rotAxis * (rotRadians * strength)) - (_rigidBody.angularVelocity * damper));
     }
     public void Jump(float jumpingForce)
     {

@@ -13,7 +13,7 @@ public class SimpleSSMoveState : PlayerState
         Debug.Log($"inpL: {mouseInput}");
         Debug.Log($"inpM: {inputDirection}");
         PlayerController.FPVrotation.Move(mouseInput);
-        if (PlayerController.Orientate.onCollision)
+        /*if (PlayerController.Orientate.onCollision)
         {
             Transform target = PlayerController.Orientate.targetObject;
             if (PlayerController.transform.parent != target)
@@ -21,7 +21,7 @@ public class SimpleSSMoveState : PlayerState
                 //PlayerController.setParent.SetTo(target);
             }
             //PlayerController.movementBehaviour.Move3D(inputDirection, speed);
-        }
+        }*/
     }
     public override void Jump()
     {
