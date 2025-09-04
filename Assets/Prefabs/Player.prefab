@@ -29,10 +29,11 @@ Transform:
   m_GameObject: {fileID: 3374076538944352482}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1.25, y: 1, z: 1.25}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1830783580700952408}
   m_Father: {fileID: 4983478447285497800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1497439692092759533
@@ -96,7 +97,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3374076538944352482}
   serializedVersion: 4
-  m_Mass: 6
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -138,6 +139,37 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &7577972461824403820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1830783580700952408}
+  m_Layer: 3
+  m_Name: raycastEmitterTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1830783580700952408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7577972461824403820}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 481806820514917231}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8059913137222529668
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,6 +218,9 @@ MonoBehaviour:
   PlayerController: {fileID: 6150816798411474477}
   speed: 5
   jumpForce: 20
+  RideHeight: 0.3
+  RideSpringStrength: 300
+  RideSpringDamper: 15
 --- !u!114 &206238771956338803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,7 +263,7 @@ Transform:
   m_GameObject: {fileID: 8307879974794067092}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.487, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -430,7 +465,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8504196509794538343}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae7fd54ef257234aad013a596cafacd, type: 3}
   m_Name: 
@@ -483,3 +518,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6830a57c4e6f54ba64ea03d0b154f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxDistanceThreshold: 1
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  raycastOrigin: {fileID: 1830783580700952408}
