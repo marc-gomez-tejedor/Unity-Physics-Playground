@@ -20,6 +20,5 @@ public class FPVRotations : MonoBehaviour
         playerTransform.localEulerAngles = new Vector3(0, look.x, 0);
         cameraTransform.localEulerAngles = new Vector3(-look.y, 0, 0);
         Debug.Log($"look: {look}");
-
     }
 }

@@ -363,6 +363,7 @@ GameObject:
   - component: {fileID: 8105658759926080976}
   - component: {fileID: 8008750608699236222}
   - component: {fileID: 7016438568971727954}
+  - component: {fileID: 2974258831465558581}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -407,6 +408,7 @@ MonoBehaviour:
   movementBehaviour: {fileID: 2918540667135049137}
   FPVrotation: {fileID: 7016438568971727954}
   Orientate: {fileID: 8105658759926080976}
+  raycasts: {fileID: 2974258831465558581}
 --- !u!114 &2918540667135049137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,3 +471,15 @@ MonoBehaviour:
   playerTransform: {fileID: 4983478447285497800}
   cameraTransform: {fileID: 6270176972185974372}
   speed: 1
+--- !u!114 &2974258831465558581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504196509794538343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f6830a57c4e6f54ba64ea03d0b154f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

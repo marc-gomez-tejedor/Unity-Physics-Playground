@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour, IInitializable
     public MovementBehaviour movementBehaviour;
     public FPVRotations FPVrotation;
     public RotateTowardsDesiredOrientation Orientate;
+    public PlayerRaycasts raycasts;
     //public SimpleForceApplier simpleForceApplier;
     
     public void Initialize()
