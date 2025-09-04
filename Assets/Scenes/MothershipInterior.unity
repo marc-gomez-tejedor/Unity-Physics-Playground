@@ -5363,6 +5363,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 66065306}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &66784344 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 9096632278789902757, guid: 534fb0b48d65a514db3c64ab8bdb7dfb, type: 3}
+  m_PrefabInstance: {fileID: 2115809176581996631}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &67125292
 GameObject:
   m_ObjectHideFlags: 0
@@ -132368,7 +132373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 1718597353}
   targetBodies:
-  - {fileID: 1718597353}
+  - {fileID: 66784344}
   amount: 0.1566
 --- !u!1 &1720451558
 GameObject:
@@ -164719,6 +164724,10 @@ PrefabInstance:
     - target: {fileID: 8504196509794538343, guid: 534fb0b48d65a514db3c64ab8bdb7dfb, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8504196509794538343, guid: 534fb0b48d65a514db3c64ab8bdb7dfb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
