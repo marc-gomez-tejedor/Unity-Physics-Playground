@@ -41,17 +41,16 @@ public class MovementBehaviour : MonoBehaviour
     public void UpdateFloatingSpringPosition(PlayerController player, 
         float RideHeight, float RideSpringStrength, float RideSpringDamper)
     {
-        (bool, RaycastHit) ray = player.raycasts.GetDownRaycastHit();
-        bool _rayDidHit = ray.Item1;
-        RaycastHit _rayHit = ray.Item2;
-        Vector3 DownDir = player.raycasts.DownDir;
+        bool _rayDidHit = player.Raycasts.didRaycastHitDown;
+        Vector3 DownDir = player.Raycasts.DownDir;
 
         Rigidbody _RB = player._rigidbody;
 
         if (_rayDidHit)
         {
+            RaycastHit _rayHit = player.Raycasts.rayCastHitDown;
             Vector3 vel = _RB.linearVelocity;
-            Vector3 rayDir = transform.TransformDirection(DownDir); //this should be =to forcefield
+            Vector3 rayDir = DownDir; //this should be =to forcefield
             
             Vector3 otherVel = Vector3.zero;
             Rigidbody hitBody = _rayHit.rigidbody;
@@ -83,7 +82,7 @@ public class MovementBehaviour : MonoBehaviour
     public void UpdateUprightForce(PlayerController player, float strength, float damper)
     {
         Quaternion characterCurrent = _rigidBody.transform.rotation;
-        Quaternion toGoal = player.Orientate.GetQuaternion();
+        Quaternion toGoal = player.Orientate.GetQuaternion(player._rigidbody);
 
         Vector3 rotAxis;
         float rotDegrees;
@@ -95,6 +94,12 @@ public class MovementBehaviour : MonoBehaviour
 
         _rigidBody.AddTorque((rotAxis * (rotRadians * strength)) - (_rigidBody.angularVelocity * damper));
     }
+    
+    public void AddForce(Vector3 force)
+    {
+        _rigidBody.AddForce(force);
+    }
+    
     public void Jump(float jumpingForce)
     {
         _rigidBody.AddForce(Vector3.up * jumpingForce, ForceMode.Impulse);

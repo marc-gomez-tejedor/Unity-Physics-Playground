@@ -10,15 +10,16 @@ public class FPVRotations : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField] private float speed;
-    private Vector2 look = Vector2.zero;
+    private float lookX = 0;
+    private float lookY = 0;
     public void Move(Vector2 input)
     {
-        look += input * speed;
+        lookX = input.x * speed;
+        lookY += input.y * speed;
 
-        look.y = Mathf.Clamp(look.y, -85f, 85f);
+        lookY = Mathf.Clamp(lookY, -85f, 85f);
 
-        playerTransform.localEulerAngles = new Vector3(0, look.x, 0);
-        cameraTransform.localEulerAngles = new Vector3(-look.y, 0, 0);
-        Debug.Log($"look: {look}");
+        playerTransform.localEulerAngles += new Vector3(0, lookX, 0);
+        cameraTransform.localEulerAngles = new Vector3(-lookY, 0, 0);
     }
 }

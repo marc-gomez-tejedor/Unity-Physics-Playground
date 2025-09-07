@@ -11,15 +11,15 @@ public class PlayerController : MonoBehaviour, IInitializable
     public Rigidbody _rigidbody;
     public PlayerState State;
     public PlayerStateContainer States;
-    public MovementBehaviour movementBehaviour;
+    public MovementBehaviour MovementBehaviour;
     public FPVRotations FPVrotation;
+    public PlayerRaycasts Raycasts;
     public RotateTowardsDesiredOrientation Orientate;
-    public PlayerRaycasts raycasts;
-    //public SimpleForceApplier simpleForceApplier;
-    
+    public ComputeVelocityChange VelocityChange;
+    public OnCollisionController OnCollisionController;
     public void Initialize()
     {
-        if (movementBehaviour == null) movementBehaviour = gameObject.GetComponent<MovementBehaviour>();
+        if (MovementBehaviour == null) MovementBehaviour = gameObject.GetComponent<MovementBehaviour>();
         State = States.DefaultState;
         State.TransitionIn();
     }

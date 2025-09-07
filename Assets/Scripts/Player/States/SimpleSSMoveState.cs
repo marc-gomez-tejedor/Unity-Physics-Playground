@@ -25,7 +25,7 @@ public class SimpleSSMoveState : PlayerState
     }
     public override void Jump()
     {
-        PlayerController.movementBehaviour.Jump(jumpForce);
+        PlayerController.MovementBehaviour.Jump(jumpForce);
     }
     public override void TransitionIn()
     {
