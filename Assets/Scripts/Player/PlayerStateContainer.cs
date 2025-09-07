@@ -12,6 +12,6 @@ public class PlayerStateContainer : MonoBehaviour
     public PlayerState DefaultMove;
     public PlayerState MovingOnSpaceship;
 
-    //[Header("OneTimeActions")] work on progress, for now its set in every state as an action
+    //[Header("OneTimeActions")] work in progress, for now its set in every state as an action
     //public PlayerState Jump;
 }

@@ -46,7 +46,7 @@ public class ComputeVelocityChange : MonoBehaviour
         Vector3 inputRight = player._rigidbody.transform.right * inputDirection.x;
         Vector3 inputWorld = inputForward + inputRight;
         
-        Vector3 inputOnPlane = MathUtils.ProjectOnPlane(inputWorld, groundNormal).normalized;
+        Vector3 inputOnPlane = MathUtils.ProjectOnPlane(inputWorld, groundNormal);
         return inputOnPlane;
     }
     private Vector3 GetGroundVelocity(PlayerController player) 

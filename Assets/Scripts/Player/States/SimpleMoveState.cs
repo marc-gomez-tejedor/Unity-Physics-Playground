@@ -30,11 +30,11 @@ public class SimpleMoveState : PlayerState
         PlayerController.Raycasts.UpdateRayCastDown();
         PlayerController.MovementBehaviour.UpdateFloatingSpringPosition(PlayerController, rideHeight, rideSpringStrength, rideSpringDamper);
         PlayerController.MovementBehaviour.UpdateUprightForce(PlayerController, uprightSpringStrength, uprightSpringDamper);
-        PlayerController.FPVrotation.Move(mouseInput);
         if (PlayerController.Raycasts.didRaycastHitDown)
         {
             PlayerController.VelocityChange.UpdateMovingForce(PlayerController, inputDirection, maxSpeed, acceleration, accelerationFromDot, maxAccelerationForce, maxAccelerationForceFromDot);
         }
+        PlayerController.FPVrotation.Move(mouseInput);
     }
     public override void Jump()
     {

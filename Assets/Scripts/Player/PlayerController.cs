@@ -9,8 +9,10 @@ public class PlayerController : MonoBehaviour, IInitializable
 
     [Header("References")]
     public Rigidbody _rigidbody;
-    public PlayerState State;
+    public PlayerState CurrentState;
     public PlayerStateContainer States;
+    public ForceField CurrentField;
+    public FieldsContainer Fields;
     public MovementBehaviour MovementBehaviour;
     public FPVRotations FPVrotation;
     public PlayerRaycasts Raycasts;
@@ -20,18 +22,18 @@ public class PlayerController : MonoBehaviour, IInitializable
     public void Initialize()
     {
         if (MovementBehaviour == null) MovementBehaviour = gameObject.GetComponent<MovementBehaviour>();
-        State = States.DefaultState;
-        State.TransitionIn();
+        CurrentState = States.DefaultState;
+        CurrentState.TransitionIn();
     }
     private void FixedUpdate()
     {
-        State.Act();
+        CurrentState.Act();
     }
 
     public void TransitionTo(PlayerState state)
     {
         state.TransitionOut();
-        State = state;
+        CurrentState = state;
         state.TransitionIn();
     }
     

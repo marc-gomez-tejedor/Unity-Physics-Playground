@@ -22,5 +22,4 @@ public class PlayerState : MonoBehaviour
         Game.Input.OnJump -= Jump;
         Game.Input.OnInteract -= Interact;
     }
-    
 }
