@@ -24,7 +24,8 @@ public class MovingSphere : MonoBehaviour
         Vector3 newPosition = transform.localPosition + displacement;
         if (!allowedArea.Contains(new Vector2(newPosition.x, newPosition.z)))
         {
-            newPosition = transform.localPosition;
+            newPosition.x = Mathf.Clamp(newPosition.x, allowedArea.xMin, allowedArea.xMax);
+            newPosition.z = Mathf.Clamp(newPosition.z, allowedArea.yMin, allowedArea.yMax);
         }
         transform.localPosition = newPosition;
     }
