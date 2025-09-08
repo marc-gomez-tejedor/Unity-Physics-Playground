@@ -2,17 +2,20 @@ using UnityEngine;
 
 public class MovingSphere : MonoBehaviour
 {
+    Rigidbody body;
     [SerializeField, Range(0f, 100f)]
     float maxAcceleration = 10f;
     [SerializeField, Range(0f, 100f)]
     float maxSpeed = 10f;
     Vector3 velocity, desiredVelocity;
-    Rigidbody body;
 
     [SerializeField, Range(0f, 10f)]
     float jumpHeight = 2f;
+    [SerializeField, Range(0, 5)]
+    int maxAirJumps = 0;
     bool desiredJump;
 
+    int jumpPhase;
     bool onGround;
 
     void Awake()
@@ -43,15 +46,22 @@ public class MovingSphere : MonoBehaviour
             Jump();
         }
 
-        body.linearVelocity = velocity;
-
+        UpdateState();
         onGround = false;
     }
-
+    void UpdateState()
+    {
+        body.linearVelocity = velocity;
+        if (onGround)
+        {
+            jumpPhase = 0;
+        }
+    }
     void Jump()
     {
-        if (onGround)
+        if (onGround || jumpPhase < maxAirJumps)
         { 
+            jumpPhase++;
             velocity.y += Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight); 
         }
     }
