@@ -13,6 +13,8 @@ public class MovingSphere : MonoBehaviour
     float jumpHeight = 2f;
     bool desiredJump;
 
+    bool onGround;
+
     void Awake()
     {
         body = GetComponent<Rigidbody>();
@@ -42,10 +44,25 @@ public class MovingSphere : MonoBehaviour
         }
 
         body.linearVelocity = velocity;
+
+        onGround = false;
     }
 
     void Jump()
     {
-        velocity.y += Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
+        if (onGround)
+        { 
+            velocity.y += Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight); 
+        }
+    }
+
+    void OnCollisionEnter()
+    {
+        onGround = true;
+    }
+
+    void OnCollisionStay()
+    {
+        onGround = true;
     }
 }
