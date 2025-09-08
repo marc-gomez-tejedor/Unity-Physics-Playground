@@ -25,22 +25,22 @@ public class MovingSphere : MonoBehaviour
         if (newPosition.x < allowedArea.xMin)
         {
             newPosition.x = allowedArea.xMin;
-            velocity.x = 0f;
+            velocity.x = -velocity.x;
         }
         else if (newPosition.x  > allowedArea.xMax)
         {
             newPosition.x = allowedArea.xMax;
-            velocity.x = 0f;
+            velocity.x = -velocity.x;
         }
         if (newPosition.z < allowedArea.yMin)
         {
             newPosition.z = allowedArea.yMin;
-            velocity.z = 0f;
+            velocity.z = -velocity.z;
         }
         else if (newPosition.z  > allowedArea.yMax)
         {
             newPosition.z = allowedArea.yMax;
-            velocity.z = 0f;
+            velocity.z = -velocity.z;
         }
 
         transform.localPosition = newPosition;
