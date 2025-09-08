@@ -9,6 +9,8 @@ public class MovingSphere : MonoBehaviour
     Vector3 velocity, desiredVelocity;
     Rigidbody body;
 
+    [SerializeField, Range(0f, 10f)]
+    float jumpHeight = 2f;
     bool desiredJump;
 
     void Awake()
@@ -44,6 +46,6 @@ public class MovingSphere : MonoBehaviour
 
     void Jump()
     {
-        velocity.y += 5f;
+        velocity.y += Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
     }
 }
