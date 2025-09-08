@@ -6,6 +6,8 @@ public class MovingSphere : MonoBehaviour
     float maxAcceleration = 10f;
     [SerializeField, Range(0f, 100f)]
     float maxSpeed = 10f;
+    [SerializeField, Range(0f, 1)]
+    float bounciness = 0.5f;
     [SerializeField]
     Rect allowedArea = new Rect(-5f, -5f, 10f, 10f);
     Vector3 velocity;
@@ -25,22 +27,22 @@ public class MovingSphere : MonoBehaviour
         if (newPosition.x < allowedArea.xMin)
         {
             newPosition.x = allowedArea.xMin;
-            velocity.x = -velocity.x;
+            velocity.x = -velocity.x * bounciness;
         }
         else if (newPosition.x  > allowedArea.xMax)
         {
             newPosition.x = allowedArea.xMax;
-            velocity.x = -velocity.x;
+            velocity.x = -velocity.x * bounciness;
         }
         if (newPosition.z < allowedArea.yMin)
         {
             newPosition.z = allowedArea.yMin;
-            velocity.z = -velocity.z;
+            velocity.z = -velocity.z * bounciness;
         }
         else if (newPosition.z  > allowedArea.yMax)
         {
             newPosition.z = allowedArea.yMax;
-            velocity.z = -velocity.z;
+            velocity.z = -velocity.z * bounciness;
         }
 
         transform.localPosition = newPosition;
