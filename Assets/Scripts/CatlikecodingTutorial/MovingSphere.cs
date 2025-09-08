@@ -62,7 +62,12 @@ public class MovingSphere : MonoBehaviour
         if (onGround || jumpPhase < maxAirJumps)
         { 
             jumpPhase++;
-            velocity.y += Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight); 
+            float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
+            if (velocity.y > 0f)
+            {
+                jumpSpeed = Mathf.Max(jumpSpeed - velocity.y, 0f);
+            }
+            velocity.y += jumpSpeed;
         }
     }
 
