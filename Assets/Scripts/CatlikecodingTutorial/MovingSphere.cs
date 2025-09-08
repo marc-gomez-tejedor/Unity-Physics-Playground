@@ -56,13 +56,22 @@ public class MovingSphere : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter()
+    void OnCollisionEnter(Collision collision)
     {
-        onGround = true;
+        EvaluateCollision(collision);
     }
 
-    void OnCollisionStay()
+    void OnCollisionStay(Collision collision)
     {
-        onGround = true;
+        EvaluateCollision(collision);
+    }
+
+    void EvaluateCollision(Collision collision)
+    {
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            Vector3 normal = collision.GetContact(i).normal;
+            onGround |= normal.y >= 0.9f;
+        }        
     }
 }
