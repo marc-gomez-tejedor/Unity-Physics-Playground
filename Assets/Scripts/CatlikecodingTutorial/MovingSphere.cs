@@ -4,7 +4,7 @@ public class MovingSphere : MonoBehaviour
 {
     Rigidbody body;
     [SerializeField, Range(0f, 100f)]
-    float maxAcceleration = 10f;
+    float maxAcceleration = 10f, maxAirAcceleration = 1f;
     [SerializeField, Range(0f, 100f)]
     float maxSpeed = 10f;
     Vector3 velocity, desiredVelocity;
@@ -36,7 +36,9 @@ public class MovingSphere : MonoBehaviour
     void FixedUpdate()
     {
         velocity = body.linearVelocity;
-        float maxSpeedChange = maxAcceleration * Time.deltaTime;
+
+        float acceleration = onGround ? maxAcceleration : maxAirAcceleration;
+        float maxSpeedChange = acceleration * Time.deltaTime;
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
         velocity.z = Mathf.MoveTowards(velocity.z, desiredVelocity.z, maxSpeedChange);
 
