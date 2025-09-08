@@ -9,6 +9,10 @@ public class MovingSphere : MonoBehaviour
     float maxSpeed = 10f;
     Vector3 velocity, desiredVelocity;
 
+    [SerializeField, Range(0f, 90f)]
+    float maxGroundAngle = 25f;
+    float minGroundDotProduct;
+
     [SerializeField, Range(0f, 10f)]
     float jumpHeight = 2f;
     [SerializeField, Range(0, 5)]
@@ -18,9 +22,14 @@ public class MovingSphere : MonoBehaviour
     int jumpPhase;
     bool onGround;
 
+    void OnValidate()
+    {
+        minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad); 
+    }
     void Awake()
     {
         body = GetComponent<Rigidbody>();
+        OnValidate();
     }
 
     void Update()
@@ -88,7 +97,7 @@ public class MovingSphere : MonoBehaviour
         for (int i = 0; i < collision.contactCount; i++)
         {
             Vector3 normal = collision.GetContact(i).normal;
-            onGround |= normal.y >= 0.9f;
+            onGround |= normal.y >= minGroundDotProduct;
         }        
     }
 }
