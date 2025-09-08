@@ -41,13 +41,14 @@ public class ComputeVelocityChange : MonoBehaviour
     private Vector3 GetUnitInputWorld(PlayerController player, Vector2 inputDirection) 
     {
         Vector3 groundNormal = player.Raycasts.rayCastHitDown.normal.normalized;
-
+        /*
         Vector3 inputForward = player._rigidbody.transform.forward * inputDirection.y;
         Vector3 inputRight = player._rigidbody.transform.right * inputDirection.x;
         Vector3 inputWorld = inputForward + inputRight;
         
         Vector3 inputOnPlane = MathUtils.ProjectOnPlane(inputWorld, groundNormal);
-        return inputOnPlane;
+        return inputOnPlane;*/ // redo this based on the catlike tuto 3.5
+        return Vector3.zero; //placeholder
     }
     private Vector3 GetGroundVelocity(PlayerController player) 
     {
