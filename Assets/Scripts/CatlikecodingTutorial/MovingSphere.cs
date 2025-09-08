@@ -16,7 +16,8 @@ public class MovingSphere : MonoBehaviour
     bool desiredJump;
 
     int jumpPhase;
-    bool onGround; 
+    int groundContactCount;
+    bool OnGround => groundContactCount > 0; 
     
     [SerializeField, Range(0f, 90f)]
     float maxGroundAngle = 25f;
@@ -43,6 +44,11 @@ public class MovingSphere : MonoBehaviour
 
         desiredVelocity = new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
         desiredJump |= Input.GetButtonDown("Jump");
+
+        GetComponent<Renderer>().material.SetColor
+        (
+            "_BaseColor", Color.white * (groundContactCount * 0.25f)
+        );
     }
     void FixedUpdate()
     {
@@ -60,10 +66,13 @@ public class MovingSphere : MonoBehaviour
     void UpdateState()
     {
         velocity = body.linearVelocity;
-        if (onGround)
+        if (OnGround)
         {
             jumpPhase = 0;
-            contactNormal.Normalize();
+            if (groundContactCount > 1)
+            {
+                contactNormal.Normalize();
+            }
         }
         else
         {
@@ -72,12 +81,12 @@ public class MovingSphere : MonoBehaviour
     }
     void ClearState()
     {
-        onGround = false;
+        groundContactCount = 0;
         contactNormal = Vector3.zero;
     }
     void Jump()
     {
-        if (onGround || jumpPhase < maxAirJumps)
+        if (OnGround || jumpPhase < maxAirJumps)
         { 
             jumpPhase++;
             float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
@@ -88,6 +97,26 @@ public class MovingSphere : MonoBehaviour
             }
             velocity += contactNormal * jumpSpeed;
         }
+    }
+    void AdjustVelocity()
+    {
+        Vector3 xAxis = ProjectOnContactPlane(Vector3.right).normalized;
+        Vector3 zAxis = ProjectOnContactPlane(Vector3.forward).normalized;
+
+        float currentX = Vector3.Dot(velocity, xAxis);
+        float currentZ = Vector3.Dot(velocity, zAxis);
+
+        float acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
+        float maxSpeedChange = acceleration * Time.deltaTime;
+
+        float newX = Mathf.MoveTowards(currentX, desiredVelocity.x, maxSpeedChange);
+        float newZ = Mathf.MoveTowards(currentZ, desiredVelocity.z, maxSpeedChange);
+
+        velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
+    }
+    Vector3 ProjectOnContactPlane(Vector3 vector)
+    {
+        return vector - contactNormal * Vector3.Dot(vector, contactNormal);
     }
 
     void OnCollisionEnter(Collision collision)
@@ -107,31 +136,9 @@ public class MovingSphere : MonoBehaviour
             Vector3 normal = collision.GetContact(i).normal;
             if (normal.y >= minGroundDotProduct)
             {
-                onGround = true;
+                groundContactCount++;
                 contactNormal += normal;
             }
         }        
-    }
-
-    Vector3 ProjectOnContactPlane(Vector3 vector)
-    {
-        return vector - contactNormal * Vector3.Dot(vector, contactNormal);
-    }
-
-    void AdjustVelocity()
-    {
-        Vector3 xAxis = ProjectOnContactPlane(Vector3.right).normalized;
-        Vector3 zAxis = ProjectOnContactPlane(Vector3.forward).normalized;
-
-        float currentX = Vector3.Dot(velocity, xAxis);
-        float currentZ = Vector3.Dot(velocity, zAxis);
-
-        float acceleration = onGround ? maxAcceleration : maxAirAcceleration;
-        float maxSpeedChange = acceleration * Time.deltaTime;
-
-        float newX = Mathf.MoveTowards(currentX, desiredVelocity.x, maxSpeedChange);
-        float newZ = Mathf.MoveTowards(currentZ, desiredVelocity.z, maxSpeedChange);
-
-        velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
     }
 }
