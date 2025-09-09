@@ -131,7 +131,15 @@ public class MovingSphere : MonoBehaviour
         {
             return false;
         }
-        return false;
+        groundContactCount = 1;
+        contactNormal = hit.normal;
+        float speed = velocity.magnitude;
+        float dot = Vector3.Dot(velocity, hit.normal);
+        if (dot > 0f)
+        {
+            velocity = (velocity - hit.normal * dot).normalized * speed;
+        }        
+        return true;
     }
     Vector3 ProjectOnContactPlane(Vector3 vector)
     {
