@@ -23,6 +23,8 @@ public class OrbitCamera : MonoBehaviour
     [SerializeField, Min(0f)]
     float alignDelay = 5f;
     float lastManualRotationTime;
+    [SerializeField, Range(0f, 90f)]
+    float alignSmoothRange = 45f;
 
     void OnValidate()
     {
@@ -113,7 +115,17 @@ public class OrbitCamera : MonoBehaviour
         }
 
         float headingAngle = MathUtils.GetAngle(movement / Mathf.Sqrt(movementDeltaSqr));
-        orbitAngles.y = headingAngle;
+        float deltaAbs = Mathf.Abs(Mathf.DeltaAngle(orbitAngles.y, headingAngle));
+        float rotationChange = rotationSpeed * Mathf.Min(Time.unscaledDeltaTime, movementDeltaSqr);
+        if (deltaAbs < alignSmoothRange)
+        {
+            rotationChange *= deltaAbs / alignSmoothRange;
+        }
+        else if (180f - deltaAbs < alignSmoothRange)
+        {
+            rotationChange *= (180f - deltaAbs) / alignSmoothRange;
+        }
+        orbitAngles.y = Mathf.MoveTowardsAngle(orbitAngles.y, headingAngle, rotationChange);          
         return true;
     }
     void ConstrainAngles()
