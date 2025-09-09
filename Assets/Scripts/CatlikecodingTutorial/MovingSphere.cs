@@ -16,8 +16,9 @@ public class MovingSphere : MonoBehaviour
     bool desiredJump;
 
     int jumpPhase;
-    int groundContactCount;
+    int groundContactCount, steepContactCount;
     bool OnGround => groundContactCount > 0;
+    bool OnSteep => steepContactCount > 0;
     int stepsSinceLastGrounded, stepsSinceLastJump;
 
     [SerializeField, Range(0f, 100f)]
@@ -31,7 +32,7 @@ public class MovingSphere : MonoBehaviour
     float maxGroundAngle = 25f, maxStairsAngle = 50f;
     float minGroundDotProduct, minStairsDotProduct;
 
-    Vector3 contactNormal;
+    Vector3 contactNormal, steepNormal;
 
     void OnValidate()
     {
@@ -93,8 +94,8 @@ public class MovingSphere : MonoBehaviour
     }
     void ClearState()
     {
-        groundContactCount = 0;
-        contactNormal = Vector3.zero;
+        groundContactCount = steepContactCount = 0;
+        contactNormal = steepNormal = Vector3.zero;
     }
     void Jump()
     {
@@ -189,6 +190,11 @@ public class MovingSphere : MonoBehaviour
             {
                 groundContactCount++;
                 contactNormal += normal;
+            }
+            else if (normal.y > -0.01f)
+            {
+                steepContactCount++;
+                steepNormal += normal;
             }
         }        
     }
