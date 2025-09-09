@@ -17,7 +17,8 @@ public class MovingSphere : MonoBehaviour
 
     int jumpPhase;
     int groundContactCount;
-    bool OnGround => groundContactCount > 0; 
+    bool OnGround => groundContactCount > 0;
+    int stepsSinceLastGrounded;
     
     [SerializeField, Range(0f, 90f)]
     float maxGroundAngle = 25f;
@@ -65,9 +66,11 @@ public class MovingSphere : MonoBehaviour
     }
     void UpdateState()
     {
+        stepsSinceLastGrounded++;
         velocity = body.linearVelocity;
         if (OnGround)
         {
+            stepsSinceLastGrounded = 0;
             jumpPhase = 0;
             if (groundContactCount > 1)
             {
