@@ -2,7 +2,11 @@ using UnityEngine;
 
 public class MovingSphere : MonoBehaviour
 {
+    [SerializeField]
+    Transform playerInputSpace = default;
+ 
     Rigidbody body;
+    
     [SerializeField, Range(0f, 100f)]
     float maxAcceleration = 10f, maxAirAcceleration = 1f;
     [SerializeField, Range(0f, 100f)]
@@ -52,7 +56,14 @@ public class MovingSphere : MonoBehaviour
         playerInput.y = Input.GetAxis("Vertical");
         playerInput = Vector2.ClampMagnitude(playerInput, 1f);
 
-        desiredVelocity = new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
+        if (playerInputSpace)
+        {
+            desiredVelocity = playerInputSpace.TransformDirection(playerInput.x, 0f, playerInput.y) * maxSpeed;
+        }
+        else
+        {
+            desiredVelocity = new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
+        }
         desiredJump |= Input.GetButtonDown("Jump");
     }
     void FixedUpdate()

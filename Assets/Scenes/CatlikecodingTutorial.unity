@@ -16779,7 +16779,7 @@ MonoBehaviour:
   rotationSpeed: 200
   minVerticalAngle: -30
   maxVerticalAngle: 60
-  alignDelay: 0
+  alignDelay: 5
   alignSmoothRange: 45
 --- !u!1 &753775026
 GameObject:
@@ -76251,6 +76251,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sphere
       objectReference: {fileID: 0}
+    - target: {fileID: 3288319918364798964, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
+      propertyPath: playerInputSpace
+      value: 
+      objectReference: {fileID: 738844198}
     - target: {fileID: 4190205517733494319, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
