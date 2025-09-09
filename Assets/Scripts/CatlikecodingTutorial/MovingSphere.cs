@@ -123,6 +123,14 @@ public class MovingSphere : MonoBehaviour
         {
             return false;
         }
+        if (!Physics.Raycast(body.position, Vector3.down, out RaycastHit hit))
+        {
+            return false;
+        }
+        if (hit.normal.y < minGroundDotProduct)
+        {
+            return false;
+        }
         return false;
     }
     Vector3 ProjectOnContactPlane(Vector3 vector)
