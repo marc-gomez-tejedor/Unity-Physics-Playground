@@ -239,7 +239,7 @@ MonoBehaviour:
   probeDistance: 1
   probeMask:
     serializedVersion: 2
-    m_Bits: 251
+    m_Bits: 1275
   maxGroundAngle: 40
 --- !u!54 &655120802187696923
 Rigidbody:
