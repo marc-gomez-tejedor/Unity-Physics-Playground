@@ -239,8 +239,12 @@ MonoBehaviour:
   probeDistance: 1
   probeMask:
     serializedVersion: 2
-    m_Bits: 1275
-  maxGroundAngle: 40
+    m_Bits: 251
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  maxGroundAngle: 46
+  maxStairsAngle: 50
 --- !u!54 &655120802187696923
 Rigidbody:
   m_ObjectHideFlags: 0

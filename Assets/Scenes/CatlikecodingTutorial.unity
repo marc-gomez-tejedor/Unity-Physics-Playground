@@ -6232,6 +6232,14 @@ PrefabInstance:
       propertyPath: maxGroundAngle
       value: 46
       objectReference: {fileID: 0}
+    - target: {fileID: 3288319918364798964, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
+      propertyPath: probeMask.m_Bits
+      value: 251
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288319918364798964, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
+      propertyPath: stairsMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 4190205517733494319, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -8980,8 +8988,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 738844195}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.288614, y: 0, z: 0, w: 0.95744556}
-  m_LocalPosition: {x: 0, y: 12.4, z: -42.2}
+  m_LocalRotation: {x: -0.13797617, y: -0.3211325, z: 0.047352634, w: -0.93573195}
+  m_LocalPosition: {x: -3.8596327, y: 6.441216, z: -13.073105}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14009,6 +14017,14 @@ PrefabInstance:
       propertyPath: maxGroundAngle
       value: 46
       objectReference: {fileID: 0}
+    - target: {fileID: 3288319918364798964, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
+      propertyPath: probeMask.m_Bits
+      value: 251
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288319918364798964, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
+      propertyPath: stairsMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 4190205517733494319, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -17660,6 +17676,14 @@ PrefabInstance:
       propertyPath: maxGroundAngle
       value: 46
       objectReference: {fileID: 0}
+    - target: {fileID: 3288319918364798964, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
+      propertyPath: probeMask.m_Bits
+      value: 251
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288319918364798964, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
+      propertyPath: stairsMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 4190205517733494319, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -18494,6 +18518,14 @@ PrefabInstance:
     - target: {fileID: 3288319918364798964, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
       propertyPath: maxGroundAngle
       value: 46
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288319918364798964, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
+      propertyPath: probeMask.m_Bits
+      value: 251
+      objectReference: {fileID: 0}
+    - target: {fileID: 3288319918364798964, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
+      propertyPath: stairsMask.m_Bits
+      value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 4190205517733494319, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20803,10 +20835,6 @@ PrefabInstance:
     - target: {fileID: 1209271436115735821, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
       propertyPath: m_Name
       value: Sphere
-      objectReference: {fileID: 0}
-    - target: {fileID: 3288319918364798964, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
-      propertyPath: maxGroundAngle
-      value: 46
       objectReference: {fileID: 0}
     - target: {fileID: 4190205517733494319, guid: 2ba61b12a86b27047ac45fd3026de307, type: 3}
       propertyPath: m_LocalPosition.x
