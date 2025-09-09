@@ -5,7 +5,7 @@ public class OrbitCamera : MonoBehaviour
 {
     [SerializeField]
     Transform focus = default;
-    Vector3 focusPoint;
+    Vector3 focusPoint, previousFocusPoint;
 
     [SerializeField, Range(1f, 20f)]
     float distance = 5f;
@@ -56,6 +56,7 @@ public class OrbitCamera : MonoBehaviour
     }
     void UpdateFocusPoint()
     {
+        previousFocusPoint = focusPoint;
         Vector3 targetPoint = focus.position;
         if (focusRadius > 0f)
         {
@@ -100,6 +101,19 @@ public class OrbitCamera : MonoBehaviour
         {
             return false;
         }
+        Vector2 movement = new Vector2
+        (
+            focusPoint.x - previousFocusPoint.x,
+            focusPoint.z - previousFocusPoint.z
+        );
+        float movementDeltaSqr = movement.sqrMagnitude;
+        if (movementDeltaSqr < 0.0001f)
+        {
+            return false;
+        }
+
+        float headingAngle = MathUtils.GetAngle(movement / Mathf.Sqrt(movementDeltaSqr));
+        orbitAngles.y = headingAngle;
         return true;
     }
     void ConstrainAngles()
@@ -109,7 +123,7 @@ public class OrbitCamera : MonoBehaviour
         {
             orbitAngles.y += 360f;
         }
-        else if (orbitAngles.y > 360f)
+        else if (orbitAngles.y >= 360f)
         {
             orbitAngles.y -= 360f;
         }
