@@ -16774,7 +16774,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   focus: {fileID: 623072979}
   distance: 5
-  focusRadius: 0.1
+  focusRadius: 1
+  focusCentering: 0.99
 --- !u!1 &753775026
 GameObject:
   m_ObjectHideFlags: 0
