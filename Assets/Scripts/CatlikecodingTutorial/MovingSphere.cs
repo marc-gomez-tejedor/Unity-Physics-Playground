@@ -19,7 +19,10 @@ public class MovingSphere : MonoBehaviour
     int groundContactCount;
     bool OnGround => groundContactCount > 0;
     int stepsSinceLastGrounded;
-    
+
+    [SerializeField, Range(0f, 100f)]
+    float maxSnapSpeed = 100f;
+
     [SerializeField, Range(0f, 90f)]
     float maxGroundAngle = 25f;
     float minGroundDotProduct;
@@ -123,6 +126,11 @@ public class MovingSphere : MonoBehaviour
         {
             return false;
         }
+        float speed = velocity.magnitude;
+        if (speed > maxSnapSpeed)
+        {
+            return false;
+        }
         if (!Physics.Raycast(body.position, Vector3.down, out RaycastHit hit))
         {
             return false;
@@ -133,7 +141,7 @@ public class MovingSphere : MonoBehaviour
         }
         groundContactCount = 1;
         contactNormal = hit.normal;
-        float speed = velocity.magnitude;
+
         float dot = Vector3.Dot(velocity, hit.normal);
         if (dot > 0f)
         {
