@@ -68,7 +68,7 @@ public class MovingSphere : MonoBehaviour
     {
         stepsSinceLastGrounded++;
         velocity = body.linearVelocity;
-        if (OnGround)
+        if (OnGround || SnapToGround())
         {
             stepsSinceLastGrounded = 0;
             jumpPhase = 0;
@@ -116,6 +116,14 @@ public class MovingSphere : MonoBehaviour
         float newZ = Mathf.MoveTowards(currentZ, desiredVelocity.z, maxSpeedChange);
 
         velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
+    }
+    bool SnapToGround ()
+    {
+        if (stepsSinceLastGrounded > 1)
+        {
+            return false;
+        }
+        return false;
     }
     Vector3 ProjectOnContactPlane(Vector3 vector)
     {
