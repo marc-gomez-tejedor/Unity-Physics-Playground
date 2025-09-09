@@ -26,6 +26,8 @@ public class OrbitCamera : MonoBehaviour
     [SerializeField, Range(0f, 90f)]
     float alignSmoothRange = 45f;
 
+    Camera regularCamera;
+
     void OnValidate()
     {
         if (maxVerticalAngle < minVerticalAngle)
@@ -35,6 +37,7 @@ public class OrbitCamera : MonoBehaviour
     }
     void Awake()
     {
+        regularCamera = GetComponent<Camera>();
         focusPoint = focus.position;
         transform.localRotation = Quaternion.Euler(orbitAngles);
     }
@@ -54,12 +57,13 @@ public class OrbitCamera : MonoBehaviour
         }
         Vector3 lookDirection = lookRotation * Vector3.forward;
         Vector3 lookPosition = focusPoint - lookDirection * distance;
-        if (Physics.Raycast
+        if (Physics.BoxCast
         (
-            focusPoint, -lookDirection, out RaycastHit hit, distance
+            focusPoint, CameraHalfExtends, -lookDirection, out RaycastHit hit, 
+            lookRotation, distance - regularCamera.nearClipPlane
         ))
         {
-            lookPosition = focusPoint - lookDirection * hit.distance;
+            lookPosition = focusPoint - lookDirection * (hit.distance + regularCamera.nearClipPlane);
         }
         transform.SetPositionAndRotation(lookPosition, lookRotation);
     }
@@ -145,6 +149,18 @@ public class OrbitCamera : MonoBehaviour
         else if (orbitAngles.y >= 360f)
         {
             orbitAngles.y -= 360f;
+        }
+    }
+
+    Vector3 CameraHalfExtends
+    {
+        get {
+            Vector3 halfExtends;
+            halfExtends.y = regularCamera.nearClipPlane * 
+                Mathf.Tan(0.5f * Mathf.Deg2Rad * regularCamera.fieldOfView);
+            halfExtends.x = halfExtends.y * regularCamera.aspect;
+            halfExtends.z = 0f;
+            return halfExtends;
         }
     }
 }
