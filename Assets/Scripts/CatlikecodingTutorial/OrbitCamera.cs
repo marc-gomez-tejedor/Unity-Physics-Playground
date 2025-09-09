@@ -17,17 +17,35 @@ public class OrbitCamera : MonoBehaviour
     Vector2 orbitAngles = new Vector2(45f, 0f);
     [SerializeField, Range(1f, 360f)]
     float rotationSpeed = 90f;
+    [SerializeField, Range(-89f, 89f)]
+    float minVerticalAngle = -30f, maxVerticalAngle = 60f;
 
+    void OnValidate()
+    {
+        if (maxVerticalAngle < minVerticalAngle)
+        {
+            maxVerticalAngle = minVerticalAngle;
+        }
+    }
     void Awake()
     {
-        focusPoint = focus.position;    
+        focusPoint = focus.position;
+        transform.localRotation = Quaternion.Euler(orbitAngles);
     }
 
     void LateUpdate()
     {
         UpdateFocusPoint();
-        ManualRotation();
-        Quaternion lookRotation = Quaternion.Euler(orbitAngles);
+        Quaternion lookRotation;
+        if (ManualRotation())
+        {
+            ConstrainAngles();
+            lookRotation = Quaternion.Euler(orbitAngles);
+        }
+        else
+        {
+            lookRotation = transform.localRotation;
+        }
         Vector3 lookDirection = lookRotation * Vector3.forward;
         Vector3 lookPosition = focusPoint - lookDirection * distance;
         transform.SetPositionAndRotation(lookPosition, lookRotation);
@@ -55,7 +73,7 @@ public class OrbitCamera : MonoBehaviour
         }            
     }
 
-    void ManualRotation()
+    bool ManualRotation()
     {
         Vector2 input = new Vector2
         (
@@ -66,6 +84,21 @@ public class OrbitCamera : MonoBehaviour
         if (input.x < -e || input.x > e || input.y < -e || input.y > e)
         {
             orbitAngles += rotationSpeed * Time.unscaledDeltaTime * input;
+            return true;
+        }
+        return false;
+    }
+
+    void ConstrainAngles()
+    {
+        orbitAngles.x = Mathf.Clamp(orbitAngles.x, minVerticalAngle, maxVerticalAngle);
+        if (orbitAngles.y < 0f)
+        {
+            orbitAngles.y += 360f;
+        }
+        else if (orbitAngles.y > 360f)
+        {
+            orbitAngles.y -= 360f;
         }
     }
 }
