@@ -16776,6 +16776,11 @@ MonoBehaviour:
   distance: 5
   focusRadius: 1
   focusCentering: 0.99
+  rotationSpeed: 200
+  minVerticalAngle: -30
+  maxVerticalAngle: 60
+  alignDelay: 0
+  alignSmoothRange: 45
 --- !u!1 &753775026
 GameObject:
   m_ObjectHideFlags: 0

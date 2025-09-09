@@ -125,7 +125,7 @@ public class OrbitCamera : MonoBehaviour
         {
             rotationChange *= (180f - deltaAbs) / alignSmoothRange;
         }
-        orbitAngles.y = Mathf.MoveTowardsAngle(orbitAngles.y, headingAngle, rotationChange);          
+        orbitAngles.y = Mathf.MoveTowardsAngle(orbitAngles.y, headingAngle, rotationChange);
         return true;
     }
     void ConstrainAngles()
