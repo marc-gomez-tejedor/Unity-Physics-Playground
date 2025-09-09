@@ -47,7 +47,7 @@ public class MovingSphere : MonoBehaviour
 
         GetComponent<Renderer>().material.SetColor
         (
-            "_BaseColor", Color.white * (groundContactCount * 0.25f)
+            "_BaseColor", OnGround ? Color.black : Color.white
         );
     }
     void FixedUpdate()
