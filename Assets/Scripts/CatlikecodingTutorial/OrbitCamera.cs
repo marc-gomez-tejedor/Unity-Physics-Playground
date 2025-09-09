@@ -7,6 +7,9 @@ public class OrbitCamera : MonoBehaviour
     Transform focus = default;
     Vector3 focusPoint, previousFocusPoint;
 
+    [SerializeField]
+    LayerMask obstructionMask = -1;
+
     [SerializeField, Range(1f, 20f)]
     float distance = 5f;
     [SerializeField, Min(0f)]
@@ -68,7 +71,7 @@ public class OrbitCamera : MonoBehaviour
         if (Physics.BoxCast
         (
             castFrom, CameraHalfExtends, castDirection, out RaycastHit hit, 
-            lookRotation, castDistance
+            lookRotation, castDistance, obstructionMask
         ))
         {
             rectPosition = castFrom + castDirection * hit.distance;

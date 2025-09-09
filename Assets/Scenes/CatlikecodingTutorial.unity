@@ -16773,6 +16773,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   focus: {fileID: 623072979}
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 1773
   distance: 5
   focusRadius: 1
   focusCentering: 0.99
