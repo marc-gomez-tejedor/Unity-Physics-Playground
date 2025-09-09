@@ -78,7 +78,7 @@ public class MovingSphere : MonoBehaviour
         stepsSinceLastGrounded++;
         stepsSinceLastJump++;
         velocity = body.linearVelocity;
-        if (OnGround || SnapToGround())
+        if (OnGround || SnapToGround() ||CheckSteepContacts())
         {
             stepsSinceLastGrounded = 0;
             jumpPhase = 0;
@@ -160,6 +160,20 @@ public class MovingSphere : MonoBehaviour
             velocity = (velocity - hit.normal * dot).normalized * speed;
         }        
         return true;
+    }
+    bool CheckSteepContacts ()
+    {
+        if (steepContactCount > 1)
+        {
+            steepNormal.Normalize();
+            if (steepNormal.y >= minGroundDotProduct)
+            {
+                groundContactCount = 1;
+                contactNormal = steepNormal;
+                return true;
+            }
+        }
+        return false;
     }
     Vector3 ProjectOnContactPlane(Vector3 vector)
     {
