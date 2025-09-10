@@ -6,4 +6,12 @@ public class GravitySource : MonoBehaviour
     {
         return Physics.gravity;
     }
+    void OnEnable()
+    {
+        CustomGravity.Register(this);    
+    }
+    void OnDisable()
+    {
+        CustomGravity.Unregister(this);    
+    }
 }
