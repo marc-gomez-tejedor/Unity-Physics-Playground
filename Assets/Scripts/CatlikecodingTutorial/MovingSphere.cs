@@ -90,7 +90,7 @@ public class MovingSphere : MonoBehaviour
         stepsSinceLastGrounded++;
         stepsSinceLastJump++;
         velocity = body.linearVelocity;
-        if (OnGround || SnapToGround() ||CheckSteepContacts())
+        if (OnGround || SnapToGround() || CheckSteepContacts())
         {
             stepsSinceLastGrounded = 0;
             if (stepsSinceLastJump > 1)
