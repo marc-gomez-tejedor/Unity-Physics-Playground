@@ -37,6 +37,7 @@ public class MovingSphere : MonoBehaviour
     float minGroundDotProduct, minStairsDotProduct;
 
     Vector3 contactNormal, steepNormal;
+    Vector3 upAxis;
 
     void OnValidate()
     {
@@ -74,6 +75,7 @@ public class MovingSphere : MonoBehaviour
     }
     void FixedUpdate()
     {
+        upAxis = -Physics.gravity.normalized;
         UpdateState();
         AdjustVelocity();
 
@@ -104,7 +106,7 @@ public class MovingSphere : MonoBehaviour
         }
         else
         {
-            contactNormal = Vector3.up;
+            contactNormal = upAxis;
         }
     }
     void ClearState()
@@ -140,8 +142,8 @@ public class MovingSphere : MonoBehaviour
         stepsSinceLastJump = 0;
         jumpPhase++;
 
-        float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
-        jumpDirection = (jumpDirection + Vector3.up).normalized;
+        float jumpSpeed = Mathf.Sqrt(2f * Physics.gravity.magnitude * jumpHeight);
+        jumpDirection = (jumpDirection + upAxis).normalized;
         float alignedSpeed = Vector3.Dot(velocity, jumpDirection);
         
         if (alignedSpeed > 0f)
@@ -179,7 +181,7 @@ public class MovingSphere : MonoBehaviour
         }
         if (!Physics.Raycast
             (
-                body.position, Vector3.down, out RaycastHit hit, 
+                body.position, -upAxis, out RaycastHit hit, 
                 probeDistance, probeMask
             ))
         {
