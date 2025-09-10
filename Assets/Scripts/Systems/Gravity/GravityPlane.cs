@@ -16,7 +16,13 @@ public class GravityPlane : GravitySource
         {
             return Vector3.zero;
         }
-        return -gravity * up;
+
+        float g = -gravity;
+        if (distance > 0f)
+        {
+            g *= 1f - distance / range;
+        }
+        return g * up;
     }
 
     void OnDrawGizmos()
