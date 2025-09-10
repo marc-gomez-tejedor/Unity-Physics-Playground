@@ -187,7 +187,8 @@ public class MovingSphere : MonoBehaviour
         {
             return false;
         }
-        if (hit.normal.y < GetMinDot(hit.collider.gameObject.layer))
+        float upDot = Vector3.Dot(upAxis, hit.normal);
+        if (upDot < GetMinDot(hit.collider.gameObject.layer))
         {
             return false;
         }
@@ -206,7 +207,8 @@ public class MovingSphere : MonoBehaviour
         if (steepContactCount > 1)
         {
             steepNormal.Normalize();
-            if (steepNormal.y >= minGroundDotProduct)
+            float upDot = Vector3.Dot(upAxis, steepNormal);
+            if (upDot >= minGroundDotProduct)
             {
                 groundContactCount = 1;
                 contactNormal = steepNormal;
@@ -240,12 +242,13 @@ public class MovingSphere : MonoBehaviour
         for (int i = 0; i < collision.contactCount; i++)
         {
             Vector3 normal = collision.GetContact(i).normal;
-            if (normal.y >= minDot)
+            float upDot = Vector3.Dot(upAxis, normal);
+            if (upDot >= minDot)
             {
                 groundContactCount++;
                 contactNormal += normal;
             }
-            else if (normal.y > -0.01f)
+            else if (upDot > -0.01f)
             {
                 steepContactCount++;
                 steepNormal += normal;
