@@ -2,9 +2,9 @@ using UnityEngine;
 
 public static class MathUtils
 {
-    public static Vector3 ProjectOnPlane(Vector3 vector, Vector3 normal)
+    public static Vector3 ProjectDirectionOnContactPlane(Vector3 direction, Vector3 normal)
     {
-        return (vector - normal * Vector3.Dot(vector, normal)).normalized;
+        return (direction - normal * Vector3.Dot(direction, normal)).normalized;
     }
     public static float GetAngle(Vector2 direction)
     {

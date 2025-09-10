@@ -37,7 +37,7 @@ public class MovingSphere : MonoBehaviour
     float minGroundDotProduct, minStairsDotProduct;
 
     Vector3 contactNormal, steepNormal;
-    Vector3 upAxis;
+    Vector3 upAxis, rightAxis, forwardAxis;
 
     void OnValidate()
     {
@@ -59,18 +59,15 @@ public class MovingSphere : MonoBehaviour
 
         if (playerInputSpace)
         {
-            Vector3 forward = playerInputSpace.forward;
-            forward.y = 0f;
-            forward.Normalize();
-            Vector3 right = playerInputSpace.right;
-            right.y = 0f;
-            right.Normalize();
-            desiredVelocity = (forward * playerInput.y + right * playerInput.x) * maxSpeed;
+            rightAxis = MathUtils.ProjectDirectionOnContactPlane(playerInputSpace.right, upAxis);
+            forwardAxis = MathUtils.ProjectDirectionOnContactPlane(playerInputSpace.forward, upAxis);
         }
         else
         {
-            desiredVelocity = new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
+            rightAxis = MathUtils.ProjectDirectionOnContactPlane(Vector3.right, upAxis);
+            forwardAxis = MathUtils.ProjectDirectionOnContactPlane(Vector3.forward, upAxis);
         }
+        desiredVelocity = new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
         desiredJump |= Input.GetButtonDown("Jump");
     }
     void FixedUpdate()
@@ -154,8 +151,8 @@ public class MovingSphere : MonoBehaviour
     }
     void AdjustVelocity()
     {
-        Vector3 xAxis = ProjectOnContactPlane(Vector3.right).normalized;
-        Vector3 zAxis = ProjectOnContactPlane(Vector3.forward).normalized;
+        Vector3 xAxis = MathUtils.ProjectDirectionOnContactPlane(rightAxis, contactNormal);
+        Vector3 zAxis = MathUtils.ProjectDirectionOnContactPlane(forwardAxis, contactNormal);
 
         float currentX = Vector3.Dot(velocity, xAxis);
         float currentZ = Vector3.Dot(velocity, zAxis);
@@ -216,10 +213,6 @@ public class MovingSphere : MonoBehaviour
             }
         }
         return false;
-    }
-    Vector3 ProjectOnContactPlane(Vector3 vector)
-    {
-        return vector - contactNormal * Vector3.Dot(vector, contactNormal);
     }
     float GetMinDot(int layer)
     {
