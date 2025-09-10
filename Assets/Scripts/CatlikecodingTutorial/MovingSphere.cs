@@ -55,9 +55,7 @@ public class MovingSphere : MonoBehaviour
     {
         Vector2 playerInput;
         playerInput.x = Input.GetAxis("Horizontal");
-        playerInput.x = 0f;
         playerInput.y = Input.GetAxis("Vertical");
-        playerInput.y = 0f;
         playerInput = Vector2.ClampMagnitude(playerInput, 1f);
 
         if (playerInputSpace)
