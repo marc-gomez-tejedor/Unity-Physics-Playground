@@ -52,10 +52,10 @@ public class OrbitCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        gravityAlignment = 
+        gravityAlignment =
             Quaternion.FromToRotation
             (
-                gravityAlignment * Vector3.up, -Physics.gravity.normalized
+                gravityAlignment * Vector3.up, CustomGravity.GetUpAxis(focusPoint)
             ) * gravityAlignment;
         UpdateFocusPoint();
         
