@@ -151591,11 +151591,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInputSpace: {fileID: 738844198}
-  maxAcceleration: 20
-  maxAirAcceleration: 0
+  maxAcceleration: 40
+  maxAirAcceleration: 10
   maxSpeed: 10
   jumpHeight: 4
-  maxAirJumps: 0
+  maxAirJumps: 1
   maxSnapSpeed: 100
   probeDistance: 1
   probeMask:
@@ -298544,6 +298544,8 @@ MonoBehaviour:
   gravity: 9.81
   outerRadius: 15
   outerFalloffRadius: 25
+  innerFalloffRadius: 1
+  innerRadius: 5
 --- !u!1 &7429014907670371366
 GameObject:
   m_ObjectHideFlags: 0
@@ -303096,6 +303098,8 @@ MonoBehaviour:
   gravity: 9.81
   outerRadius: 15
   outerFalloffRadius: 25
+  innerFalloffRadius: 1
+  innerRadius: 5
 --- !u!33 &8637918584026951253
 MeshFilter:
   m_ObjectHideFlags: 10
