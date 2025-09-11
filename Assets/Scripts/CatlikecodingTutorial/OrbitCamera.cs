@@ -25,9 +25,9 @@ public class OrbitCamera : MonoBehaviour
 
     [SerializeField, Min(0f)]
     float alignDelay = 5f;
-    float lastManualRotationTime;
     [SerializeField, Range(0f, 90f)]
     float alignSmoothRange = 45f;
+    float lastManualRotationTime;
 
     [SerializeField, Min(0f)]
     float upAlignmentSpeed = 360f;

@@ -115,6 +115,22 @@ public class MovingSphere : MonoBehaviour
         groundContactCount = steepContactCount = 0;
         contactNormal = steepNormal = Vector3.zero;
     }
+    void AdjustVelocity()
+    {
+        Vector3 xAxis = MathUtils.ProjectDirectionOnContactPlane(rightAxis, contactNormal);
+        Vector3 zAxis = MathUtils.ProjectDirectionOnContactPlane(forwardAxis, contactNormal);
+
+        float currentX = Vector3.Dot(velocity, xAxis);
+        float currentZ = Vector3.Dot(velocity, zAxis);
+
+        float acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
+        float maxSpeedChange = acceleration * Time.deltaTime;
+
+        float newX = Mathf.MoveTowards(currentX, desiredVelocity.x, maxSpeedChange);
+        float newZ = Mathf.MoveTowards(currentZ, desiredVelocity.z, maxSpeedChange);
+
+        velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
+    }
     void Jump(Vector3 gravity)
     {
         Vector3 jumpDirection;
@@ -152,22 +168,6 @@ public class MovingSphere : MonoBehaviour
             jumpSpeed = Mathf.Max(jumpSpeed - alignedSpeed, 0f);
         }
         velocity += jumpDirection * jumpSpeed;
-    }
-    void AdjustVelocity()
-    {
-        Vector3 xAxis = MathUtils.ProjectDirectionOnContactPlane(rightAxis, contactNormal);
-        Vector3 zAxis = MathUtils.ProjectDirectionOnContactPlane(forwardAxis, contactNormal);
-
-        float currentX = Vector3.Dot(velocity, xAxis);
-        float currentZ = Vector3.Dot(velocity, zAxis);
-
-        float acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
-        float maxSpeedChange = acceleration * Time.deltaTime;
-
-        float newX = Mathf.MoveTowards(currentX, desiredVelocity.x, maxSpeedChange);
-        float newZ = Mathf.MoveTowards(currentZ, desiredVelocity.z, maxSpeedChange);
-
-        velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
     }
     bool SnapToGround ()
     {
