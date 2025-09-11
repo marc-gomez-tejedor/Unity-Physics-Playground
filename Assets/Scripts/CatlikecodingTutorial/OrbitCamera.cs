@@ -51,6 +51,7 @@ public class OrbitCamera : MonoBehaviour
         focusPoint = focus.position;
         transform.localRotation = orbitRotation = Quaternion.Euler(orbitAngles);
         lastManualRotationTime = Time.unscaledTime;
+        OnValidate();
     }
 
     void LateUpdate()
