@@ -40,10 +40,7 @@ public class OrbitCamera : MonoBehaviour
 
     void OnValidate()
     {
-        if (maxVerticalAngle < minVerticalAngle)
-        {
-            maxVerticalAngle = minVerticalAngle;
-        }
+        maxVerticalAngle = Mathf.Max(maxVerticalAngle, minVerticalAngle);
     }
     void Awake()
     {
