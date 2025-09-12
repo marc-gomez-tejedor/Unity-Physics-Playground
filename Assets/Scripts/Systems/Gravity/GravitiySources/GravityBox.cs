@@ -11,6 +11,8 @@ public class GravityBox : GravitySource
     [SerializeField, Min(0f)]
     float innerDistance = 0f, innerFalloffDistance = 0f;
 
+    float innerFalloffFactor;
+
     void Awake()
     {
         OnValidate();
@@ -21,6 +23,49 @@ public class GravityBox : GravitySource
         float maxInner = Mathf.Min(Mathf.Min(boundaryDistance.x, boundaryDistance.y), boundaryDistance.z);
         innerDistance = Mathf.Min(innerDistance, maxInner);
         innerFalloffDistance = Mathf.Max(Mathf.Min(innerFalloffDistance, maxInner), innerDistance);
+        innerFalloffFactor = 1f / (innerFalloffDistance -  innerDistance);
+    }
+    public override Vector3 GetGravity(Vector3 position)
+    {
+        position = transform.InverseTransformDirection(position - transform.position);
+        Vector3 vector = Vector3.zero;
+        Vector3 distances;
+        distances.x = boundaryDistance.x - Mathf.Abs(position.x);
+        distances.y = boundaryDistance.y - Mathf.Abs(position.y);
+        distances.z = boundaryDistance.z - Mathf.Abs(position.z);
+        if (distances.x < distances.y)
+        {
+            if (distances.x < distances.z)
+            {
+                vector.x = GetGravityComponent(position.x, distances.x);
+            }
+            else
+            {
+                vector.z = GetGravityComponent(position.z, distances.z);
+            }
+        }
+        else if (distances.y < distances.z)
+        {
+            vector.y = GetGravityComponent(position.y, distances.y);
+        }
+        else
+        {
+            vector.z = GetGravityComponent(position.z, distances.z);
+        }
+        return transform.TransformDirection(vector);
+    }
+    float GetGravityComponent(float coordiante, float distance)
+    {
+        if (distance > innerFalloffDistance)
+        {
+            return 0f;
+        }
+        float g = gravity;
+        if (distance > innerDistance)
+        {
+            g *= 1f - (distance - innerDistance) * innerFalloffFactor;
+        }
+        return coordiante > 0 ? -g : g;
     }
     void OnDrawGizmos()
     {
