@@ -5,13 +5,13 @@ public class MovingSphere : MonoBehaviour
     [SerializeField]
     Transform playerInputSpace = default;
  
-    Rigidbody body, connectedBody;
+    Rigidbody body, connectedBody, previousConnectedBody;
     
     [SerializeField, Range(0f, 100f)]
     float maxAcceleration = 10f, maxAirAcceleration = 1f;
     [SerializeField, Range(0f, 100f)]
     float maxSpeed = 10f;
-    Vector3 velocity, desiredVelocity;
+    Vector3 velocity, desiredVelocity, connectionVelocity;
 
     [SerializeField, Range(0f, 10f)]
     float jumpHeight = 2f;
@@ -113,8 +113,9 @@ public class MovingSphere : MonoBehaviour
     void ClearState()
     {
         groundContactCount = steepContactCount = 0;
-        contactNormal = steepNormal = Vector3.zero;
-        connectedBody = null; 
+        contactNormal = steepNormal = connectionVelocity = Vector3.zero;
+        previousConnectedBody = connectedBody;
+        connectedBody = null;
     }
     void AdjustVelocity()
     {
