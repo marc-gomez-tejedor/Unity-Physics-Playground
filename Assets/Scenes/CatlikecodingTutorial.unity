@@ -333403,9 +333403,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: 9.81
-  boundaryDistance: {x: 10, y: 10, z: 10}
+  boundaryDistance: {x: 8, y: 8, z: 8}
   innerDistance: 3
   innerFalloffDistance: 6
+  outerDistance: 4
+  outerFalloffDistance: 6
 --- !u!33 &8183087179353441562
 MeshFilter:
   m_ObjectHideFlags: 10
