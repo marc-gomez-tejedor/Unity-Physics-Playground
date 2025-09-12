@@ -5,7 +5,7 @@ public class MovingSphere : MonoBehaviour
     [SerializeField]
     Transform playerInputSpace = default;
  
-    Rigidbody body;
+    Rigidbody body, connectedBody;
     
     [SerializeField, Range(0f, 100f)]
     float maxAcceleration = 10f, maxAirAcceleration = 1f;
@@ -114,6 +114,7 @@ public class MovingSphere : MonoBehaviour
     {
         groundContactCount = steepContactCount = 0;
         contactNormal = steepNormal = Vector3.zero;
+        connectedBody = null; 
     }
     void AdjustVelocity()
     {
@@ -201,6 +202,7 @@ public class MovingSphere : MonoBehaviour
         {
             velocity = (velocity - hit.normal * dot).normalized * speed;
         }        
+        connectedBody = hit.rigidbody;
         return true;
     }
     bool CheckSteepContacts ()
@@ -244,6 +246,10 @@ public class MovingSphere : MonoBehaviour
             {
                 groundContactCount++;
                 contactNormal += normal;
+                if (groundContactCount == 0)
+                {
+                    connectedBody = collision.rigidbody;
+                }
             }
             else if (upDot > -0.01f)
             {
