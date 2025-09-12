@@ -39,6 +39,8 @@ public class MovingSphere : MonoBehaviour
     Vector3 contactNormal, steepNormal;
     Vector3 upAxis, rightAxis, forwardAxis;
 
+    Vector3 connectionWorldPosition;
+
     void OnValidate()
     {
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad); 
@@ -109,6 +111,10 @@ public class MovingSphere : MonoBehaviour
         {
             contactNormal = upAxis;
         }
+        if (connectedBody.isKinematic || connectedBody.mass >= body.mass)
+        {
+            UpdateConnectionState();
+        }
     }
     void ClearState()
     {
@@ -132,6 +138,15 @@ public class MovingSphere : MonoBehaviour
         float newZ = Mathf.MoveTowards(currentZ, desiredVelocity.z, maxSpeedChange);
 
         velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
+    }
+    void UpdateConnectionState()
+    {
+        if (connectedBody == previousConnectedBody)
+        {
+            Vector3 connectionMovement = connectedBody.position - connectionWorldPosition;
+            connectionVelocity = connectionMovement / Time.deltaTime;
+        }
+        connectionWorldPosition = connectedBody.position;
     }
     void Jump(Vector3 gravity)
     {
