@@ -111,9 +111,12 @@ public class MovingSphere : MonoBehaviour
         {
             contactNormal = upAxis;
         }
-        if (connectedBody.isKinematic || connectedBody.mass >= body.mass)
+        if (connectedBody)
         {
-            UpdateConnectionState();
+            if (connectedBody.isKinematic || connectedBody.mass >= body.mass)
+            {
+                UpdateConnectionState();
+            }
         }
     }
     void ClearState()
@@ -128,8 +131,9 @@ public class MovingSphere : MonoBehaviour
         Vector3 xAxis = MathUtils.ProjectDirectionOnContactPlane(rightAxis, contactNormal);
         Vector3 zAxis = MathUtils.ProjectDirectionOnContactPlane(forwardAxis, contactNormal);
 
-        float currentX = Vector3.Dot(velocity, xAxis);
-        float currentZ = Vector3.Dot(velocity, zAxis);
+        Vector3 relativeVelocity = velocity - connectionVelocity;
+        float currentX = Vector3.Dot(relativeVelocity, xAxis);
+        float currentZ = Vector3.Dot(relativeVelocity, zAxis);
 
         float acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
         float maxSpeedChange = acceleration * Time.deltaTime;
@@ -262,15 +266,16 @@ public class MovingSphere : MonoBehaviour
             {
                 groundContactCount++;
                 contactNormal += normal;
-                if (groundContactCount == 0)
-                {
-                    connectedBody = collision.rigidbody;
-                }
+                connectedBody = collision.rigidbody;
             }
             else if (upDot > -0.01f)
             {
                 steepContactCount++;
                 steepNormal += normal;
+                if (groundContactCount == 0)
+                {
+                    connectedBody = collision.rigidbody;
+                }
             }
         }        
     }
