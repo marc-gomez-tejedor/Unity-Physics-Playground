@@ -39,7 +39,7 @@ public class MovingSphere : MonoBehaviour
     Vector3 contactNormal, steepNormal;
     Vector3 upAxis, rightAxis, forwardAxis;
 
-    Vector3 connectionWorldPosition;
+    Vector3 connectionWorldPosition, connectionLocalPosition;
 
     void OnValidate()
     {
@@ -147,10 +147,13 @@ public class MovingSphere : MonoBehaviour
     {
         if (connectedBody == previousConnectedBody)
         {
-            Vector3 connectionMovement = connectedBody.position - connectionWorldPosition;
+            Vector3 connectionMovement = 
+                connectedBody.transform.TransformPoint(connectionLocalPosition) - 
+                connectionWorldPosition;
             connectionVelocity = connectionMovement / Time.deltaTime;
         }
-        connectionWorldPosition = connectedBody.position;
+        connectionWorldPosition = body.position;
+        connectionLocalPosition = connectedBody.transform.InverseTransformPoint(connectionWorldPosition);
     }
     void Jump(Vector3 gravity)
     {
