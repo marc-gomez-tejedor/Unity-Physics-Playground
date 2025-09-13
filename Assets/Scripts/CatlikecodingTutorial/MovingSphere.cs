@@ -26,7 +26,7 @@ public class MovingSphere : MonoBehaviour
     float jumpHeight = 2f;
     [SerializeField, Range(0, 5)]
     int maxAirJumps = 0;
-    bool desiredJump;
+    bool desiredJump, desiresClimbing;
 
     int jumpPhase;
     int groundContactCount, steepContactCount, climbContactCount;
@@ -87,6 +87,7 @@ public class MovingSphere : MonoBehaviour
             forwardAxis = MathUtils.ProjectDirectionOnContactPlane(Vector3.forward, upAxis);
         }
         desiredJump |= Input.GetButtonDown("Jump");
+        desiresClimbing = Input.GetButton("Climb");
 
         meshRenderer.material = Climbing ? climbingMaterial : normalMaterial;
     }
@@ -333,7 +334,7 @@ public class MovingSphere : MonoBehaviour
                         connectedBody = collision.rigidbody;
                     }
                 }
-                if (upDot >= minClimbDotProduct && (climbMask & (1 << layer)) != 0)
+                if (desiresClimbing && upDot >= minClimbDotProduct && (climbMask & (1 << layer)) != 0)
                 {
                     climbContactCount++;
                     climbNormal += normal;
