@@ -103,7 +103,7 @@ public class MovingSphere : MonoBehaviour
         {
             velocity += gravity * Time.deltaTime;
         }
-
+        
         body.linearVelocity = velocity;
         ClearState();
     }
@@ -156,8 +156,19 @@ public class MovingSphere : MonoBehaviour
     }
     void AdjustVelocity()
     {
-        Vector3 xAxis = MathUtils.ProjectDirectionOnContactPlane(rightAxis, contactNormal);
-        Vector3 zAxis = MathUtils.ProjectDirectionOnContactPlane(forwardAxis, contactNormal);
+        Vector3 xAxis, zAxis;
+        if (Climbing)
+        {
+            xAxis = Vector3.Cross(contactNormal, upAxis);
+            zAxis = upAxis;
+        }
+        else
+        {
+            xAxis = rightAxis;
+            zAxis = forwardAxis;
+        }
+        xAxis = MathUtils.ProjectDirectionOnContactPlane(xAxis, contactNormal);
+        zAxis = MathUtils.ProjectDirectionOnContactPlane(zAxis, contactNormal);
 
         Vector3 relativeVelocity = velocity - connectionVelocity;
         float currentX = Vector3.Dot(relativeVelocity, xAxis);
