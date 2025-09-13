@@ -7,6 +7,9 @@ public class MovingSphere : MonoBehaviour
     Transform playerInputSpace = default;
  
     Rigidbody body, connectedBody, previousConnectedBody;
+
+    [SerializeField]
+    Material normalMaterial = default, climbingMaterial = default;
     
     [SerializeField, Range(0f, 100f)]
     float maxAcceleration = 10f, maxAirAcceleration = 1f;
@@ -46,6 +49,8 @@ public class MovingSphere : MonoBehaviour
     [SerializeField, Range(90, 180)]
     float maxClimbAngle = 140f;
 
+    MeshRenderer meshRenderer;
+
     void OnValidate()
     {
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad); 
@@ -56,6 +61,7 @@ public class MovingSphere : MonoBehaviour
     {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
+        meshRenderer = GetComponent<MeshRenderer>();
         OnValidate();
     }
 
@@ -78,6 +84,8 @@ public class MovingSphere : MonoBehaviour
         }
         desiredVelocity = new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
         desiredJump |= Input.GetButtonDown("Jump");
+
+        meshRenderer.material = Climbing ? climbingMaterial : normalMaterial;
     }
     void FixedUpdate()
     {
@@ -91,7 +99,10 @@ public class MovingSphere : MonoBehaviour
             Jump(gravity);
         }
 
-        velocity += gravity * Time.deltaTime;
+        if (!Climbing)
+        {
+            velocity += gravity * Time.deltaTime;
+        }
 
         body.linearVelocity = velocity;
         ClearState();
@@ -101,7 +112,7 @@ public class MovingSphere : MonoBehaviour
         stepsSinceLastGrounded++;
         stepsSinceLastJump++;
         velocity = body.linearVelocity;
-        if (OnGround || SnapToGround() || CheckSteepContacts())
+        if (ChechkClimbing() || OnGround || SnapToGround() || CheckSteepContacts())
         {
             stepsSinceLastGrounded = 0;
             if (stepsSinceLastJump > 1)
@@ -132,6 +143,16 @@ public class MovingSphere : MonoBehaviour
         connectionVelocity = Vector3.zero;
         previousConnectedBody = connectedBody;
         connectedBody = null;
+    }
+    bool ChechkClimbing()
+    {
+        if (Climbing)
+        {
+            groundContactCount = climbContactCount;
+            contactNormal = climbNormal;
+            return true;
+        }
+        return false;
     }
     void AdjustVelocity()
     {
