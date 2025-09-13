@@ -34,17 +34,21 @@ public class MovingSphere : MonoBehaviour
     
     [SerializeField, Range(0f, 90f)]
     float maxGroundAngle = 25f, maxStairsAngle = 50f;
-    float minGroundDotProduct, minStairsDotProduct;
+    float minGroundDotProduct, minStairsDotProduct, minClimbDotProduct;
 
     Vector3 contactNormal, steepNormal;
     Vector3 upAxis, rightAxis, forwardAxis;
 
     Vector3 connectionWorldPosition, connectionLocalPosition;
 
+    [SerializeField, Range(90, 180)]
+    float maxClimbAngle = 140f;
+
     void OnValidate()
     {
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad); 
         minStairsDotProduct = Mathf.Cos(maxStairsAngle * Mathf.Deg2Rad);
+        minClimbDotProduct = Mathf.Cos(maxClimbAngle * Mathf.Deg2Rad);
     }
     void Awake()
     {
