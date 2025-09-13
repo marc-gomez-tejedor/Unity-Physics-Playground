@@ -10,12 +10,17 @@ public class MovingSphere : MonoBehaviour
 
     [SerializeField]
     Material normalMaterial = default, climbingMaterial = default;
-    
+
+    Vector2 playerInput;
+
     [SerializeField, Range(0f, 100f)]
-    float maxAcceleration = 10f, maxAirAcceleration = 1f;
+    float
+        maxAcceleration = 10f,
+        maxAirAcceleration = 1f,
+        maxClimbAcceleration = 20f;
     [SerializeField, Range(0f, 100f)]
-    float maxSpeed = 10f;
-    Vector3 velocity, desiredVelocity, connectionVelocity;
+    float maxSpeed = 10f, maxClimbSpeed = 2f;
+    Vector3 velocity, connectionVelocity;
 
     [SerializeField, Range(0f, 10f)]
     float jumpHeight = 2f;
@@ -67,7 +72,6 @@ public class MovingSphere : MonoBehaviour
 
     void Update()
     {
-        Vector2 playerInput;
         playerInput.x = Input.GetAxis("Horizontal");
         playerInput.y = Input.GetAxis("Vertical");
         playerInput = Vector2.ClampMagnitude(playerInput, 1f);
@@ -82,7 +86,6 @@ public class MovingSphere : MonoBehaviour
             rightAxis = MathUtils.ProjectDirectionOnContactPlane(Vector3.right, upAxis);
             forwardAxis = MathUtils.ProjectDirectionOnContactPlane(Vector3.forward, upAxis);
         }
-        desiredVelocity = new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
         desiredJump |= Input.GetButtonDown("Jump");
 
         meshRenderer.material = Climbing ? climbingMaterial : normalMaterial;
@@ -156,14 +159,19 @@ public class MovingSphere : MonoBehaviour
     }
     void AdjustVelocity()
     {
+        float acceleration, speed;
         Vector3 xAxis, zAxis;
         if (Climbing)
         {
+            acceleration = maxClimbAcceleration;
+            speed = maxClimbSpeed;
             xAxis = Vector3.Cross(contactNormal, upAxis);
             zAxis = upAxis;
         }
         else
         {
+            acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
+            speed = maxSpeed;
             xAxis = rightAxis;
             zAxis = forwardAxis;
         }
@@ -174,11 +182,10 @@ public class MovingSphere : MonoBehaviour
         float currentX = Vector3.Dot(relativeVelocity, xAxis);
         float currentZ = Vector3.Dot(relativeVelocity, zAxis);
 
-        float acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
         float maxSpeedChange = acceleration * Time.deltaTime;
 
-        float newX = Mathf.MoveTowards(currentX, desiredVelocity.x, maxSpeedChange);
-        float newZ = Mathf.MoveTowards(currentZ, desiredVelocity.z, maxSpeedChange);
+        float newX = Mathf.MoveTowards(currentX, playerInput.x * speed, maxSpeedChange);
+        float newZ = Mathf.MoveTowards(currentZ, playerInput.y * speed, maxSpeedChange);
 
         velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
     }
