@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class MovingSphere : MonoBehaviour
 {
@@ -20,9 +21,10 @@ public class MovingSphere : MonoBehaviour
     bool desiredJump;
 
     int jumpPhase;
-    int groundContactCount, steepContactCount;
+    int groundContactCount, steepContactCount, climbContactCount;
     bool OnGround => groundContactCount > 0;
     bool OnSteep => steepContactCount > 0;
+    bool Climbing => climbContactCount > 0;
     int stepsSinceLastGrounded, stepsSinceLastJump;
 
     [SerializeField, Range(0f, 100f)]
@@ -36,7 +38,7 @@ public class MovingSphere : MonoBehaviour
     float maxGroundAngle = 25f, maxStairsAngle = 50f;
     float minGroundDotProduct, minStairsDotProduct, minClimbDotProduct;
 
-    Vector3 contactNormal, steepNormal;
+    Vector3 contactNormal, steepNormal, climbNormal;
     Vector3 upAxis, rightAxis, forwardAxis;
 
     Vector3 connectionWorldPosition, connectionLocalPosition;
@@ -125,8 +127,9 @@ public class MovingSphere : MonoBehaviour
     }
     void ClearState()
     {
-        groundContactCount = steepContactCount = 0;
-        contactNormal = steepNormal = connectionVelocity = Vector3.zero;
+        groundContactCount = steepContactCount = climbContactCount = 0;
+        contactNormal = steepNormal = climbNormal = Vector3.zero;
+        connectionVelocity = Vector3.zero;
         previousConnectedBody = connectedBody;
         connectedBody = null;
     }
@@ -275,12 +278,21 @@ public class MovingSphere : MonoBehaviour
                 contactNormal += normal;
                 connectedBody = collision.rigidbody;
             }
-            else if (upDot > -0.01f)
+            else
             {
-                steepContactCount++;
-                steepNormal += normal;
-                if (groundContactCount == 0)
+                if (upDot > -0.01f)
                 {
+                    steepContactCount++;
+                    steepNormal += normal;
+                    if (groundContactCount == 0)
+                    {
+                        connectedBody = collision.rigidbody;
+                    }
+                }
+                if (upDot >= minClimbDotProduct)
+                {
+                    climbContactCount++;
+                    climbNormal += normal;
                     connectedBody = collision.rigidbody;
                 }
             }
