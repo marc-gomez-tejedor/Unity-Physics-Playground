@@ -32,7 +32,7 @@ public class MovingSphere : MonoBehaviour
     [SerializeField, Min(0f)]
     float probeDistance = 1f;
     [SerializeField]
-    LayerMask probeMask = -1, stairsMask = -1;
+    LayerMask probeMask = -1, stairsMask = -1, climbMask = -1;
     
     [SerializeField, Range(0f, 90f)]
     float maxGroundAngle = 25f, maxStairsAngle = 50f;
@@ -267,7 +267,8 @@ public class MovingSphere : MonoBehaviour
 
     void EvaluateCollision(Collision collision)
     {
-        float minDot = GetMinDot(collision.gameObject.layer);
+        int layer = collision.gameObject.layer;
+        float minDot = GetMinDot(layer);
         for (int i = 0; i < collision.contactCount; i++)
         {
             Vector3 normal = collision.GetContact(i).normal;
@@ -289,7 +290,7 @@ public class MovingSphere : MonoBehaviour
                         connectedBody = collision.rigidbody;
                     }
                 }
-                if (upDot >= minClimbDotProduct)
+                if (upDot >= minClimbDotProduct && (climbMask & (1 << layer)) != 0)
                 {
                     climbContactCount++;
                     climbNormal += normal;
