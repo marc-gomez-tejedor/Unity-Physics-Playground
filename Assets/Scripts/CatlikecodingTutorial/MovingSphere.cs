@@ -32,7 +32,7 @@ public class MovingSphere : MonoBehaviour
     int groundContactCount, steepContactCount, climbContactCount;
     bool OnGround => groundContactCount > 0;
     bool OnSteep => steepContactCount > 0;
-    bool Climbing => climbContactCount > 0;
+    bool Climbing => climbContactCount > 0 && stepsSinceLastJump > 2;
     int stepsSinceLastGrounded, stepsSinceLastJump;
 
     [SerializeField, Range(0f, 100f)]
@@ -102,7 +102,11 @@ public class MovingSphere : MonoBehaviour
             Jump(gravity);
         }
 
-        if (!Climbing)
+        if (Climbing)
+        {
+            velocity -= contactNormal * (maxClimbAcceleration * 0.9f * Time.deltaTime);
+        }
+        else
         {
             velocity += gravity * Time.deltaTime;
         }
