@@ -46,7 +46,7 @@ public class MovingSphere : MonoBehaviour
     float maxGroundAngle = 25f, maxStairsAngle = 50f;
     float minGroundDotProduct, minStairsDotProduct, minClimbDotProduct;
 
-    Vector3 contactNormal, steepNormal, climbNormal;
+    Vector3 contactNormal, steepNormal, climbNormal, lastClimbNormal;
     Vector3 upAxis, rightAxis, forwardAxis;
 
     Vector3 connectionWorldPosition, connectionLocalPosition;
@@ -164,7 +164,16 @@ public class MovingSphere : MonoBehaviour
     {
         if (Climbing)
         {
-            groundContactCount = climbContactCount;
+            if (climbContactCount > 1)
+            {
+                climbNormal.Normalize();
+                float upDot = Vector3.Dot(upAxis, climbNormal);
+                if (upDot >= minGroundDotProduct)
+                {
+                    climbNormal = lastClimbNormal;
+                }
+            }
+            groundContactCount = 1;
             contactNormal = climbNormal;
             return true;
         }
@@ -346,6 +355,7 @@ public class MovingSphere : MonoBehaviour
                 {
                     climbContactCount++;
                     climbNormal += normal;
+                    lastClimbNormal = normal;
                     connectedBody = collision.rigidbody;
                 }
             }
