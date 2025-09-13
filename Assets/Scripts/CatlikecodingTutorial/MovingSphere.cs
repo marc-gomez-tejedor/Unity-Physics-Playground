@@ -107,6 +107,10 @@ public class MovingSphere : MonoBehaviour
         {
             velocity -= contactNormal * (maxClimbAcceleration * 0.9f * Time.deltaTime);
         }
+        else if (desiresClimbing && OnGround)
+        {
+            velocity += (gravity - contactNormal * (maxClimbAcceleration * 0.9f)) * Time.deltaTime;
+        }
         else
         {
             velocity += gravity * Time.deltaTime;
@@ -120,7 +124,7 @@ public class MovingSphere : MonoBehaviour
         stepsSinceLastGrounded++;
         stepsSinceLastJump++;
         velocity = body.linearVelocity;
-        if (ChechkClimbing() || OnGround || SnapToGround() || CheckSteepContacts())
+        if (CheckClimbing() || OnGround || SnapToGround() || CheckSteepContacts())
         {
             stepsSinceLastGrounded = 0;
             if (stepsSinceLastJump > 1)
@@ -152,7 +156,7 @@ public class MovingSphere : MonoBehaviour
         previousConnectedBody = connectedBody;
         connectedBody = null;
     }
-    bool ChechkClimbing()
+    bool CheckClimbing()
     {
         if (Climbing)
         {
@@ -176,7 +180,7 @@ public class MovingSphere : MonoBehaviour
         else
         {
             acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
-            speed = maxSpeed;
+            speed = OnGround && desiresClimbing ? maxClimbSpeed : maxSpeed;
             xAxis = rightAxis;
             zAxis = forwardAxis;
         }
