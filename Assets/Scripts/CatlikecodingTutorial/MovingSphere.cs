@@ -111,8 +111,15 @@ public class MovingSphere : MonoBehaviour
             rightAxis = MathUtils.ProjectDirectionOnContactPlane(Vector3.right, upAxis);
             forwardAxis = MathUtils.ProjectDirectionOnContactPlane(Vector3.forward, upAxis);
         }
-        desiredJump |= Input.GetButtonDown("Jump");
-        desiresClimbing = Input.GetButton("Climb");
+        if (Swimming)
+        {
+            desiresClimbing = false;
+        }
+        else
+        {
+            desiredJump |= Input.GetButtonDown("Jump");
+            desiresClimbing = Input.GetButton("Climb");
+        }            
 
         meshRenderer.material = 
             Climbing ? climbingMaterial : 
@@ -306,6 +313,10 @@ public class MovingSphere : MonoBehaviour
         jumpPhase++;
 
         float jumpSpeed = Mathf.Sqrt(2f * gravity.magnitude * jumpHeight);
+        if (InWater)
+        {
+            jumpSpeed *= Mathf.Max(0f, 1f - submergence / swimThreshold);
+        }
         jumpDirection = (jumpDirection + upAxis).normalized;
         float alignedSpeed = Vector3.Dot(velocity, jumpDirection);
         
