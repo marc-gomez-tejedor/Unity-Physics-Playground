@@ -14,7 +14,7 @@ public class MovingSphere : MonoBehaviour
         climbingMaterial = default,
         swimmingMaterial = default;
 
-    Vector2 playerInput;
+    Vector3 playerInput;
 
     [SerializeField, Range(0f, 100f)]
     float
@@ -98,7 +98,8 @@ public class MovingSphere : MonoBehaviour
     {
         playerInput.x = Input.GetAxis("Horizontal");
         playerInput.y = Input.GetAxis("Vertical");
-        playerInput = Vector2.ClampMagnitude(playerInput, 1f);
+        playerInput.z = Swimming ? Input.GetAxis("UpDown") : 0f;
+        playerInput = Vector3.ClampMagnitude(playerInput, 1f);
 
         if (playerInputSpace)
         {
@@ -256,6 +257,13 @@ public class MovingSphere : MonoBehaviour
         float newZ = Mathf.MoveTowards(currentZ, playerInput.y * speed, maxSpeedChange);
 
         velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
+
+        if (Swimming)
+        {
+            float currentY = Vector3.Dot(relativeVelocity, upAxis);
+            float newY = Mathf.MoveTowards(currentY, playerInput.z * speed, maxSpeedChange);
+            velocity += upAxis * (newY - currentY);
+        }
     }
     void UpdateConnectionState()
     {
