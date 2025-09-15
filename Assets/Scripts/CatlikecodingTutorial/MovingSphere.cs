@@ -20,9 +20,11 @@ public class MovingSphere : MonoBehaviour
     float
         maxAcceleration = 10f,
         maxAirAcceleration = 1f,
-        maxClimbAcceleration = 20f;
+        maxClimbAcceleration = 20f,
+        maxSwimAcceleration = 5f;
+
     [SerializeField, Range(0f, 100f)]
-    float maxSpeed = 10f, maxClimbSpeed = 2f;
+    float maxSpeed = 10f, maxClimbSpeed = 2f, maxSwimSpeed = 5f;
     Vector3 velocity, connectionVelocity;
 
     [SerializeField, Range(0f, 10f)]
@@ -224,6 +226,15 @@ public class MovingSphere : MonoBehaviour
             speed = maxClimbSpeed;
             xAxis = Vector3.Cross(contactNormal, upAxis);
             zAxis = upAxis;
+        }
+        else if (InWater)
+        {
+            float swimFactor = Mathf.Min(1f, submergence / swimThreshold);
+            acceleration = Mathf.LerpUnclamped(OnGround ? maxAcceleration : maxAirAcceleration,
+                maxSwimAcceleration, swimFactor);
+            speed = Mathf.LerpUnclamped(maxSpeed, maxSwimSpeed, swimFactor);
+            xAxis = rightAxis;
+            zAxis = forwardAxis;
         }
         else
         {

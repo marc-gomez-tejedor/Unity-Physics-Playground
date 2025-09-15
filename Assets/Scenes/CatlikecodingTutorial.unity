@@ -220659,11 +220659,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 508380307221107570, guid: d985619f486447a459d7566027b1a8f5, type: 3}
       propertyPath: buoyancy
-      value: 1.5
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 508380307221107570, guid: d985619f486447a459d7566027b1a8f5, type: 3}
       propertyPath: waterDrag
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 508380307221107570, guid: d985619f486447a459d7566027b1a8f5, type: 3}
       propertyPath: normalMaterial
