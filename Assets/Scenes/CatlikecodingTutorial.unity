@@ -220677,6 +220677,14 @@ PrefabInstance:
       propertyPath: probeMask.m_Bits
       value: 4347
       objectReference: {fileID: 0}
+    - target: {fileID: 508380307221107570, guid: d985619f486447a459d7566027b1a8f5, type: 3}
+      propertyPath: swimmingMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 8de45dee9c3abdb44bef57324c22d2dc, type: 2}
+    - target: {fileID: 508380307221107570, guid: d985619f486447a459d7566027b1a8f5, type: 3}
+      propertyPath: waterMask.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 4373729020563950403, guid: d985619f486447a459d7566027b1a8f5, type: 3}
       propertyPath: m_Name
       value: Sphere

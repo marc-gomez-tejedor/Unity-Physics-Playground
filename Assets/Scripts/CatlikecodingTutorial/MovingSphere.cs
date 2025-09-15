@@ -5,11 +5,14 @@ public class MovingSphere : MonoBehaviour
 {
     [SerializeField]
     Transform playerInputSpace = default;
- 
+
     Rigidbody body, connectedBody, previousConnectedBody;
 
     [SerializeField]
-    Material normalMaterial = default, climbingMaterial = default;
+    Material
+        normalMaterial = default,
+        climbingMaterial = default,
+        swimmingMaterial = default;
 
     Vector2 playerInput;
 
@@ -33,6 +36,7 @@ public class MovingSphere : MonoBehaviour
     bool OnGround => groundContactCount > 0;
     bool OnSteep => steepContactCount > 0;
     bool Climbing => climbContactCount > 0 && stepsSinceLastJump > 2;
+    bool InWater { get; set; }
     int stepsSinceLastGrounded, stepsSinceLastJump;
 
     [SerializeField, Range(0f, 100f)]
@@ -40,7 +44,7 @@ public class MovingSphere : MonoBehaviour
     [SerializeField, Min(0f)]
     float probeDistance = 1f;
     [SerializeField]
-    LayerMask probeMask = -1, stairsMask = -1, climbMask = -1;
+    LayerMask probeMask = -1, stairsMask = -1, climbMask = -1, waterMask = 0;
     
     [SerializeField, Range(0f, 90f)]
     float maxGroundAngle = 25f, maxStairsAngle = 50f;
@@ -89,7 +93,9 @@ public class MovingSphere : MonoBehaviour
         desiredJump |= Input.GetButtonDown("Jump");
         desiresClimbing = Input.GetButton("Climb");
 
-        meshRenderer.material = Climbing ? climbingMaterial : normalMaterial;
+        meshRenderer.material = 
+            Climbing ? climbingMaterial : 
+            InWater ? swimmingMaterial : normalMaterial;
     }
     void FixedUpdate()
     {
@@ -159,6 +165,7 @@ public class MovingSphere : MonoBehaviour
         connectionVelocity = Vector3.zero;
         previousConnectedBody = connectedBody;
         connectedBody = null;
+        InWater = false;
     }
     bool CheckClimbing()
     {
@@ -324,6 +331,20 @@ public class MovingSphere : MonoBehaviour
     void OnCollisionStay(Collision collision)
     {
         EvaluateCollision(collision);
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if ((waterMask & (1 << other.gameObject.layer)) != 0)
+        {
+            InWater = true;
+        }
+    }
+    void OnTriggerStay(Collider other)
+    {
+        if ((waterMask & (1 << other.gameObject.layer)) != 0)
+        {
+            InWater = true;
+        }
     }
 
     void EvaluateCollision(Collision collision)
