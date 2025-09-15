@@ -25152,6 +25152,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &42185608633695017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29623,6 +29631,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!1 &74514434049859693
 GameObject:
   m_ObjectHideFlags: 0
@@ -33883,6 +33899,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &508931540911328779
 Transform:
   m_ObjectHideFlags: 0
@@ -34433,6 +34457,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!33 &529636940969515082
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -36031,6 +36063,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!23 &746007184955486235
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -36328,6 +36368,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &817830193185288175
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -36974,6 +37022,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!33 &872251824230067613
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -172809,6 +172865,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!1 &974015100004253792
 GameObject:
   m_ObjectHideFlags: 0
@@ -178597,6 +178661,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!33 &1114593152153202750
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -179507,6 +179579,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!1 &1235992989325319036
 GameObject:
   m_ObjectHideFlags: 0
@@ -179802,6 +179882,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1259541926561628148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179815,6 +179903,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1264058315565766150
 GameObject:
   m_ObjectHideFlags: 0
@@ -180733,6 +180829,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!23 &1384738931139836749
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -186399,6 +186503,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1665010542440215100
 GameObject:
   m_ObjectHideFlags: 0
@@ -193159,6 +193271,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!64 &2228477499592495095
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -194233,6 +194353,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &2426355505852750030
 GameObject:
   m_ObjectHideFlags: 0
@@ -195769,6 +195897,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!33 &2600489763257712757
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -195805,6 +195941,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &2616782207625226125
 Transform:
   m_ObjectHideFlags: 0
@@ -197488,6 +197632,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &2755738587145463980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197781,6 +197933,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!1 &2786541759030028113
 GameObject:
   m_ObjectHideFlags: 0
@@ -199652,6 +199812,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!23 &2916024849639671517
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -199710,6 +199878,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &2927651973338254762
 GameObject:
   m_ObjectHideFlags: 0
@@ -202902,6 +203078,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!33 &3073995250703680690
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -205324,6 +205508,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &3266364529028746010
 Transform:
   m_ObjectHideFlags: 0
@@ -205531,6 +205723,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &3299690121719527094
 Transform:
   m_ObjectHideFlags: 0
@@ -205559,6 +205759,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!1 &3331167982427827288
 GameObject:
   m_ObjectHideFlags: 0
@@ -206079,6 +206287,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!64 &3408132920454160981
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -206147,6 +206363,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!114 &3429950040166001241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206160,6 +206384,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!23 &3431689031080741160
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -212474,6 +212706,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &3749959867722304130
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -212876,7 +213116,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb46f10329f2c64a83d1408f7ea6f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatToSleep: 0
+  floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!114 &3859692570801457489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213164,6 +213412,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!23 &3902524389782860382
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -220705,6 +220961,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &4304460719352832388
 GameObject:
   m_ObjectHideFlags: 0
@@ -220813,6 +221077,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &4329720971411747183
 GameObject:
   m_ObjectHideFlags: 0
@@ -220887,6 +221159,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!33 &4346671842132078282
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -221239,6 +221519,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!64 &4414136852050143097
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -221558,6 +221846,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!1 &4431347657098975328
 GameObject:
   m_ObjectHideFlags: 0
@@ -221936,6 +222232,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!23 &4539875524113120514
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -222196,6 +222500,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!33 &4606808791459823586
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -224468,6 +224780,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!114 &4884564438863365409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227056,6 +227376,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &5211276431071319261
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -228993,7 +229321,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb46f10329f2c64a83d1408f7ea6f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatToSleep: 0
+  floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!4 &5393346289282194743
 Transform:
   m_ObjectHideFlags: 0
@@ -229732,6 +230068,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &5575736334653825274
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -229766,6 +230110,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!65 &5583853957241648101
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -230319,7 +230671,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb46f10329f2c64a83d1408f7ea6f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatToSleep: 0
+  floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!23 &5621692396743409337
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -231865,6 +232225,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!64 &5862236821798562350
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -231916,6 +232284,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!64 &5886940266793978358
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -233569,6 +233945,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &6139662226564626917
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -233687,6 +234071,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!33 &6186326423406742467
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -236197,6 +236589,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!1 &6599511817702450555
 GameObject:
   m_ObjectHideFlags: 0
@@ -239837,6 +240237,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &6839805065098906757
 Transform:
   m_ObjectHideFlags: 0
@@ -376317,6 +376725,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!23 &6984288165296157878
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -376883,6 +377299,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &7059051671964830187
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -377072,6 +377496,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!65 &7106017962308095947
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -380731,6 +381163,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &7340565851704073648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385750,6 +386190,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!114 &7597752286058454271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385763,6 +386211,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &7605364605644263032
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -395833,6 +396289,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &8092736762809094347
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -395999,6 +396463,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &8133945575105672542
 GameObject:
   m_ObjectHideFlags: 0
@@ -396240,6 +396712,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &8189930613760249827
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -396966,6 +397446,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!33 &8285729361791248811
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -397146,6 +397634,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!33 &8363194378941657558
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -397326,6 +397822,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!23 &8400877534794196434
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -399987,6 +400491,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!4 &8754466623161650560
 Transform:
   m_ObjectHideFlags: 0
@@ -400071,6 +400583,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  buoyancy: 1
+  buoyancyOffset: {x: 0, y: 0, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &8769030939248570208
 Transform:
   m_ObjectHideFlags: 0
@@ -400423,6 +400943,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!23 &8852900219518800861
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -400958,7 +401486,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bb46f10329f2c64a83d1408f7ea6f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatToSleep: 0
+  floatToSleep: 1
+  submergenceOffset: 0.125
+  submergenceRange: 0.25
+  buoyancy: 1.1
+  buoyancyOffset: {x: 0, y: 0.01, z: 0}
+  waterDrag: 1
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!64 &9013764793557733521
 MeshCollider:
   m_ObjectHideFlags: 0

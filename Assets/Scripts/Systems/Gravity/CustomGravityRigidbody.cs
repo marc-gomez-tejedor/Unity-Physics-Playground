@@ -17,7 +17,10 @@ public class CustomGravityRigidbody : MonoBehaviour
     float submergenceRange = 1f;
 
     [SerializeField, Min(0f)]
-    float bouyancy = 1f;
+    float buoyancy = 1f;
+
+    [SerializeField]
+    Vector3 buoyancyOffset = Vector3.zero;
 
     [SerializeField, Range(0f, 10f)]
     float waterDrag = 1f;
@@ -61,7 +64,11 @@ public class CustomGravityRigidbody : MonoBehaviour
         gravity = CustomGravity.GetGravity(body.position);
         if (submergence > 0f)
         {
-            submergence = 0f;
+            float drag = Mathf.Max(0f, 1f - waterDrag * submergence * Time.deltaTime);
+            body.linearVelocity *= drag;
+            body.angularVelocity *= drag;
+            body.AddForceAtPosition(gravity * -(buoyancy * submergence), 
+                transform.TransformPoint(buoyancyOffset), ForceMode.Acceleration);
         }
         body.AddForce(gravity, ForceMode.Acceleration);    
     }
