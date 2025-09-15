@@ -61,6 +61,12 @@ public class MovingSphere : MonoBehaviour
 
     MeshRenderer meshRenderer;
 
+    [SerializeField]
+    float submergenceOffset = 0.5f;
+
+    [SerializeField, Min(0.1f)]
+    float submergenceRange = 1f;
+
     void OnValidate()
     {
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad); 
@@ -97,6 +103,7 @@ public class MovingSphere : MonoBehaviour
         meshRenderer.material = 
             Climbing ? climbingMaterial : 
             InWater ? swimmingMaterial : normalMaterial;
+        meshRenderer.material.color = Color.white * submergence;
     }
     void FixedUpdate()
     {
@@ -385,6 +392,18 @@ public class MovingSphere : MonoBehaviour
     }
     void EvaluateSubmergence()
     {
-        submergence = 1f;
+        if (Physics.Raycast
+        (
+            body.position + upAxis * submergenceOffset,
+            -upAxis, out RaycastHit hit, submergenceRange + 1f,
+            waterMask, QueryTriggerInteraction.Collide
+        ))
+        {
+            submergence = 1f - hit.distance / submergenceRange;
+        }
+        else
+        {
+            submergence = 1f;
+        }
     }
 }
