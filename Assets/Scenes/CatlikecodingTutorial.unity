@@ -381074,6 +381074,7 @@ MonoBehaviour:
   waterMask:
     serializedVersion: 2
     m_Bits: 16
+  safeFloating: 1
 --- !u!33 &7325703119819985539
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -397919,6 +397920,7 @@ MonoBehaviour:
   waterMask:
     serializedVersion: 2
     m_Bits: 16
+  safeFloating: 1
 --- !u!1 &8427138128292538051
 GameObject:
   m_ObjectHideFlags: 0
@@ -398428,6 +398430,7 @@ MonoBehaviour:
   waterMask:
     serializedVersion: 2
     m_Bits: 16
+  safeFloating: 1
 --- !u!1 &8514125997887357668
 GameObject:
   m_ObjectHideFlags: 0
@@ -400856,6 +400859,7 @@ MonoBehaviour:
   waterMask:
     serializedVersion: 2
     m_Bits: 16
+  safeFloating: 1
 --- !u!4 &8827596603681379281
 Transform:
   m_ObjectHideFlags: 0

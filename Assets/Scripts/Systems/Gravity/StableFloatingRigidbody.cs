@@ -28,6 +28,9 @@ public class StableFloatingRigidbody : MonoBehaviour
     [SerializeField]
     LayerMask waterMask = 0;
 
+    [SerializeField]
+    bool safeFloating = false;
+
     float[] submergence;
 
     Vector3 gravity;
@@ -105,7 +108,7 @@ public class StableFloatingRigidbody : MonoBehaviour
             {
                 submergence[i] = 1f - hit.distance / submergenceRange;
             }
-            else
+            else if (!safeFloating || Physics.CheckSphere(p, 0.01f, waterMask, QueryTriggerInteraction.Collide))
             {
                 submergence[i] = 1f;
             }
