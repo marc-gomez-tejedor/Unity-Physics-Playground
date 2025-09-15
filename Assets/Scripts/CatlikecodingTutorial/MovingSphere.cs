@@ -37,6 +37,7 @@ public class MovingSphere : MonoBehaviour
     bool OnSteep => steepContactCount > 0;
     bool Climbing => climbContactCount > 0 && stepsSinceLastJump > 2;
     bool InWater => submergence > 0f;
+    bool Swimming => submergence >= swimThreshold;
     int stepsSinceLastGrounded, stepsSinceLastJump;
     float submergence;
 
@@ -72,6 +73,10 @@ public class MovingSphere : MonoBehaviour
 
     [SerializeField, Min(0f)]
     float buoyancy = 1f;
+    
+    [SerializeField, Range(0.01f, 1f)]
+    float swimThreshold = 0.5f;
+
 
     void OnValidate()
     {
@@ -108,7 +113,7 @@ public class MovingSphere : MonoBehaviour
 
         meshRenderer.material = 
             Climbing ? climbingMaterial : 
-            InWater ? swimmingMaterial : normalMaterial;
+            Swimming ? swimmingMaterial : normalMaterial;
     }
     void FixedUpdate()
     {
@@ -156,7 +161,8 @@ public class MovingSphere : MonoBehaviour
         stepsSinceLastGrounded++;
         stepsSinceLastJump++;
         velocity = body.linearVelocity;
-        if (CheckClimbing() || OnGround || SnapToGround() || CheckSteepContacts())
+        if (CheckClimbing() || CheckSwimming() ||
+            OnGround || SnapToGround() || CheckSteepContacts())
         {
             stepsSinceLastGrounded = 0;
             if (stepsSinceLastJump > 1)
@@ -292,7 +298,7 @@ public class MovingSphere : MonoBehaviour
     }
     bool SnapToGround ()
     {
-        if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2 ||InWater)
+        if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2)
         {
             return false;
         }
@@ -337,6 +343,16 @@ public class MovingSphere : MonoBehaviour
                 contactNormal = steepNormal;
                 return true;
             }
+        }
+        return false;
+    }
+    bool CheckSwimming()
+    {
+        if (Swimming)
+        {
+            groundContactCount = 0;
+            contactNormal = upAxis;
+            return true;
         }
         return false;
     }
