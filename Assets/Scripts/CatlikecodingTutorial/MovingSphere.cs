@@ -70,6 +70,9 @@ public class MovingSphere : MonoBehaviour
     [SerializeField, Range(0f, 10f)]
     float waterDrag = 1f;
 
+    [SerializeField, Min(0f)]
+    float buoyancy = 1f;
+
     void OnValidate()
     {
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad); 
@@ -127,6 +130,10 @@ public class MovingSphere : MonoBehaviour
         if (Climbing)
         {
             velocity -= contactNormal * (maxClimbAcceleration * 0.9f * Time.deltaTime);
+        }
+        else if (InWater)
+        {
+            velocity += gravity * ((1f - buoyancy * submergence) * Time.deltaTime);
         }
         else if (OnGround && velocity.sqrMagnitude < 0.01f)
         {
@@ -285,7 +292,7 @@ public class MovingSphere : MonoBehaviour
     }
     bool SnapToGround ()
     {
-        if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2)
+        if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2 ||InWater)
         {
             return false;
         }
