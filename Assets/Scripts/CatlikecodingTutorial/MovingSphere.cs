@@ -404,19 +404,23 @@ public class MovingSphere : MonoBehaviour
     {
         if ((waterMask & (1 << other.gameObject.layer)) != 0)
         {
-            EvaluateSubmergence();
+            EvaluateSubmergence(other);
         }
     }
     void OnTriggerStay(Collider other)
     {
         if ((waterMask & (1 << other.gameObject.layer)) != 0)
         {
-            EvaluateSubmergence();
+            EvaluateSubmergence(other);
         }
     }
 
     void EvaluateCollision(Collision collision)
     {
+        if (Swimming)
+        {
+            return;
+        }
         int layer = collision.gameObject.layer;
         float minDot = GetMinDot(layer);
         for (int i = 0; i < collision.contactCount; i++)
@@ -450,7 +454,7 @@ public class MovingSphere : MonoBehaviour
             }
         }        
     }
-    void EvaluateSubmergence()
+    void EvaluateSubmergence(Collider collider)
     {
         if (Physics.Raycast
         (
@@ -464,6 +468,10 @@ public class MovingSphere : MonoBehaviour
         else
         {
             submergence = 1f;
+        }
+        if (Swimming)
+        {
+            connectedBody = collider.attachedRigidbody;
         }
     }
 }
