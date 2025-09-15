@@ -10,6 +10,26 @@ public class CustomGravityRigidbody : MonoBehaviour
     [SerializeField]
     bool floatToSleep = false;
 
+    [SerializeField]
+    float submergenceOffset = 0.5f;
+
+    [SerializeField, Min(0.1f)]
+    float submergenceRange = 1f;
+
+    [SerializeField, Min(0f)]
+    float bouyancy = 1f;
+
+    [SerializeField, Range(0f, 10f)]
+    float waterDrag = 1f;
+
+    [SerializeField]
+    LayerMask waterMask = 0;
+
+    float submergence;
+
+    Vector3 gravity;
+
+
     void Awake()
     {
         body = GetComponent<Rigidbody>();
@@ -38,6 +58,38 @@ public class CustomGravityRigidbody : MonoBehaviour
                 floatDelay = 0f;
             }
         }
-        body.AddForce(CustomGravity.GetGravity(body.position), ForceMode.Acceleration);    
+        gravity = CustomGravity.GetGravity(body.position);
+        if (submergence > 0f)
+        {
+            submergence = 0f;
+        }
+        body.AddForce(gravity, ForceMode.Acceleration);    
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if ((waterMask & (1 << other.gameObject.layer)) != 0)
+        {
+            EvaluateSubmergence();
+        }
+    }
+    void OnTriggerStay(Collider other)
+    {
+        if (!body.IsSleeping() && (waterMask & (1 << other.gameObject.layer)) != 0)
+        {
+            EvaluateSubmergence();
+        }
+    }
+    void EvaluateSubmergence()
+    {
+        Vector3 upAxis = -gravity.normalized;
+        if (Physics.Raycast(body.position + upAxis * submergenceOffset, -upAxis, 
+            out RaycastHit hit, submergenceRange + 1f, waterMask, QueryTriggerInteraction.Collide))
+        {
+            submergence = 1f - hit.distance / submergenceRange;
+        }
+        else
+        {
+            submergence = 1f;
+        }
     }
 }
