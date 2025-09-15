@@ -275,7 +275,7 @@ public class MovingSphere : MonoBehaviour
         if (!Physics.Raycast
             (
                 body.position, -upAxis, out RaycastHit hit, 
-                probeDistance, probeMask
+                probeDistance, probeMask, QueryTriggerInteraction.Ignore
             ))
         {
             return false;

@@ -76,7 +76,7 @@ public class OrbitCamera : MonoBehaviour
         if (Physics.BoxCast
         (
             castFrom, CameraHalfExtends, castDirection, out RaycastHit hit, 
-            lookRotation, castDistance, obstructionMask
+            lookRotation, castDistance, obstructionMask, QueryTriggerInteraction.Ignore
         ))
         {
             rectPosition = castFrom + castDirection * hit.distance;
