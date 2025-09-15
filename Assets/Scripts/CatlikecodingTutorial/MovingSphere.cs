@@ -36,8 +36,9 @@ public class MovingSphere : MonoBehaviour
     bool OnGround => groundContactCount > 0;
     bool OnSteep => steepContactCount > 0;
     bool Climbing => climbContactCount > 0 && stepsSinceLastJump > 2;
-    bool InWater { get; set; }
+    bool InWater => submergence > 0f;
     int stepsSinceLastGrounded, stepsSinceLastJump;
+    float submergence;
 
     [SerializeField, Range(0f, 100f)]
     float maxSnapSpeed = 100f;
@@ -165,7 +166,7 @@ public class MovingSphere : MonoBehaviour
         connectionVelocity = Vector3.zero;
         previousConnectedBody = connectedBody;
         connectedBody = null;
-        InWater = false;
+        submergence = 0f;
     }
     bool CheckClimbing()
     {
@@ -336,14 +337,14 @@ public class MovingSphere : MonoBehaviour
     {
         if ((waterMask & (1 << other.gameObject.layer)) != 0)
         {
-            InWater = true;
+            EvaluateSubmergence();
         }
     }
     void OnTriggerStay(Collider other)
     {
         if ((waterMask & (1 << other.gameObject.layer)) != 0)
         {
-            InWater = true;
+            EvaluateSubmergence();
         }
     }
 
@@ -381,5 +382,9 @@ public class MovingSphere : MonoBehaviour
                 }
             }
         }        
+    }
+    void EvaluateSubmergence()
+    {
+        submergence = 1f;
     }
 }
