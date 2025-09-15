@@ -220658,9 +220658,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 508380307221107570, guid: d985619f486447a459d7566027b1a8f5, type: 3}
+      propertyPath: waterDrag
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 508380307221107570, guid: d985619f486447a459d7566027b1a8f5, type: 3}
       propertyPath: normalMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 0c7b40d018b09b549b8fd6f41533bbd5, type: 2}
+    - target: {fileID: 508380307221107570, guid: d985619f486447a459d7566027b1a8f5, type: 3}
+      propertyPath: maxAcceleration
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 508380307221107570, guid: d985619f486447a459d7566027b1a8f5, type: 3}
       propertyPath: climbMask.m_Bits
       value: 1531
@@ -220676,6 +220684,10 @@ PrefabInstance:
     - target: {fileID: 508380307221107570, guid: d985619f486447a459d7566027b1a8f5, type: 3}
       propertyPath: probeMask.m_Bits
       value: 4347
+      objectReference: {fileID: 0}
+    - target: {fileID: 508380307221107570, guid: d985619f486447a459d7566027b1a8f5, type: 3}
+      propertyPath: submergenceRange
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 508380307221107570, guid: d985619f486447a459d7566027b1a8f5, type: 3}
       propertyPath: swimmingMaterial

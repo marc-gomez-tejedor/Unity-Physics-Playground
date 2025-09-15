@@ -67,6 +67,9 @@ public class MovingSphere : MonoBehaviour
     [SerializeField, Min(0.1f)]
     float submergenceRange = 1f;
 
+    [SerializeField, Range(0f, 10f)]
+    float waterDrag = 1f;
+
     void OnValidate()
     {
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad); 
@@ -103,12 +106,16 @@ public class MovingSphere : MonoBehaviour
         meshRenderer.material = 
             Climbing ? climbingMaterial : 
             InWater ? swimmingMaterial : normalMaterial;
-        meshRenderer.material.color = Color.white * submergence;
     }
     void FixedUpdate()
     {
         Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
         UpdateState();
+
+        if (InWater)
+        {
+            velocity *= 1f - waterDrag * submergence * Time.deltaTime;
+        }
         AdjustVelocity();
 
         if (desiredJump)
