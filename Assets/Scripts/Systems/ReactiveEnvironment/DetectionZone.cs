@@ -4,14 +4,37 @@ using System.Collections.Generic;
 public class DetectionZone : MonoBehaviour
 {
     [SerializeField]
-    UnityEvent onFirstEnter = default, onFirstExit = default;
+    UnityEvent onFirstEnter = default, onLastExit = default;
 
-    List<Collider> colliders = new List<Collider>(); 
+    List<Collider> colliders = new List<Collider>();
+
+
+    void Awake()
+    {
+        enabled = false;
+    }
+    void FixedUpdate()
+    {
+        for (int i = 0; i < colliders.Count; i++)
+        {
+            Collider collider = colliders[i];
+            if (!collider || !collider.gameObject.activeInHierarchy)
+            {
+                colliders.RemoveAt(i--);
+                if (colliders.Count == 0)
+                {
+                    onLastExit.Invoke();
+                    enabled = false;
+                }
+            }
+        }
+    }
     void OnTriggerEnter(Collider other)
     {
         if (colliders.Count == 0)
         {
             onFirstEnter.Invoke();
+            enabled = true;
         }
         colliders.Add(other);
     }
@@ -19,7 +42,16 @@ public class DetectionZone : MonoBehaviour
     {
         if (colliders.Remove(other) && colliders.Count == 0)
         {
-            onFirstExit.Invoke(); 
+            onLastExit.Invoke();
+            enabled = false;
         }
+    }
+    void OnDisable()
+    {
+        if (colliders.Count > 0)
+        {
+            colliders.Clear();
+            onLastExit.Invoke();
+        }   
     }
 }
