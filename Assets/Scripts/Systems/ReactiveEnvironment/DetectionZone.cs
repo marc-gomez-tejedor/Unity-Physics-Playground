@@ -1,16 +1,25 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
 public class DetectionZone : MonoBehaviour
 {
     [SerializeField]
-    UnityEvent onEnter = default, onExit = default;
+    UnityEvent onFirstEnter = default, onFirstExit = default;
 
+    List<Collider> colliders = new List<Collider>(); 
     void OnTriggerEnter(Collider other)
     {
-        onEnter.Invoke();    
+        if (colliders.Count == 0)
+        {
+            onFirstEnter.Invoke();
+        }
+        colliders.Add(other);
     }
     void OnTriggerExit(Collider other) 
-    { 
-        onExit.Invoke(); 
+    {
+        if (colliders.Remove(other) && colliders.Count == 0)
+        {
+            onFirstExit.Invoke(); 
+        }
     }
 }

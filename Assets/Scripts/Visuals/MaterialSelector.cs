@@ -10,7 +10,7 @@ public class MaterialSelector : MonoBehaviour
 
     public void Select(int index)
     {
-        if (meshRenderer && materials != null && index >= 0 && index > materials.Length)
+        if (meshRenderer && materials != null && index >= 0 && index < materials.Length)
         {
             meshRenderer.material = materials[index];
         }
