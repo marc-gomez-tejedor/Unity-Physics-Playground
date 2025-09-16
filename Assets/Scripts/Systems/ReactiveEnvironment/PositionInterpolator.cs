@@ -8,8 +8,21 @@ public class PositionInterpolator : MonoBehaviour
     [SerializeField]
     Vector3 from = default, to = default;
 
-    public void Interpolate(float t = 0.1f)
+    [SerializeField]
+    Transform relativeTo = default;
+
+
+    public void Interpolate(float t)
     {
-        body.MovePosition(Vector3.LerpUnclamped(from, to, t));
+        Vector3 p;
+        if (relativeTo)
+        {
+            p = Vector3.LerpUnclamped(relativeTo.TransformPoint(from), relativeTo.TransformPoint(to), t);
+        }
+        else
+        {
+            p = Vector3.LerpUnclamped(from, to, t);
+        }
+        body.MovePosition(p);
     }
 }

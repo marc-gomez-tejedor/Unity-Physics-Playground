@@ -328,7 +328,7 @@ public class MovingSphere : MonoBehaviour
     }
     bool SnapToGround ()
     {
-        if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2)
+        if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2 || InWater)
         {
             return false;
         }

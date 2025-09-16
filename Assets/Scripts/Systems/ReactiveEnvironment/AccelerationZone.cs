@@ -22,6 +22,10 @@ public class AccelerationZone : MonoBehaviour
         }
         
         body.linearVelocity = transform.TransformDirection(velocity);
+        if (body.TryGetComponent(out MovingSphere sphere))
+        {
+            sphere.PreventSnapToGround();
+        }
     }
     void OnTriggerEnter(Collider other)
     {
@@ -29,10 +33,6 @@ public class AccelerationZone : MonoBehaviour
         if (body)
         {
             Accelerate(body);
-            if (body.TryGetComponent(out MovingSphere sphere))
-            {
-                sphere.PreventSnapToGround();
-            }
         }
     }
     void OnTriggerStay(Collider other)
