@@ -361,6 +361,10 @@ public class MovingSphere : MonoBehaviour
         connectedBody = hit.rigidbody;
         return true;
     }
+    public void PreventSnapToGround()
+    {
+        stepsSinceLastJump = -1;
+    }
     bool CheckSteepContacts ()
     {
         if (steepContactCount > 1)

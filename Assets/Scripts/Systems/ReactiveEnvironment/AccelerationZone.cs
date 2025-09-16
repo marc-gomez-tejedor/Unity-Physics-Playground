@@ -22,6 +22,10 @@ public class AccelerationZone : MonoBehaviour
         if (body)
         {
             Accelerate(body);
+            if (body.TryGetComponent(out MovingSphere sphere))
+            {
+                sphere.PreventSnapToGround();
+            }
         }
     }
 
