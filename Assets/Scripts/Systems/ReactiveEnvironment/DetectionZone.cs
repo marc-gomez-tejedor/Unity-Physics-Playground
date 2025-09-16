@@ -48,6 +48,12 @@ public class DetectionZone : MonoBehaviour
     }
     void OnDisable()
     {
+#if UNITY_EDITOR
+        if (enabled && gameObject.activeInHierarchy)
+        {
+            return;
+        }
+#endif
         if (colliders.Count > 0)
         {
             colliders.Clear();
