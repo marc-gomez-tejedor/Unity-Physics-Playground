@@ -20,5 +20,6 @@ public class AutomaticSlider : MonoBehaviour
             value = 1f;
             enabled = false;
         }
+        onValueChanged.Invoke(value);
     }
 }
