@@ -3,7 +3,7 @@ using UnityEngine;
 public class AccelerationZone : MonoBehaviour
 {
     [SerializeField, Min(0f)]
-    float speed = 10f;
+    float acceleration = 10f, speed = 10f;
 
     void Accelerate(Rigidbody body)
     {
@@ -12,8 +12,15 @@ public class AccelerationZone : MonoBehaviour
         {
             return;
         }
-
-        velocity.y = speed;
+        if (acceleration > 0f)
+        {
+            velocity.y = Mathf.MoveTowards(velocity.y, speed, acceleration * Time.deltaTime);
+        }
+        else
+        {
+            velocity.y = speed;
+        }
+        
         body.linearVelocity = velocity;
     }
     void OnTriggerEnter(Collider other)
@@ -26,6 +33,14 @@ public class AccelerationZone : MonoBehaviour
             {
                 sphere.PreventSnapToGround();
             }
+        }
+    }
+    void OnTriggerStay(Collider other)
+    {
+        Rigidbody body = other.attachedRigidbody;
+        if (body)
+        {
+            Accelerate(body);
         }
     }
 
