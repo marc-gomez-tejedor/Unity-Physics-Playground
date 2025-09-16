@@ -7,7 +7,7 @@ public class AutomaticSlider : MonoBehaviour
     float duration = 1f;
 
     [SerializeField]
-    bool autoReverse = false;
+    bool autoReverse = false, smoothstep = false;
 
     [SerializeField]
     UnityEvent<float> onValueChanged = default;
@@ -15,6 +15,8 @@ public class AutomaticSlider : MonoBehaviour
     float value;
 
     bool reversed;
+
+    float SmoothedValue => 3f * value * value - 2f * value * value * value;
 
 
     void FixedUpdate()
@@ -54,6 +56,6 @@ public class AutomaticSlider : MonoBehaviour
                 }
             }
         }
-        onValueChanged.Invoke(value);
+        onValueChanged.Invoke(smoothstep ? SmoothedValue : value);
     }
 }

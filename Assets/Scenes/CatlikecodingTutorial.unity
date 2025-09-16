@@ -407348,6 +407348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 2
   autoReverse: 1
+  smoothstep: 1
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -423337,6 +423338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 2
   autoReverse: 1
+  smoothstep: 1
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
