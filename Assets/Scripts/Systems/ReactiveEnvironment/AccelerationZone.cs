@@ -7,7 +7,7 @@ public class AccelerationZone : MonoBehaviour
 
     void Accelerate(Rigidbody body)
     {
-        Vector3 velocity = body.linearVelocity;
+        Vector3 velocity = transform.InverseTransformDirection(body.linearVelocity);
         if (velocity.y >= speed)
         {
             return;
@@ -21,7 +21,7 @@ public class AccelerationZone : MonoBehaviour
             velocity.y = speed;
         }
         
-        body.linearVelocity = velocity;
+        body.linearVelocity = transform.TransformDirection(velocity);
     }
     void OnTriggerEnter(Collider other)
     {
