@@ -14,7 +14,8 @@ public class AutomaticSlider : MonoBehaviour
 
     float value;
 
-    bool reversed;
+    public bool Reversed { get; set; }
+    public bool AutoReverse { get => autoReverse; set => autoReverse = value; }
 
     float SmoothedValue => 3f * value * value - 2f * value * value * value;
 
@@ -22,7 +23,7 @@ public class AutomaticSlider : MonoBehaviour
     void FixedUpdate()
     {
         float delta = Time.deltaTime / duration;
-        if (reversed)
+        if (Reversed)
         {
             value -= delta;
             if (value <= 0f)
@@ -30,11 +31,11 @@ public class AutomaticSlider : MonoBehaviour
                 if (autoReverse)
                 {
                     value = Mathf.Min(1f, -value);
-                    reversed = false;
+                    Reversed = false;
                 }
                 else
                 {
-                    value = 1f;
+                    value = 0f;
                     enabled = false;
                 }
             }
@@ -47,7 +48,7 @@ public class AutomaticSlider : MonoBehaviour
                 if (autoReverse)
                 {
                     value = Mathf.Max(0f, 2f - value);
-                    reversed = true;
+                    Reversed = true;
                 }
                 else
                 {
