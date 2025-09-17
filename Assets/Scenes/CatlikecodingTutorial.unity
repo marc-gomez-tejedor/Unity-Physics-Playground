@@ -11609,6 +11609,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &729931564 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8900136185611824712, guid: d985619f486447a459d7566027b1a8f5, type: 3}
+  m_PrefabInstance: {fileID: 4657659911948036554}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &738844195
 GameObject:
   m_ObjectHideFlags: 0
@@ -239214,6 +239219,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 508380307221107570, guid: d985619f486447a459d7566027b1a8f5, type: 3}
+      propertyPath: ball
+      value: 
+      objectReference: {fileID: 729931564}
     - target: {fileID: 508380307221107570, guid: d985619f486447a459d7566027b1a8f5, type: 3}
       propertyPath: buoyancy
       value: 1.1

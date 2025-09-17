@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 public class MovingSphere : MonoBehaviour
 {
     [SerializeField]
-    Transform playerInputSpace = default;
+    Transform playerInputSpace = default, ball = default;
 
     Rigidbody body, connectedBody, previousConnectedBody;
 
@@ -90,7 +90,7 @@ public class MovingSphere : MonoBehaviour
     {
         body = GetComponent<Rigidbody>();
         body.useGravity = false;
-        meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer = ball.GetComponent<MeshRenderer>();
         OnValidate();
     }
 
@@ -121,9 +121,7 @@ public class MovingSphere : MonoBehaviour
             desiresClimbing = Input.GetButton("Climb");
         }            
 
-        meshRenderer.material = 
-            Climbing ? climbingMaterial : 
-            Swimming ? swimmingMaterial : normalMaterial;
+        UpdateBall();
     }
     void FixedUpdate()
     {
@@ -280,6 +278,19 @@ public class MovingSphere : MonoBehaviour
         }
         connectionWorldPosition = body.position;
         connectionLocalPosition = connectedBody.transform.InverseTransformPoint(connectionWorldPosition);
+    }
+    void UpdateBall()
+    {
+        Material ballMaterial = normalMaterial;
+        if (Climbing)
+        {
+            ballMaterial = climbingMaterial;
+        }
+        else if (Swimming)
+        {
+            ballMaterial = swimmingMaterial;
+        }
+        meshRenderer.material = ballMaterial;
     }
     void Jump(Vector3 gravity)
     {
