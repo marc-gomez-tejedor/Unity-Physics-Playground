@@ -88,7 +88,7 @@ public class MovingSphere : MonoBehaviour
     [SerializeField, Range(0.01f, 1f)]
     float swimThreshold = 0.5f;
 
-    Vector3 lastContactNormal;
+    Vector3 lastContactNormal, lastSteepNormal;
 
 
     void OnValidate()
@@ -208,6 +208,7 @@ public class MovingSphere : MonoBehaviour
     void ClearState()
     {
         lastContactNormal = contactNormal;
+        lastSteepNormal = steepNormal;
         groundContactCount = steepContactCount = climbContactCount = 0;
         contactNormal = steepNormal = climbNormal = Vector3.zero;
         connectionVelocity = Vector3.zero;
@@ -293,6 +294,7 @@ public class MovingSphere : MonoBehaviour
     }
     void UpdateBall()
     {
+        Vector3 rotationPlaneNormal = lastContactNormal;
         Material ballMaterial = normalMaterial;
         if (Climbing)
         {
@@ -301,6 +303,13 @@ public class MovingSphere : MonoBehaviour
         else if (Swimming)
         {
             ballMaterial = swimmingMaterial;
+        }
+        else if (!OnGround)
+        {
+            if (OnSteep)
+            {
+                rotationPlaneNormal = lastSteepNormal;
+            }
         }
         meshRenderer.material = ballMaterial;
 
@@ -311,7 +320,7 @@ public class MovingSphere : MonoBehaviour
             return;
         }
         float angle = distance * (180f / Mathf.PI) / ballRadius;
-        Vector3 rotationAxis = Vector3.Cross(lastContactNormal, movement).normalized;
+        Vector3 rotationAxis = Vector3.Cross(rotationPlaneNormal, movement).normalized;
         Quaternion rotation = Quaternion.Euler(rotationAxis * angle) * ball.localRotation;
         if (ballAlignSpeed > 0f)
         {
