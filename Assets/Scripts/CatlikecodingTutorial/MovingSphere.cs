@@ -82,6 +82,8 @@ public class MovingSphere : MonoBehaviour
     [SerializeField, Range(0.01f, 1f)]
     float swimThreshold = 0.5f;
 
+    Vector3 lastContactNormal;
+
 
     void OnValidate()
     {
@@ -199,6 +201,7 @@ public class MovingSphere : MonoBehaviour
     }
     void ClearState()
     {
+        lastContactNormal = contactNormal;
         groundContactCount = steepContactCount = climbContactCount = 0;
         contactNormal = steepNormal = climbNormal = Vector3.zero;
         connectionVelocity = Vector3.zero;
@@ -297,8 +300,13 @@ public class MovingSphere : MonoBehaviour
 
         Vector3 movement = body.linearVelocity * Time.deltaTime;
         float distance = movement.magnitude;
+        if (distance < 0.001f)
+        {
+            return;
+        }
         float angle = distance * (180f / Mathf.PI) / ballRadius;
-        ball.localRotation = Quaternion.Euler(Vector3.right * angle) * ball.localRotation;
+        Vector3 rotationAxis = Vector3.Cross(lastContactNormal, movement).normalized;
+        ball.localRotation = Quaternion.Euler(rotationAxis * angle) * ball.localRotation;
     }
     void Jump(Vector3 gravity)
     {
