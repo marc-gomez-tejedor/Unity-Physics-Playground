@@ -8,6 +8,9 @@ public class MovingSphere : MonoBehaviour
 
     Rigidbody body, connectedBody, previousConnectedBody;
 
+    [SerializeField, Min(9.1f)]
+    float ballRadius = 0.5f;
+
     [SerializeField]
     Material
         normalMaterial = default,
@@ -291,6 +294,11 @@ public class MovingSphere : MonoBehaviour
             ballMaterial = swimmingMaterial;
         }
         meshRenderer.material = ballMaterial;
+
+        Vector3 movement = body.linearVelocity * Time.deltaTime;
+        float distance = movement.magnitude;
+        float angle = distance * (180f / Mathf.PI) / ballRadius;
+        ball.localRotation = Quaternion.Euler(Vector3.right * angle) * ball.localRotation;
     }
     void Jump(Vector3 gravity)
     {
