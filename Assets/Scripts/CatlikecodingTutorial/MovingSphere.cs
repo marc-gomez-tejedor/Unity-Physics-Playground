@@ -5,6 +5,13 @@ public class MovingSphere : MonoBehaviour
 {
     [SerializeField]
     Transform playerInputSpace = default, ball = default;
+    
+    [SerializeField]
+    Material
+        normalMaterial = default,
+        climbingMaterial = default,
+        swimmingMaterial = default;
+
 
     Rigidbody body, connectedBody, previousConnectedBody;
 
@@ -17,12 +24,13 @@ public class MovingSphere : MonoBehaviour
     [SerializeField]
     bool ballCanReverse = false;
 
-    [SerializeField]
-    Material
-        normalMaterial = default,
-        climbingMaterial = default,
-        swimmingMaterial = default;
-
+    [SerializeField, Min(0f)]
+    float 
+        ballGroundRotation = 1f,
+        ballClimbingRotation = 1f,
+        ballAirRotation = 0.5f,
+        ballSwimRotation = 2f;
+    
     Vector3 playerInput;
 
     [SerializeField, Range(0f, 100f)]
@@ -296,19 +304,26 @@ public class MovingSphere : MonoBehaviour
     {
         Vector3 rotationPlaneNormal = lastContactNormal;
         Material ballMaterial = normalMaterial;
+        float rotatingFactor = ballGroundRotation;
         if (Climbing)
         {
             ballMaterial = climbingMaterial;
+            rotatingFactor = ballClimbingRotation;
         }
         else if (Swimming)
         {
             ballMaterial = swimmingMaterial;
+            rotatingFactor = ballSwimRotation;
         }
         else if (!OnGround)
         {
             if (OnSteep)
             {
                 rotationPlaneNormal = lastSteepNormal;
+            }
+            else
+            {
+                rotatingFactor = ballAirRotation;
             }
         }
         meshRenderer.material = ballMaterial;
