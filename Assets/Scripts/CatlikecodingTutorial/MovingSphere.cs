@@ -96,7 +96,7 @@ public class MovingSphere : MonoBehaviour
     [SerializeField, Range(0.01f, 1f)]
     float swimThreshold = 0.5f;
 
-    Vector3 lastContactNormal, lastSteepNormal;
+    Vector3 lastContactNormal, lastSteepNormal, lastConnectionVelocity;
 
 
     void OnValidate()
@@ -217,6 +217,7 @@ public class MovingSphere : MonoBehaviour
     {
         lastContactNormal = contactNormal;
         lastSteepNormal = steepNormal;
+        lastConnectionVelocity = connectionVelocity;
         groundContactCount = steepContactCount = climbContactCount = 0;
         contactNormal = steepNormal = climbNormal = Vector3.zero;
         connectionVelocity = Vector3.zero;
@@ -328,7 +329,7 @@ public class MovingSphere : MonoBehaviour
         }
         meshRenderer.material = ballMaterial;
 
-        Vector3 movement = body.linearVelocity * Time.deltaTime;
+        Vector3 movement = (body.linearVelocity - lastConnectionVelocity) * Time.deltaTime;
         movement -= rotationPlaneNormal * Vector3.Dot(movement, rotationPlaneNormal);
         float distance = movement.magnitude;
         if (distance < 0.001f)
