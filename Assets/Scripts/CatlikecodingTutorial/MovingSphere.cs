@@ -314,6 +314,7 @@ public class MovingSphere : MonoBehaviour
         meshRenderer.material = ballMaterial;
 
         Vector3 movement = body.linearVelocity * Time.deltaTime;
+        movement -= rotationPlaneNormal * Vector3.Dot(movement, rotationPlaneNormal);
         float distance = movement.magnitude;
         if (distance < 0.001f)
         {
