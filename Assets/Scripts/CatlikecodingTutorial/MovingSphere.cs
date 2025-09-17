@@ -11,6 +11,9 @@ public class MovingSphere : MonoBehaviour
     [SerializeField, Min(9.1f)]
     float ballRadius = 0.5f;
 
+    [SerializeField, Min(0f)]
+    float ballAlignSpeed = 180f;
+
     [SerializeField]
     Material
         normalMaterial = default,
@@ -306,7 +309,28 @@ public class MovingSphere : MonoBehaviour
         }
         float angle = distance * (180f / Mathf.PI) / ballRadius;
         Vector3 rotationAxis = Vector3.Cross(lastContactNormal, movement).normalized;
-        ball.localRotation = Quaternion.Euler(rotationAxis * angle) * ball.localRotation;
+        Quaternion rotation = Quaternion.Euler(rotationAxis * angle) * ball.localRotation;
+        if (ballAlignSpeed > 0f)
+        {
+            rotation = AlignBallRotation(rotationAxis, rotation, distance);
+        }
+        ball.localRotation = rotation;
+    }
+    Quaternion AlignBallRotation (Vector3 rotationAxis, Quaternion rotation, float traveledDistance)
+    {
+        Vector3 ballAxis = ball.up;
+        float dot = Mathf.Clamp(Vector3.Dot(ballAxis, rotationAxis), -1f, 1f);
+        float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+        float maxAngle = ballAlignSpeed * traveledDistance;
+        Quaternion newAlignment = Quaternion.FromToRotation(ballAxis, rotationAxis) * rotation;
+        if (angle <= maxAngle)
+        {
+            return newAlignment;
+        }
+        else
+        {
+            return Quaternion.SlerpUnclamped(rotation, newAlignment, maxAngle / angle);
+        }
     }
     void Jump(Vector3 gravity)
     {
