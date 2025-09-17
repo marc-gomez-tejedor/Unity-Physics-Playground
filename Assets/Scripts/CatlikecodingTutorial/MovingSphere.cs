@@ -15,6 +15,9 @@ public class MovingSphere : MonoBehaviour
     float ballAlignSpeed = 180f;
 
     [SerializeField]
+    bool ballCanReverse = false;
+
+    [SerializeField]
     Material
         normalMaterial = default,
         climbingMaterial = default,
@@ -321,6 +324,11 @@ public class MovingSphere : MonoBehaviour
         Vector3 ballAxis = ball.up;
         float dot = Mathf.Clamp(Vector3.Dot(ballAxis, rotationAxis), -1f, 1f);
         float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+        if (ballCanReverse && angle > 90f)
+        {
+            angle -= 90f;
+            rotationAxis = -rotationAxis;
+        }
         float maxAngle = ballAlignSpeed * traveledDistance;
         Quaternion newAlignment = Quaternion.FromToRotation(ballAxis, rotationAxis) * rotation;
         if (angle <= maxAngle)
