@@ -26,7 +26,7 @@ Covering:
 |------|------:|------:|
 | **Orbits** | /docs/orbits.md | <img src="Docs/Img/Orbits-Thumbnail.PNG" width="420" alt="Orbits"> |
 | **SpaceShip** | /docs/spaceship.md | <img src="Docs/Img/SpaceShip-Thumbnail.PNG" width="420" alt="SpaceShip"> |
-| **Spring-based Character** | /docs/springbasedCharacter.md | <img src="Spring-Character-Controller-Thumbnail.PNG" width="420" alt="Spring-based Character"> |
+| **Spring-based Character** | /docs/springbasedCharacter.md | <img src="Docs/Img/Spring-Character-Controller-Thumbnail.PNG" width="420" alt="Spring-based Character"> |
 | **Rolling Character** | /docs/rollingCharacter.md | <img src="Docs/Img/Rolling-Character-Controller-Thumbnail.PNG" width="420" alt="Rolling Character"> |
 
 ---
