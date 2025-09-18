@@ -17,12 +17,12 @@ Below there are the 2 methods that compute:
 
 ---
 
- **1:**
+ 1:
  ---
 <img src="Img/GetGravity.PNG" width="420" alt="Gravity method">
 
 ---
 
-**2:**
+2:
 ---
 <img src="Img/OrbitalVelocity.PNG" width="420" alt="Orbital velocity method">
