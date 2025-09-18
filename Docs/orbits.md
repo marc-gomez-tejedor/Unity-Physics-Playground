@@ -18,9 +18,11 @@ Below there are the 2 methods that compute:
 ---
 
  **1:**
+ ---
 <img src="Img/GetGravity.PNG" width="420" alt="Gravity method">
 
 ---
 
 **2:**
-<img src="Img/OrbitVelocity.PNG" width="420" alt="Orbital velocity method">
+---
+<img src="Img/OrbitalVelocity.PNG" width="420" alt="Orbital velocity method">
