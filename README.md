@@ -15,7 +15,7 @@ Covering:
 | **1 · Basic Character Controller** | ~20 h | Basic Character Controller for future environment testing | Linear Forces to Rigidbody |
 | **2 · Orbits Scene** | ~40 h | Solar system with: a Central Star, a few Planets and a Satellite | Gravity-Based Orbits |
 | **3 · Spaceship Scene** | ~50 h | 2001: A Space Odyssey's inspired Space Station V | Centripetal Force simulating Artificial Gravity |
-| **4 · Floating Character Controller** | ~100 h | 2001: A Space Odyssey's inspired Space Station V | Spring Forces: Floating, Moving and Straightening |
+| **4 · Floating Character Controller** | ~100 h | Floating Capsule based on tunable Spring-like motions | Spring Forces: Floating, Moving and Straightening |
 | **5 · Rolling Character Controller** | ~60 h | Following Catlikecoding's Movement Tutorial | Rigidbody movement of a Sphere |
 | **6 · Procedural Animation** | ~XX h | Using FABRIKS to animate the Character | Inverse Kinematics for Robot-like Limbs |
 | … | … | see `/docs/roadmap.md` for the full plan (todo)|
