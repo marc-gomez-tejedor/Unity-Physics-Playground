@@ -2,8 +2,12 @@
 **Concept:** Quick physics demo that simulates a simple Star system with a center Star, 3 planets orbiting and the main Rocket.
 The idea is to simulate gravity fields from the Star and the different planets based on its masses and distances and how that affects the rocket.
 
+---
+
+<img src="docs/img/orbits-thumbnail.png" width="420" alt="Orbits">
+
+---
+
 **Physics:** Newton's Law of Universal Gravitation
-
-**GIF concept:** To show how objects are affected by the gravitational fields, modify some parameters from the editor and show how that affects to the system to see how it affects in real time
-
- *Scene resembling a Solar System* Every Object applies Gravity to eachother based on *Newton's Gravitational Law* with a custom *G* constant in order to make it more dynamic. More detailed explanation on: /docs/orbits.md
+Every Object applies Gravity to eachother based on *Newton's Gravitational Law* with a custom *G* constant in order to make it more dynamic.
+A GameManager initializes every object with a *Orbital Speed* based on the principle *Centripetal Force = Gravitational Force* Where we can then compute Orbital Velocity, we do this for every object based on the Star's Gravitational pull and we add these linear velocities at the start of the Scene
