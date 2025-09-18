@@ -44,15 +44,17 @@ public class GravityBodyEmitter : MonoBehaviour, IInitializable
         // Newton's Universal Gravitational Law:
         //       F = -G(m1*m2)/(r^2) * ur     
 
-        Vector3 r = targetBody.transform.position - _rigidbody.transform.position;
-        Vector3 ur = r.normalized;
+        Vector3 distance = targetBody.transform.position - _rigidbody.transform.position;
+
+        double r = distance.magnitude;
+        Vector3 ur = distance.normalized;
 
         double G = AllGravityBodies.NEWTONS_GRAVITATIONAL_CONSTANT;
         double m1 = _rigidbody.mass;
         double m2 = targetBody.mass;
 
-        double numerator = (double)(G * m1 * m2);
-        double denominator = (double)(r.magnitude * r.magnitude);
+        double numerator = G * m1 * m2;
+        double denominator = r * r;
         double result = numerator / denominator;
 
         return ur * (float)-result;
