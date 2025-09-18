@@ -23,7 +23,7 @@ Covering:
 ## ShowCases
 
 | Name | Demo IMG |  Document |
-|:-----:|:-------:|:-----:|
+|:-----:|:-------:|---:|
 |  **Orbits** | <img src="Docs/Img/Orbits-Thumbnail.PNG" width="420" alt="Orbits"> | /docs/orbits.md |
 | **SpaceShip** | <img src="Docs/Img/SpaceShip-Thumbnail.PNG" width="420" alt="SpaceShip"> | /docs/spaceship.md |
 | **Spring-based Character** | <img src="Docs/Img/Spring-Character-Controller-Thumbnail.PNG" width="420" alt="Spring-based Character"> | /docs/springBasedCharacter.md |
