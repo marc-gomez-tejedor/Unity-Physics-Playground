@@ -7,7 +7,7 @@
 
 ---
 
-<img src="Img/SpaceShip-Thumbnail.PNG" width="420" alt="Gravity method">
+<img src="Img/SpaceShip-Thumbnail.PNG" width="700" alt="Gravity method">
 
 ---
 
@@ -23,10 +23,10 @@ We then get that the imaginary Centrifugal Force (the opposite of Centripetal Fo
 
 I made an sketch representing this concept in order to Compute approximately what the initial Spin of the Spaceship would need to be in order to feel 0.2g:
 
-<img src="Img/Sketeches/centrifugal-force-velocity.PNG" width="420" alt="centrifugal force">
+<img src="Img/Sketeches/centrifugal-force-velocity.png" width="420" alt="centrifugal force">
 
 ---
 
 This was my original concept inspired by the movie:
 
-<img src="Img/Sketeches/rotations-sketch.PNG" width="420" alt="centrifugal force">
+<img src="Img/Sketeches/rotations-sketch.png" width="420" alt="centrifugal force">
