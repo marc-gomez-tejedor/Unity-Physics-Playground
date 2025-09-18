@@ -1,10 +1,32 @@
 # SpaceShip Demo
-*2001: A Space Odyssey's inspired Space Station V* A cirular shaped Space Station rotating around its central axis in order to *simulate Artificial Gravity via the imaginary Centrifugal Force*.
-**Concept:** Quick physics demo that simulates a simple Star system with a center Star, 3 planets orbiting and the main Rocket.
-The idea is to simulate gravity fields from the Star and the different planets based on its masses and distances and how that affects the rocket.
 
-**Physics:** Newton's Law of Universal Gravitation
+---
+*2001: A Space Odyssey's inspired Space Station V* 
 
-**GIF concept:** To show how objects are affected by the gravitational fields, modify some parameters from the editor and show how that affects to the system to see how it affects in real time
+**Concept:** A cirular shaped Space Station rotating around its central axis in order to *simulate Artificial Gravity via the imaginary Centrifugal Force*.
 
- *Scene resembling a Solar System* Every Object applies Gravity to eachother based on *Newton's Gravitational Law* with a custom *G* constant in order to make it more dynamic. More detailed explanation on: /docs/orbits.md
+---
+
+<img src="Img/SpaceShip-Thumbnail.PNG" width="420" alt="Gravity method">
+
+---
+
+**Physics:** Newton's Laws of Motion. It simulates gravity, since an object inside the Spaceship conserves wants to follow a linear path (Newton's 1st Law), when the spaceship rotates, the floor will push the player into a circular motion around its center axis, so it will be following a constant Circular motion around the center axis of the Spaceship, being pushed constantly by the floor. 
+
+So as Newton's Third Law of Motion explains: When two objects interact, they apply forces to each other of equal magnitude and opposite direction.
+
+So if the player is under a constant circular motion, we can compute its Centripetal Force (Fc = linearVelocity^2 * mass / radius), and if we then apply Newton's 3rd and 2nd(F=m*a) Laws:
+
+We then get that the imaginary Centrifugal Force (the opposite of Centripetal Force, due to the interaction between the player and the floor as described in Newton's 3d Law) we get that the acceleration (towards the floor) that the player feels *is Centripetal Force/mass* and that will be its perceived gravity (because for the player it will feel that everything is still inside the spaceship and its under a constant acceleration (very similar to Gravity on Earth)
+
+---
+
+I made an sketch representing this concept in order to Compute approximately what the initial Spin of the Spaceship would need to be in order to feel 0.2g:
+
+<img src="Img/Sketeches/centrifugal-force-velocity.PNG" width="420" alt="centrifugal force">
+
+---
+
+This was my original concept inspired by the movie:
+
+<img src="Img/Sketeches/rotations-sketch.PNG" width="420" alt="centrifugal force">
