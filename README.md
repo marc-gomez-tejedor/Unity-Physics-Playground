@@ -9,8 +9,8 @@ Unity Physics-based motion project. Experiments showcasing gameplay mechanics
 A ~1 000-hour -work in progress- solo project focused on physics gameplay in Unity
 Covering:
 
-| Phase | Hours | Key deliverables | Physic Principle |
-|-------|------:|------------------|------------------|
+| Phase |  Hours  | Key deliverables | Physic Principle |
+|-------|---------|------------------|------------------|
 | **0 · Setup** | ~10 h | Monorepo, CI | Monorepo, CI | … |
 | **1 · Basic Character Controller** | ~20 h | Basic Character Controller for future environment testing | Linear Forces to Rigidbody |
 | **2 · Orbits Scene** | ~40 h | Solar system with: a Central Star, a few Planets and a Satellite | Gravity-Based Orbits |
