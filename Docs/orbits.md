@@ -4,7 +4,7 @@ The idea is to simulate gravity fields from the Star and the different planets b
 
 ---
 
-<img src="Img/Orbits-Thumbnail.png" width="420" alt="Orbits">
+<img src="Docs/Img/Orbits-Thumbnail.png" width="420" alt="Orbits">
 
 ---
 
