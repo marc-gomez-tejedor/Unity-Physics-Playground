@@ -24,10 +24,10 @@ Covering:
 
 | Name | Demo Image | Document |
 |------|------------|---------|
-| **Orbits** | <img src="docs/img/orbits-thumbnail.PNG" width="420" alt="Orbits"> | [Read more](Docs/orbits.md) |
-| **SpaceShip** | <img src="docs/img/spaceship-thumbnail.PNG" width="420" alt="SpaceShip"> | [Read more](Docs/spaceship.md) |
-| **Spring-based Character** | <img src="docs/img/spring-character-controller-thumbnail.PNG" width="420" alt="Spring-based Character"> | [Read more](Docs/springBasedCharacter.md) |
-| **Rolling Character** | <img src="docs/img/rolling-character-controller-thumbnail.PNG" width="420" alt="Rolling Character"> | [Read more](Docs/rollingCharacter.md) |
+| **Orbits** | <img src="Docs/Img/orbits-thumbnail.PNG" width="420" alt="Orbits"> | [Read more](Docs/orbits.md) |
+| **SpaceShip** | <img src="Docs/Img/spaceship-thumbnail.PNG" width="420" alt="SpaceShip"> | [Read more](Docs/spaceship.md) |
+| **Spring-based Character** | <img src="Docs/Img/spring-character-controller-thumbnail.PNG" width="420" alt="Spring-based Character"> | [Read more](Docs/springBasedCharacter.md) |
+| **Rolling Character** | <img src="Docs/Img/rolling-character-controller-thumbnail.PNG" width="420" alt="Rolling Character"> | [Read more](Docs/rollingCharacter.md) |
 
 ---
 
