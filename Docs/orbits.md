@@ -6,3 +6,4 @@ The idea is to simulate gravity fields from the Star and the different planets b
 
 **GIF concept:** To show how objects are affected by the gravitational fields, modify some parameters from the editor and show how that affects to the system to see how it affects in real time
 
+ *Scene resembling a Solar System* Every Object applies Gravity to eachother based on *Newton's Gravitational Law* with a custom *G* constant in order to make it more dynamic. More detailed explanation on: /docs/orbits.md
