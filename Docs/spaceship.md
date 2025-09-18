@@ -29,4 +29,4 @@ I made an sketch representing this concept in order to Compute approximately wha
 
 This was my original concept inspired by the movie:
 
-<img src="Img/Sketches/rotations-sketch.png" width="420" alt="sketch">
+<img src="Img/Sketches/possible-spacial-station.png" width="420" alt="sketch">
