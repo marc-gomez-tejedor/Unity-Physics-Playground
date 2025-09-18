@@ -18,14 +18,14 @@ public class StartOrbitalVelocity : MonoBehaviour, IInitializable
         Rigidbody starRigidbody = starObjcet.GetComponent<Rigidbody>();
         StartOrbitalVelocity star = starObjcet.GetComponent<StartOrbitalVelocity>();
 
-        float G = AllGravityBodies.NEWTONS_GRAVITATIONAL_CONSTANT;
-        float M = starRigidbody.mass;
+        double G = (double)AllGravityBodies.NEWTONS_GRAVITATIONAL_CONSTANT;
+        double M = starRigidbody.mass;
         
         Vector3 rVector = starRigidbody.position - transform.position;
-        float rMagnitude = rVector.magnitude;
+        double rMagnitude = rVector.magnitude;
 
-        double numerator = (double)(G * M);
-        double resPreRoot = (double)(numerator/rMagnitude);
+        double numerator = G * M;
+        double resPreRoot = numerator/rMagnitude;
 
         double velocity = Math.Sqrt(resPreRoot);
 
