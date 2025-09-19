@@ -129,7 +129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -264,7 +264,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 25
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -344,7 +344,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 25
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -419,7 +419,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -597,7 +597,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -662,7 +662,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -727,7 +727,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -905,7 +905,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1001,7 +1001,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1066,7 +1066,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 25
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1131,7 +1131,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 25
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1626,7 +1626,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1728,7 +1728,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1798,7 +1798,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 25
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1933,7 +1933,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -2003,7 +2003,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -2068,7 +2068,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -2472,7 +2472,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -2547,7 +2547,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -2612,7 +2612,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength

@@ -12,7 +12,7 @@ public class SpringDemoState : PlayerState
     [SerializeField] private float uprightSpringDamper = 15f; // upright spring damping force
 
     private float minForce = 10f, maxForce = 1000f;
-    private float minDamper = 1f, maxDamper = 25f;
+    private float minDamper = 1f, maxDamper = 40f;
 
     [SerializeField]
     MeshRenderer meshRenderer;
