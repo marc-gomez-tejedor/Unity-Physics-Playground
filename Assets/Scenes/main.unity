@@ -129,7 +129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -194,7 +194,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -264,7 +264,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -344,7 +344,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -419,7 +419,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -502,7 +502,7 @@ Transform:
   m_GameObject: {fileID: 433181300}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -53, y: 10, z: 0}
+  m_LocalPosition: {x: -53, y: 15, z: 0}
   m_LocalScale: {x: 2, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -662,7 +662,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -727,7 +727,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -815,7 +815,7 @@ Transform:
   m_GameObject: {fileID: 618397042}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 10, z: -51}
+  m_LocalPosition: {x: -2, y: 15, z: -51}
   m_LocalScale: {x: 100, y: 100, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -905,7 +905,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1001,7 +1001,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1066,7 +1066,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1131,7 +1131,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1196,7 +1196,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1261,7 +1261,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1349,7 +1349,7 @@ Transform:
   m_GameObject: {fileID: 1038040746}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 49, y: 10, z: 0}
+  m_LocalPosition: {x: 49, y: 15, z: 0}
   m_LocalScale: {x: 2, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1626,7 +1626,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1728,7 +1728,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1798,7 +1798,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -1868,7 +1868,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -2003,7 +2003,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -2068,7 +2068,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
@@ -2259,7 +2259,7 @@ Transform:
   m_GameObject: {fileID: 1682401337}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 10, z: 51}
+  m_LocalPosition: {x: -2, y: 15, z: 51}
   m_LocalScale: {x: 100, y: 100, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2462,6 +2462,11 @@ Transform:
   - {fileID: 1682401338}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1868891931 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 1237094725089966548, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
+  m_PrefabInstance: {fileID: 5002280900957112190}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1965440722
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2676,8 +2681,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 1050276168}
     m_Modifications:
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 1868891931}
+    - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringDamper
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1327023803351743510, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
       propertyPath: uprightSpringStrength
