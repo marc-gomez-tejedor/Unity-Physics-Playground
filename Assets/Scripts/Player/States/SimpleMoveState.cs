@@ -21,12 +21,18 @@ public class SimpleMoveState : PlayerState
     [SerializeField] private float maxAccelerationForce = 100f;
     [SerializeField] private AnimationCurve maxAccelerationForceFromDot;
 
-    public override void Act()
+    Vector2 mouseInput;
+    Vector2 inputDirection;
+
+    public override void UpdateInput()
     {
-        Vector2 inputDirection = Game.Input.MoveInput;
-        Vector2 mouseInput = Game.Input.inputActions.Player.Look.ReadValue<Vector2>();
+        inputDirection = Game.Input.MoveInput;
+        mouseInput = Game.Input.inputActions.Player.Look.ReadValue<Vector2>();
         //Debug.Log($"inpL: {mouseInput}");
         //Debug.Log($"inpM: {inputDirection}");
+    }
+    public override void Act()
+    {
         PlayerController.Raycasts.UpdateRayCastDown();
         PlayerController.MovementBehaviour.UpdateFloatingSpringPosition(PlayerController, rideHeight, rideSpringStrength, rideSpringDamper);
         PlayerController.MovementBehaviour.UpdateUprightForce(PlayerController, uprightSpringStrength, uprightSpringDamper);
@@ -34,6 +40,9 @@ public class SimpleMoveState : PlayerState
         {
             PlayerController.VelocityChange.UpdateMovingForce(PlayerController, inputDirection, maxSpeed, acceleration, accelerationFromDot, maxAccelerationForce, maxAccelerationForceFromDot);
         }
+    }
+    public override void CameraControl()
+    {
         PlayerController.FPVrotation.Move(mouseInput);
     }
     public override void Jump()

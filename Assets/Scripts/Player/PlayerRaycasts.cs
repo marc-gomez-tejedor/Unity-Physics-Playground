@@ -7,7 +7,7 @@ public class PlayerRaycasts : MonoBehaviour
     [Header("General Parameters")]
     public Vector3 DownDir { get; private set; }
     [SerializeField] private float maxDistanceThreshold = 1f;
-    [SerializeField] private LayerMask groundLayerMask;
+    [SerializeField] private LayerMask groundLayerMask = 1;
     [SerializeField] private Transform raycastOrigin;
     public bool didRaycastHitDown { get; private set; } = false;
     public RaycastHit rayCastHitDown { get; private set; }
@@ -21,7 +21,7 @@ public class PlayerRaycasts : MonoBehaviour
             maxDistance: maxDistanceThreshold, layerMask: groundLayerMask))
         {
             //Debug.DrawRay(start: raycastOrigin.position, dir: DownDir * hit.distance, Color.green);
-            Debug.Log($"Did Hit: {hit.normal}");
+            //Debug.Log($"Did Hit: {hit.normal}");
             didRaycastHitDown = true;
             rayCastHitDown = hit;
         }

@@ -6,7 +6,9 @@ public class PlayerState : MonoBehaviour
     public PlayerController PlayerController;
     public virtual void TransitionIn() { OnEnable(); }
     public virtual void TransitionOut() { }
+    public virtual void UpdateInput() { }
     public virtual void Act() { }
+    public virtual void CameraControl() { }
     public virtual void Interact() { }
     public virtual void Jump() { }
     public virtual void OnEnable()

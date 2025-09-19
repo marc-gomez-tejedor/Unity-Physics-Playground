@@ -14,8 +14,8 @@ public class FPVRotations : MonoBehaviour
     private float lookY = 0;
     public void Move(Vector2 input)
     {
-        lookX = input.x * speed;
-        lookY += input.y * speed;
+        lookX = input.x * speed * Time.deltaTime;
+        lookY += input.y * speed * Time.deltaTime;
 
         lookY = Mathf.Clamp(lookY, -85f, 85f);
 

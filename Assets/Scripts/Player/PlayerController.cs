@@ -2,7 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IInitializable
+public class PlayerController : MonoBehaviour
 {
     [Header("Parameters")]
     public Vector3 currentFieldForce = Vector3.down; //later update to public Field currentField
@@ -19,17 +19,25 @@ public class PlayerController : MonoBehaviour, IInitializable
     public RotateTowardsDesiredOrientation Orientate;
     public ComputeVelocityChange VelocityChange;
     public OnCollisionController OnCollisionController;
-    public void Initialize()
+
+    public void Awake()
     {
         if (MovementBehaviour == null) MovementBehaviour = gameObject.GetComponent<MovementBehaviour>();
         CurrentState = States.DefaultState;
         CurrentState.TransitionIn();
     }
+    private void Update()
+    {
+        CurrentState.UpdateInput();
+    }
     private void FixedUpdate()
     {
         CurrentState.Act();
     }
-
+    private void LateUpdate()
+    {
+        CurrentState.CameraControl();
+    }
     public void TransitionTo(PlayerState state)
     {
         state.TransitionOut();
