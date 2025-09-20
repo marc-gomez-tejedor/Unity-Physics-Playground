@@ -1333,6 +1333,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4940366995255512628, guid: aac8eb339a3653747a1db85536a5e7b7, type: 3}
+      propertyPath: m_Color.a
+      value: 0.019607844
+      objectReference: {fileID: 0}
     - target: {fileID: 7395510363120333412, guid: aac8eb339a3653747a1db85536a5e7b7, type: 3}
       propertyPath: gravityBodies
       value: 

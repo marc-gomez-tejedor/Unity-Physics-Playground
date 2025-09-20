@@ -32,7 +32,7 @@ public class GamePause : MonoBehaviour, IInitializable
     }
     void OnEnable()
     {
-        if (Game.Input != null)
+        if (Game.Input)
         {
             Game.Input.OnMenu -= ToggleOnOff;
             Game.Input.OnMenu += ToggleOnOff;
@@ -40,7 +40,7 @@ public class GamePause : MonoBehaviour, IInitializable
     }
     void OnDisable()
     {
-        Game.Input.OnMenu -= ToggleOnOff;
+        if (Game.Input) Game.Input.OnMenu -= ToggleOnOff;
     }
 
 }

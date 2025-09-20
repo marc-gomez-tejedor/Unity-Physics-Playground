@@ -20,13 +20,12 @@ public class InputManager : MonoBehaviour, IInitializable
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);
+            Destroy(this);
             return;
         }
 
         Instance = this;
         inputActions = new InputSystem_Actions();
-        DontDestroyOnLoad(gameObject);
         Subscribe();
     }
 

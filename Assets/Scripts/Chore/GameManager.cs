@@ -3,40 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public void LoadScene(string scene)
+    public static void LoadScene(string scene, LoadSceneMode mode = LoadSceneMode.Single)
     {
-        Game.LoadScene(scene);
+        SceneManager.LoadScene(scene, mode);
     }
-    public void LoadMenuScene()
+    public static void LoadScene(int id)
     {
-        Game.LoadMenuScene();
-    }
-    public void LoadTestScene()
-    {
-        Game.LoadTestScene();
-    }
-    public void LoadOrbits()
-    {
-        Game.LoadOrbits();
-    }
-    public void LoadSpaceshipScene()
-    {
-        Game.LoadSpaceshipScene();
-    }
-    public void LoadSpringlikeScene()
-    {
-        Game.LoadSpringlikeScene();
-    }
-    public void LoadMiniPlanetsScene()
-    {
-        Game.LoadMiniPlanetsScene();
-    }
-    public void LoadSwimmingScene()
-    {
-        Game.LoadSwimmingScene();
-    }
-    public void LoadInteractiveScene()
-    {
-        Game.LoadInteractiveScene();
+        SceneManager.LoadScene(id, LoadSceneMode.Single);
     }
 }
