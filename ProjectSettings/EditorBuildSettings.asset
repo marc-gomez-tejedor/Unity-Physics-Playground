@@ -11,12 +11,24 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MothershipInterior.unity
     guid: 900e7e0537a8e164488f4325912e49cb
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/OrbitsDemo.unity
     guid: cfc498d0e3b196b43a3f4d29fb17eb3c
   - enabled: 0
     path: Assets/Scenes/main.unity
     guid: 8f5fa65fa7879d24b97bfa0bce65f5aa
+  - enabled: 1
+    path: Assets/Scenes/MiniPlanetsSphereScene.unity
+    guid: 8f8f523f48848214bb0c95860a65043d
+  - enabled: 1
+    path: Assets/Scenes/BoxTerrainSphereScene.unity
+    guid: 7abfd3c00fc64b640b9c2ef7091a945d
+  - enabled: 1
+    path: Assets/Scenes/InteractiveTerrainSphereScene.unity
+    guid: 9c9f105c2488c3f41ab1256011184adf
+  - enabled: 1
+    path: Assets/Scenes/SpringBasedCharacterDemo.unity
+    guid: af29148d81437374399e42444a5fe10d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
