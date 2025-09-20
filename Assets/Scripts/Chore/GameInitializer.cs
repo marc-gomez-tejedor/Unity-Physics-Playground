@@ -14,7 +14,8 @@ public class GameInitializer : MonoBehaviour
 
     private void Awake()
     {
-        Game.Init(gravityBodies, input);
+        if (input) Game.Init(input);
+        if (gravityBodies) Game.Init(gravityBodies);
 
         for (int i = 0; i < rootSystemsScripts.Count; i++)
         {

@@ -4,35 +4,26 @@ using UnityEngine;
 public class CursorVisibilityToggle : MonoBehaviour, IInitializable
 {
     private bool cursorVisibility = false;
-
+    
     public void Initialize()
     {
         cursorVisibility = false;
         Cursor.visible = cursorVisibility;
-        OnEnable();
     }
     public void CursosVisibilityToggle()
     {
-        if (cursorVisibility) cursorVisibility = false;
-        else cursorVisibility = true;
+        if (cursorVisibility) HideCursor();
+        else ShowCursor();
     }
     public void ShowCursor()
     {
         cursorVisibility = true;
+        Cursor.visible = cursorVisibility;
+
     }
     public void HideCursor()
     {
         cursorVisibility = false;
-    }
-    public void OnEnable()
-    {
-        if (Game.Input != null)
-        {
-            Game.Input.OnMenu += CursosVisibilityToggle;
-        }
-    }
-    public void OnDisable()
-    {
-        Game.Input.OnMenu -= CursosVisibilityToggle;
+        Cursor.visible = cursorVisibility;
     }
 }

@@ -27,12 +27,18 @@ public class InputManager : MonoBehaviour, IInitializable
         Instance = this;
         inputActions = new InputSystem_Actions();
         DontDestroyOnLoad(gameObject);
+        Subscribe();
     }
 
     private void OnEnable()
     {
         Initialize();
+        Subscribe();
+    }
+    private void Subscribe()
+    {
         inputActions.Enable();
+        UnSubscribe();
 
         inputActions.Player.Move.performed += OnMovePerformed;
         inputActions.Player.Move.canceled += OnMoveCanceled;
@@ -44,8 +50,7 @@ public class InputManager : MonoBehaviour, IInitializable
         inputActions.Player.Interact.performed += OnInteractPerformed;
         inputActions.Player.Menu.performed += OnMenuPerformed;
     }
-
-    private void OnDisable()
+    private void UnSubscribe()
     {
         inputActions.Player.Move.performed -= OnMovePerformed;
         inputActions.Player.Move.canceled -= OnMoveCanceled;
@@ -56,7 +61,11 @@ public class InputManager : MonoBehaviour, IInitializable
         inputActions.Player.Jump.performed -= OnJumpPerformed;
         inputActions.Player.Interact.performed -= OnInteractPerformed;
         inputActions.Player.Menu.performed -= OnMenuPerformed;
+    }
 
+    private void OnDisable()
+    {
+        UnSubscribe();
         inputActions.Disable();
     }
     private void OnMovePerformed(InputAction.CallbackContext ctx)

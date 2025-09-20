@@ -16,7 +16,11 @@ public class PlayerInteract : MonoBehaviour, IInitializable
 
     private void OnEnable()
     {
-        if (Game.Input != null) Game.Input.OnInteract += TryInteract;
+        if (Game.Input != null)
+        {
+            Game.Input.OnInteract -= TryInteract;
+            Game.Input.OnInteract += TryInteract;
+        }
     }
 
     private void OnDisable()
