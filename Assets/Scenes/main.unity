@@ -1702,17 +1702,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1371904876 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5021985623588199034, guid: 534fb0b48d65a514db3c64ab8bdb7dfb, type: 3}
-  m_PrefabInstance: {fileID: 8535100384289819895}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea9e80440bace224ea87d589635a6bba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1453885781 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7271711101133577132, guid: ffb1c4d2fd729824cac4b77485721400, type: 3}
@@ -2368,7 +2357,7 @@ PrefabInstance:
     - target: {fileID: 1829329320494182059, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: 'rootSystemsScripts.Array.data[1]'
       value: 
-      objectReference: {fileID: 1371904876}
+      objectReference: {fileID: 0}
     - target: {fileID: 1829329320494182059, guid: afad8f5f06a1db24bbc1228af5dd4e05, type: 3}
       propertyPath: 'rootSystemsScripts.Array.data[2]'
       value: 
@@ -2788,6 +2777,14 @@ PrefabInstance:
     - target: {fileID: 4983478447285497800, guid: 534fb0b48d65a514db3c64ab8bdb7dfb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6270176972185974372, guid: 534fb0b48d65a514db3c64ab8bdb7dfb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 6270176972185974372, guid: 534fb0b48d65a514db3c64ab8bdb7dfb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 6270176972185974372, guid: 534fb0b48d65a514db3c64ab8bdb7dfb, type: 3}
       propertyPath: m_LocalRotation.w
