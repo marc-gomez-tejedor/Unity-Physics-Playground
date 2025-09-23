@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class SpringDemoState : PlayerState
+public class OldSpringDemoState : OldPlayerState
 {
     [SerializeField]
     Rigidbody rb;

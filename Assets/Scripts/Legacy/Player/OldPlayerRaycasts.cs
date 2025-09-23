@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlayerRaycasts : MonoBehaviour
+public class OldPlayerRaycasts : MonoBehaviour
 {
     [Header("General Parameters")]
     public Vector3 DownDir { get; private set; }

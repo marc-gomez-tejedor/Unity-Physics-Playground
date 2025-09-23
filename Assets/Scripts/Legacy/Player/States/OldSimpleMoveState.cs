@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SimpleMoveState : PlayerState
+public class OldSimpleMoveState : OldPlayerState
 {
     [Header("General Parameters")]
     [SerializeField] private float jumpForce;

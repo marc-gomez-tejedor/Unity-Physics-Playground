@@ -1,9 +1,9 @@
 using System.Drawing;
 using UnityEngine;
 
-public class ComputeVelocityChange : MonoBehaviour
+public class OldComputeVelocityChange : MonoBehaviour
 {
-    public void UpdateMovingForce(PlayerController player, Vector2 inputDirection, float maxSpeed, float acceleration, AnimationCurve accelerationFromDot,
+    public void UpdateMovingForce(OldPlayerController player, Vector2 inputDirection, float maxSpeed, float acceleration, AnimationCurve accelerationFromDot,
         float maxAccelerationForce, AnimationCurve maxAccelerationForceFromDot)
     {
         Vector3 unitInputDirection = GetUnitInputWorld(player, inputDirection);
@@ -14,7 +14,7 @@ public class ComputeVelocityChange : MonoBehaviour
 
         ComputeAndAddActualForce(player, m_GoalVel, maxAccelerationForce, maxAccelerationForceFromDot, velDot);
     }
-    public (Vector3, float) GetNewGoalVelocity(PlayerController player, Vector3 unitInputDir, Vector3 groundVel, float maxSpeed, float acceleration, AnimationCurve accelerationFromDot)
+    public (Vector3, float) GetNewGoalVelocity(OldPlayerController player, Vector3 unitInputDir, Vector3 groundVel, float maxSpeed, float acceleration, AnimationCurve accelerationFromDot)
     {
         Vector3 m_GoalVel = player._rigidbody.linearVelocity;
         Vector3 unitVel = m_GoalVel.normalized;
@@ -28,7 +28,7 @@ public class ComputeVelocityChange : MonoBehaviour
         m_GoalVel = Vector3.MoveTowards(m_GoalVel, goalVel + groundVel, accel * Time.fixedDeltaTime);
         return (m_GoalVel, velDot);
     }
-    public void ComputeAndAddActualForce(PlayerController player, Vector3 m_GoalVel, float maxAccelerationForce, AnimationCurve maxAccelerationForceFromDot, float velDot)
+    public void ComputeAndAddActualForce(OldPlayerController player, Vector3 m_GoalVel, float maxAccelerationForce, AnimationCurve maxAccelerationForceFromDot, float velDot)
     {
         Vector3 neededAccel = (m_GoalVel - player._rigidbody.linearVelocity) / Time.fixedDeltaTime;
 
@@ -38,7 +38,7 @@ public class ComputeVelocityChange : MonoBehaviour
 
         player.MovementBehaviour.AddForce(neededAccel * player._rigidbody.mass);
     }
-    private Vector3 GetUnitInputWorld(PlayerController player, Vector2 inputDirection) 
+    private Vector3 GetUnitInputWorld(OldPlayerController player, Vector2 inputDirection) 
     {
         Vector3 groundNormal = player.Raycasts.rayCastHitDown.normal.normalized;
         /*
@@ -50,7 +50,7 @@ public class ComputeVelocityChange : MonoBehaviour
         return inputOnPlane;*/ // redo this based on the catlike tuto 3.5
         return Vector3.zero; //placeholder
     }
-    private Vector3 GetGroundVelocity(PlayerController player) 
+    private Vector3 GetGroundVelocity(OldPlayerController player) 
     {
         RaycastHit rayHit = player.Raycasts.rayCastHitDown;
         Vector3 hitPoint = rayHit.point;

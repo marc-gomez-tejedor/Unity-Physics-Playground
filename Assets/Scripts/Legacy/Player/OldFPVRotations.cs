@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class FPVRotations : MonoBehaviour
+public class OldFPVRotations : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform playerTransform;

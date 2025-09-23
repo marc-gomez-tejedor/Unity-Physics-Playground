@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CentipetalFromMothership : ForceField
+public class OldCentipetalFromMothership : OldForceField
 {
     [SerializeField] private Transform mothershipTransform;
     public override Vector3 GetForceField(Transform target)

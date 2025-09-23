@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class IdleState : PlayerState
+public class IdleState : OldPlayerState
 {
     private void FixedUpdate()
     {

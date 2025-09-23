@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ForceField : MonoBehaviour
+public class OldForceField : MonoBehaviour
 {
     public Vector3 forceField;
     public float magnitude;

@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class RotateTowardsDesiredOrientation : MonoBehaviour
+public class OldRotateTowardsDesiredOrientation : MonoBehaviour
 {
     private Quaternion QuatCorrection;
 
     [Header("References")]
-    public PlayerController playerController;
+    public OldPlayerController playerController;
     public Vector3 desiredOrientation { get; private set; } = Vector3.up;  
 
     public Quaternion GetQuaternion(Rigidbody _rigidbody)

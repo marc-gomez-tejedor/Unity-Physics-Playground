@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-public class MovementBehaviour : MonoBehaviour
+public class OldMovementBehaviour : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Rigidbody _rigidBody;
@@ -38,7 +38,7 @@ public class MovementBehaviour : MonoBehaviour
         _rigidBody.AddForce(forceChange * speed);
     }
 
-    public void UpdateFloatingSpringPosition(PlayerController player, 
+    public void UpdateFloatingSpringPosition(OldPlayerController player, 
         float RideHeight, float RideSpringStrength, float RideSpringDamper)
     {
         bool _rayDidHit = player.Raycasts.didRaycastHitDown;
@@ -79,7 +79,7 @@ public class MovementBehaviour : MonoBehaviour
         }
     }
     
-    public void UpdateUprightForce(PlayerController player, float strength, float damper)
+    public void UpdateUprightForce(OldPlayerController player, float strength, float damper)
     {
         Quaternion characterCurrent = _rigidBody.transform.rotation;
         Quaternion toGoal = player.Orientate.GetQuaternion(player._rigidbody);

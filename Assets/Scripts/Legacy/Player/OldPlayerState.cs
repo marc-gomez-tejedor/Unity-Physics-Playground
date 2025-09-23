@@ -1,9 +1,9 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerState : MonoBehaviour
+public class OldPlayerState : MonoBehaviour
 {
-    public PlayerController PlayerController;
+    public OldPlayerController PlayerController;
     public virtual void TransitionIn() { OnEnable(); }
     public virtual void TransitionOut() { }
     public virtual void UpdateInput() { }

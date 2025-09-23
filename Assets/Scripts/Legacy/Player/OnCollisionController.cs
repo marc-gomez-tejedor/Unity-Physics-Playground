@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class OnCollisionController : MonoBehaviour
+public class OldOnCollisionController : MonoBehaviour
 {
     public bool onGround {  get; private set; }
     public Vector3 groundNormal {  get; private set; }
-    [SerializeField] private PlayerController player;
+    [SerializeField] private OldPlayerController player;
 
     public void TurnToFalse()
     {

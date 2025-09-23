@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SimpleSSMoveState : PlayerState
+public class OldSimpleSSMoveState : OldPlayerState
 {
     [Header("Parameters")]
     [SerializeField] private float speed;

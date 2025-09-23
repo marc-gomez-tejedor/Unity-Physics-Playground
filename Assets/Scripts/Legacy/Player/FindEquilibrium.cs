@@ -236,7 +236,6 @@ public class FindEquilibrium : MonoBehaviour
     }
     private void UpdatePointImpulse(Collision collision)
     {
-        int i = 0;
         ContactPoint contact = collision.GetContact(0);
         pointImpulse = (contact.point, contact.impulse);
     }
