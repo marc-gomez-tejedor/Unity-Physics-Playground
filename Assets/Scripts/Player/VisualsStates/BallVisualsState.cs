@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BallVisualsState : IState<PlayerController>, IPlayerVisual
+public class BallVisualsState : State<BallVisualContext, PlayerController>
 {
     //          PlayerController and configSO
     PlayerController player;
@@ -34,22 +34,18 @@ public class BallVisualsState : IState<PlayerController>, IPlayerVisual
     Vector3 lastContactNormal, lastSteepNormal, lastConnectionVelocity;
 
 
-    public void Init(PlayerController context)
+    protected override void OnInit()
     {
-        player = context;
-        config = player.BallVisualsConfigSO;
-        AssignConfigValues();
-        
-        meshRenderer = ball.GetComponent<MeshRenderer>();
+        ball = Context.ballTransform;
+        meshRenderer = Context.ballMesh;
     }
-    public void Enter()
-    {
 
-    }
-    public void Update() { }
-    public void UpdateVisuals()
+    public override void Enter() { }
+    public override void Update() 
     {
+        UpdateActionsParams();
         Vector3 rotationPlaneNormal = lastContactNormal;
+        Debug.Log($"last: {lastContactNormal} rot {rotationPlaneNormal}");
         Material ballMaterial = defaultMaterial;
         float rotatingFactor = ballGroundRotation;
         if (player.Status.Climbing)
@@ -75,16 +71,16 @@ public class BallVisualsState : IState<PlayerController>, IPlayerVisual
         }
         meshRenderer.material = ballMaterial;
 
-        Vector3 movement = (player.body.linearVelocity - lastConnectionVelocity) * Time.deltaTime;
+        Vector3 movement = (Context.body.linearVelocity - lastConnectionVelocity) * Time.deltaTime;
         movement -= rotationPlaneNormal * Vector3.Dot(movement, rotationPlaneNormal);
         float distance = movement.magnitude;
 
         Quaternion rotation = ball.localRotation;
-        if (player.PhysicsContext.ConnectedBody && 
+        if (player.PhysicsContext.ConnectedBody &&
             player.PhysicsContext.ConnectedBody == player.PhysicsContext.PreviousConnectedBody)
         {
             rotation =
-                Quaternion.Euler(player.PhysicsContext.ConnectedBody.angularVelocity * 
+                Quaternion.Euler(player.PhysicsContext.ConnectedBody.angularVelocity *
                     (Mathf.Rad2Deg * Time.deltaTime))
                 * rotation;
             if (distance < 0.001f)
@@ -99,15 +95,24 @@ public class BallVisualsState : IState<PlayerController>, IPlayerVisual
         }
         float angle = distance * rotatingFactor * (180f / Mathf.PI) / ballRadius;
         Vector3 rotationAxis = Vector3.Cross(rotationPlaneNormal, movement).normalized;
+        //Debug.Log($"axis {rotationAxis}, normal {rotationPlaneNormal}");
         rotation = Quaternion.Euler(rotationAxis * angle) * rotation;
         if (ballAlignSpeed > 0f)
         {
+            //Debug.Log($"a {rotation}");
             rotation = AlignBallRotation(rotationAxis, rotation, distance);
+            //Debug.Log($"b {rotation}");
         }
         ball.localRotation = rotation;
     }
-    public void FixedUpdate() { }
-    public void LateUpdate() { }
+
+    void UpdateActionsParams()
+    {
+        lastContactNormal = player.PhysicsContext.LastContactNormal;
+        lastSteepNormal = player.PhysicsContext.LastSteepNormal;
+        lastConnectionVelocity = player.PhysicsContext.LastConnectionVelocity;
+    }
+
     Quaternion AlignBallRotation(Vector3 rotationAxis, Quaternion rotation, float traveledDistance)
     {
         Vector3 ballAxis = ball.up;
@@ -129,13 +134,18 @@ public class BallVisualsState : IState<PlayerController>, IPlayerVisual
             return Quaternion.SlerpUnclamped(rotation, newAlignment, maxAngle / angle);
         }
     }
-    public void Exit()
+    public override void FixedUpdate() { }
+    public override void LateUpdate() { }
+
+    public override void Exit()
     {
 
     }
-    public void AssignConfigValues()
+    public override void AssignConfigValues(PlayerController controller)
     {
-        ball = config.ball;
+        player = controller;
+        config = player.BallVisualsConfigSO;
+
         defaultMaterial = config.defaultMaterial;
         climbingMaterial = config.climbingMaterial;
         swimmingMaterial = config.swimmingMaterial;

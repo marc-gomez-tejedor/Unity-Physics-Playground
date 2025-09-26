@@ -1,5 +1,4 @@
-using UnityEngine;
-
+[System.Serializable]
 public class PlayerStatus
 {
     public bool OnGround;

@@ -3,17 +3,14 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "VisualsConfigs/BallVisualsConfigSO")]
 public class BallVisualsConfigSO : ScriptableObject
 {
-    [Header("Ball Parameters")]
-    public Transform ball;
     [Min(0.1f)]
     public float ballRadius = 0.5f;
 
 
     [Header("Materials")]
-    public Material 
-        defaultMaterial,
-        climbingMaterial,
-        swimmingMaterial;
+    public Material defaultMaterial;
+    public Material climbingMaterial;
+    public Material swimmingMaterial;
 
 
     [Header("Rotation Parameters")]

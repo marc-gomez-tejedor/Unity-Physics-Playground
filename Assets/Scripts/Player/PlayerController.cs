@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 
 public enum PlayerMovementMode
@@ -22,16 +22,28 @@ public class PlayerController : MonoBehaviour, IInitializable
 
 
     //          Intent
-    public bool desiredJump {  get; private set; }
-    public bool desiresClimbing {  get; private set; }
+    public bool desiredJump { get; private set; }
+    [SerializeField] public bool desiresClimbing;
 
 
-    public Rigidbody body;
+    //          OnCollision Events
+    public event Action<Collision> OnCollisionEnterEvent;
+    public event Action<Collision> OnCollisionStayEvent;
+    public event Action<Collider> OnTriggerEnterEvent;
+    public event Action<Collider> OnTriggerStayEvent;
+
+
+    //          States Context
+    //              Actions
+    public PhysicsDrivenContext physicsDrivenCtx;
+    //              Visuals
+    public BallVisualContext ballVisualCtx;
+
 
 
     //          Action and Visual Statemachines
-    public StateMachine<PlayerController> actionsStateMachine;
-    public StateMachine<PlayerController> visualsStateMachine;
+    StateMachine actionsStateMachine;
+    StateMachine visualsStateMachine;
 
 
     //          Serializable Action State Configs
@@ -50,23 +62,25 @@ public class PlayerController : MonoBehaviour, IInitializable
 
     public void Initialize()
     {
-        body = GetComponent<Rigidbody>();
-        body.useGravity = false;
-
-
         //      Action State Machine
-        actionsStateMachine = new StateMachine<PlayerController>();
+        actionsStateMachine = new StateMachine();
+        PhysicsDrivenState phsxState = new PhysicsDrivenState();
 
-        actionsStateMachine.AddState(new PhysicsDrivenState(), this);
+        phsxState.Init(physicsDrivenCtx);
+        phsxState.AssignConfigValues(this);
+        actionsStateMachine.AddState(phsxState);
 
         actionsStateMachine.ChangeState<PhysicsDrivenState>();  // default
 
 
         //      Visual State Machine
-        visualsStateMachine = new StateMachine<PlayerController>();
+        visualsStateMachine = new StateMachine();
+        BallVisualsState ballVisualState = new BallVisualsState();
 
-        visualsStateMachine.AddState(new BallVisualsState(), this);
-        
+        ballVisualState.Init(ballVisualCtx);
+        ballVisualState.AssignConfigValues(this);
+        visualsStateMachine.AddState(ballVisualState);
+
         visualsStateMachine.ChangeState<BallVisualsState>();  // default
     }
     void Update()
@@ -78,7 +92,28 @@ public class PlayerController : MonoBehaviour, IInitializable
         desiresClimbing = Input.GetButton("Climb");
 
         actionsStateMachine.Update();
+        visualsStateMachine.Update();
     }
 
     void FixedUpdate() => actionsStateMachine.FixedUpdate();
+
+    void OnCollisionEnter(Collision collision)
+    {
+        OnCollisionEnterEvent?.Invoke(collision);
+    }
+
+    void OnCollisionStay(Collision collision)
+    {
+        OnCollisionStayEvent?.Invoke(collision);
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        OnTriggerEnterEvent?.Invoke(collider);
+    }
+
+    void OnTriggerStay(Collider collider)
+    {
+        OnTriggerStayEvent?.Invoke(collider);
+    }
 }

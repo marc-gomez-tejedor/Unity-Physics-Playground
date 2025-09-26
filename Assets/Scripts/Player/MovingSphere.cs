@@ -351,6 +351,7 @@ public class MovingSphere : MonoBehaviour
         }
         float angle = distance * rotatingFactor * (180f / Mathf.PI) / ballRadius;
         Vector3 rotationAxis = Vector3.Cross(rotationPlaneNormal, movement).normalized;
+        //Debug.Log($"MV---axis {rotationAxis}, normal {rotationPlaneNormal}");
         rotation = Quaternion.Euler(rotationAxis * angle) * rotation;
         if (ballAlignSpeed > 0f)
         {

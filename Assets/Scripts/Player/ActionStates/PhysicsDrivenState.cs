@@ -1,11 +1,9 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class PhysicsDrivenState : IState<PlayerController>
+public class PhysicsDrivenState : State<PhysicsDrivenContext, PlayerController>
 {
     //          PlayerController and configSO
-    PlayerController player;
+    public PlayerController player;
     PhysicsDrivenConfigSO config;
 
 
@@ -66,10 +64,10 @@ public class PhysicsDrivenState : IState<PlayerController>
     //          Probing & snap params
     float maxSnapSpeed;
     float probeDistance;
-    LayerMask probeMask,
-              stairsMask,
-              climbMask,
-              waterMask;
+    LayerMask probeMask = -1,
+              stairsMask = -1,
+              climbMask = -1,
+              waterMask = 0;
 
 
     //          Angle limits & precomputed values
@@ -113,29 +111,27 @@ public class PhysicsDrivenState : IState<PlayerController>
             lastConnectionVelocity;
 
 
-    Rigidbody connectedBody,
+    Rigidbody body,
+              connectedBody,
               previousConnectedBody;
 
     
-    public void Init(PlayerController context)
+    protected override void OnInit()
     {
-        player = context;
-        config = player.PhysicsDrivenConfigSO;
-        AssignConfigValues();
-
-        minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
-        minStairsDotProduct = Mathf.Cos(maxStairsAngle * Mathf.Deg2Rad);
-        minClimbDotProduct = Mathf.Cos(maxClimbAngle * Mathf.Deg2Rad);
+        body = Context.body;
+        body.useGravity = false;
     }
-    public void Enter()
+    public override void Enter()
     {
         Debug.Log($"Enter {this.GetType()}");
+        Subscribe();
     }
-    public void Exit()
+    public override void Exit()
     {
         Debug.Log($"Exit {this.GetType()}");
+        UnSubscribe();
     }
-    public void Update()
+    public override void Update()
     {
         input.x = player.playerInput.x;
         input.z = player.playerInput.z;
@@ -161,16 +157,15 @@ public class PhysicsDrivenState : IState<PlayerController>
             desiredJump |= player.desiredJump;
             desiresClimbing = player.desiresClimbing;
         }
+
+        UpdatePlayerStatusAndContextValues();
     }
-    public void FixedUpdate()
+    public override void FixedUpdate()
     {
         UpdateStateParams();
 
-        velocity = player.body.linearVelocity;
         UpdateVelocity();
-        player.body.linearVelocity = velocity;
-
-        UpdatePlayerStatusAndContextValues();
+        body.linearVelocity = velocity;
 
         ClearStateParams();
     }
@@ -178,7 +173,7 @@ public class PhysicsDrivenState : IState<PlayerController>
     {
         stepsSinceLastGrounded++;
         stepsSinceLastJump++;
-        velocity = player.body.linearVelocity;
+        velocity = body.linearVelocity;
         if (CheckClimbing() || CheckSwimming() ||
             OnGround || SnapToGround() || CheckSteepContacts())
         {
@@ -198,7 +193,7 @@ public class PhysicsDrivenState : IState<PlayerController>
         }
         if (connectedBody)
         {
-            if (connectedBody.isKinematic || connectedBody.mass >= player.body.mass)
+            if (connectedBody.isKinematic || connectedBody.mass >= body.mass)
             {
                 UpdateConnectionState();
             }
@@ -218,7 +213,7 @@ public class PhysicsDrivenState : IState<PlayerController>
     }
     void UpdateVelocity()
     {
-        Vector3 gravity = CustomGravity.GetGravity(player.body.position, out upAxis);
+        Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
 
         if (InWater)
         {
@@ -326,7 +321,7 @@ public class PhysicsDrivenState : IState<PlayerController>
                 connectionWorldPosition;
             connectionVelocity = connectionMovement / Time.deltaTime;
         }
-        connectionWorldPosition = player.body.position;
+        connectionWorldPosition = body.position;
         connectionLocalPosition = connectedBody.transform.InverseTransformPoint(connectionWorldPosition);
     }
     void Jump(Vector3 gravity)
@@ -384,7 +379,7 @@ public class PhysicsDrivenState : IState<PlayerController>
         }
         if (!Physics.Raycast
             (
-                player.body.position, -upAxis, out RaycastHit hit,
+                body.position, -upAxis, out RaycastHit hit,
                 probeDistance, probeMask, QueryTriggerInteraction.Ignore
             ))
         {
@@ -439,7 +434,118 @@ public class PhysicsDrivenState : IState<PlayerController>
     {
         return (stairsMask & (1 << layer)) == 0 ? minGroundDotProduct : minStairsDotProduct;
     }
-    public void LateUpdate() { }
+
+    void OnEnable()
+    {
+        if(player) Subscribe();
+    }
+    void OnDisable()
+    {
+        UnSubscribe();
+    }
+
+    void Subscribe()
+    {
+        UnSubscribe();
+        player.OnCollisionEnterEvent += CollisionEnter;
+        player.OnCollisionStayEvent += CollisionStay;
+        player.OnTriggerEnterEvent += TriggerEnter;
+        player.OnTriggerStayEvent += TriggerStay;
+    }
+
+    void UnSubscribe()
+    {
+        player.OnCollisionEnterEvent -= CollisionEnter;
+        player.OnCollisionStayEvent -= CollisionStay;
+        player.OnTriggerEnterEvent -= TriggerEnter;
+        player.OnTriggerStayEvent -= TriggerStay;
+    }
+    void CollisionEnter(Collision collision)
+    {
+        EvaluateCollision(collision);
+    }
+
+    void CollisionStay(Collision collision)
+    {
+        EvaluateCollision(collision);
+    }
+    void TriggerEnter(Collider other)
+    {
+        if ((waterMask & (1 << other.gameObject.layer)) != 0)
+        {
+            EvaluateSubmergence(other);
+        }
+    }
+    void TriggerStay(Collider other)
+    {
+        if ((waterMask & (1 << other.gameObject.layer)) != 0)
+        {
+            EvaluateSubmergence(other);
+        }
+    }
+
+    void EvaluateCollision(Collision collision)
+    {
+        if (Swimming)
+        {
+            return;
+        }
+        int layer = collision.gameObject.layer;
+        float minDot = GetMinDot(layer);
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            Vector3 normal = collision.GetContact(i).normal;
+            float upDot = Vector3.Dot(upAxis, normal);
+            if (upDot >= minDot)
+            {
+                groundContactCount++;
+                contactNormal += normal;
+                connectedBody = collision.rigidbody;
+            }
+            else
+            {
+                if (upDot > -0.01f)
+                {
+                    steepContactCount++;
+                    steepNormal += normal;
+                    if (groundContactCount == 0)
+                    {
+                        connectedBody = collision.rigidbody;
+                    }
+                }
+                if (desiresClimbing && upDot >= minClimbDotProduct && (climbMask & (1 << layer)) != 0)
+                {
+                    climbContactCount++;
+
+                    Debug.Log(climbContactCount);
+                    climbNormal += normal;
+                    lastClimbNormal = normal;
+                    connectedBody = collision.rigidbody;
+                }
+            }
+        }
+    }
+    void EvaluateSubmergence(Collider collider)
+    {
+        if (Physics.Raycast
+        (
+            body.position + upAxis * submergenceOffset,
+            -upAxis, out RaycastHit hit, submergenceRange + 1f,
+            waterMask, QueryTriggerInteraction.Collide
+        ))
+        {
+            submergence = 1f - hit.distance / submergenceRange;
+        }
+        else
+        {
+            submergence = 1f;
+        }
+        if (Swimming)
+        {
+            connectedBody = collider.attachedRigidbody;
+        }
+    }
+    public override void LateUpdate() { }
     public void UpdatePlayerStatusAndContextValues()
     {
         player.Status.OnGround    = OnGround;
@@ -450,13 +556,18 @@ public class PhysicsDrivenState : IState<PlayerController>
         player.Status.Submergence = submergence;
         player.Status.StepsSinceLastGrounded = stepsSinceLastGrounded;
 
-        player.PhysicsContext.ConnectedBody         = connectedBody;
-        player.PhysicsContext.PreviousConnectedBody = previousConnectedBody;
-        player.PhysicsContext.ConnectionVelocity    = connectionVelocity;
-        player.PhysicsContext.LocalGroundNormal     = contactNormal;
+        player.PhysicsContext.ConnectedBody          = connectedBody;
+        player.PhysicsContext.PreviousConnectedBody  = previousConnectedBody;
+        player.PhysicsContext.LastConnectionVelocity = lastConnectionVelocity;
+        player.PhysicsContext.LocalGroundNormal      = contactNormal;
+        player.PhysicsContext.LastContactNormal      = lastContactNormal;
+        player.PhysicsContext.LastSteepNormal        = lastSteepNormal;
     }
-    public void AssignConfigValues()
+    public override void AssignConfigValues(PlayerController controller)
     {
+        player = controller;
+        config = player.PhysicsDrivenConfigSO;
+
         maxAcceleration = config.maxAcceleration;
         maxAirAcceleration = config.maxAirAcceleration;
         maxClimbAcceleration = config.maxClimbAcceleration;
@@ -486,5 +597,9 @@ public class PhysicsDrivenState : IState<PlayerController>
         waterDrag = config.waterDrag;
         buoyancy = config.buoyancy;
         swimThreshold = config.swimThreshold;
+
+        minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
+        minStairsDotProduct = Mathf.Cos(maxStairsAngle * Mathf.Deg2Rad);
+        minClimbDotProduct = Mathf.Cos(maxClimbAngle * Mathf.Deg2Rad);
     }
 }

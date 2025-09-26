@@ -1,10 +1,12 @@
-public interface IState<TContext>
+public interface IState
 {
-    void Init(TContext context);
     void Enter();
     void Update();
     void FixedUpdate();
     void LateUpdate();
     void Exit();
-    void AssignConfigValues();
+}
+public interface IState<TContext> : IState
+{
+    void Init(TContext context);
 }

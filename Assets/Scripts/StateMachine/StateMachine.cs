@@ -1,35 +1,47 @@
+using System;
 using System.Collections.Generic;
 
-public class StateMachine<TContext>
+public class StateMachine
 {
-    readonly Dictionary<System.Type, IState<TContext>> states = new();
-    public IState<TContext> currentState { get; private set; }
+    readonly Dictionary<Type, IState> states = new Dictionary<Type, IState>();
+    public IState current;
 
-    public void AddState(IState<TContext> state, TContext context)
+
+    public void AddState<T>(T state) where T : IState
     {
-        state.Init(context);
-        states[state.GetType()] = state;
+        var type = typeof(T);
+        if (states.ContainsKey(type)) {
+            throw new InvalidOperationException($"State {type.Name} already added."); 
+        }
+
+        states[type] = state;
     }
 
-    public void ChangeState<T>() where T : IState<TContext>
+    public void ChangeState<T>() where T : IState
     {
-        currentState?.Exit();
-        currentState = states[typeof(T)];
-        currentState.Enter();
+        var type = typeof(T);
+        if (!states.TryGetValue(type, out var state))
+        {
+            throw new InvalidOperationException($"State {type.Name} not found.");
+        }
+
+        current?.Exit();
+        current = states[typeof(T)];
+        current.Enter();
     }
 
     public void Update()
     {
-        currentState?.Update();
+        current?.Update();
     }
 
     public void FixedUpdate()
     {
-        currentState?.FixedUpdate();
+        current?.FixedUpdate();
     }
 
     public void LateUpdate()
     {
-        currentState?.LateUpdate();
+        current?.LateUpdate();
     }
 }

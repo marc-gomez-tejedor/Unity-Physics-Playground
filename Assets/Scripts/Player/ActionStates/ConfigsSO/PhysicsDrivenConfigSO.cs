@@ -5,16 +5,16 @@ public class PhysicsDrivenConfigSO : ScriptableObject
 {
     [Header("Movement tuning")]
     [Range(0f, 100f)]
-    public float maxAcceleration = 20f,
-          maxAirAcceleration = 1f,
+    public float maxAcceleration = 20f;
+    public float maxAirAcceleration = 1f,
           maxClimbAcceleration = 10f,
           maxSwimAcceleration = 5f;
 
 
     [Header("Speed caps")]
     [Range(0f, 100f)]
-    public float maxSpeed = 10f,
-          maxClimbSpeed = 2f,
+    public float maxSpeed = 10f;
+    public float maxClimbSpeed = 2f,
           maxSwimSpeed = 5f;
 
 
