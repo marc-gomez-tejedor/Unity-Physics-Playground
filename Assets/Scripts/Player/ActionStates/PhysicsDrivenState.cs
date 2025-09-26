@@ -166,12 +166,14 @@ public class PhysicsDrivenState : State<PhysicsDrivenContext, PlayerController>
 
         UpdateVelocity();
         body.linearVelocity = velocity;
+        player.Status.StepsSinceLastJump = stepsSinceLastJump;
 
         ClearStateParams();
     }
     void UpdateStateParams()
     {
         stepsSinceLastGrounded++;
+        stepsSinceLastJump = player.Status.StepsSinceLastJump;
         stepsSinceLastJump++;
         velocity = body.linearVelocity;
         if (CheckClimbing() || CheckSwimming() ||
@@ -401,10 +403,6 @@ public class PhysicsDrivenState : State<PhysicsDrivenContext, PlayerController>
         connectedBody = hit.rigidbody;
         return true;
     }
-    public void PreventSnapToGround()
-    {
-        stepsSinceLastJump = -1;
-    }
     bool CheckSteepContacts()
     {
         if (steepContactCount > 1)
@@ -433,15 +431,6 @@ public class PhysicsDrivenState : State<PhysicsDrivenContext, PlayerController>
     float GetMinDot(int layer)
     {
         return (stairsMask & (1 << layer)) == 0 ? minGroundDotProduct : minStairsDotProduct;
-    }
-
-    void OnEnable()
-    {
-        if(player) Subscribe();
-    }
-    void OnDisable()
-    {
-        UnSubscribe();
     }
 
     void Subscribe()
@@ -517,7 +506,6 @@ public class PhysicsDrivenState : State<PhysicsDrivenContext, PlayerController>
                 {
                     climbContactCount++;
 
-                    Debug.Log(climbContactCount);
                     climbNormal += normal;
                     lastClimbNormal = normal;
                     connectedBody = collision.rigidbody;
@@ -559,7 +547,6 @@ public class PhysicsDrivenState : State<PhysicsDrivenContext, PlayerController>
         player.PhysicsContext.ConnectedBody          = connectedBody;
         player.PhysicsContext.PreviousConnectedBody  = previousConnectedBody;
         player.PhysicsContext.LastConnectionVelocity = lastConnectionVelocity;
-        player.PhysicsContext.LocalGroundNormal      = contactNormal;
         player.PhysicsContext.LastContactNormal      = lastContactNormal;
         player.PhysicsContext.LastSteepNormal        = lastSteepNormal;
     }

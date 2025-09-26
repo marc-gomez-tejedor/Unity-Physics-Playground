@@ -45,7 +45,6 @@ public class BallVisualsState : State<BallVisualContext, PlayerController>
     {
         UpdateActionsParams();
         Vector3 rotationPlaneNormal = lastContactNormal;
-        Debug.Log($"last: {lastContactNormal} rot {rotationPlaneNormal}");
         Material ballMaterial = defaultMaterial;
         float rotatingFactor = ballGroundRotation;
         if (player.Status.Climbing)
@@ -95,13 +94,10 @@ public class BallVisualsState : State<BallVisualContext, PlayerController>
         }
         float angle = distance * rotatingFactor * (180f / Mathf.PI) / ballRadius;
         Vector3 rotationAxis = Vector3.Cross(rotationPlaneNormal, movement).normalized;
-        //Debug.Log($"axis {rotationAxis}, normal {rotationPlaneNormal}");
         rotation = Quaternion.Euler(rotationAxis * angle) * rotation;
         if (ballAlignSpeed > 0f)
         {
-            //Debug.Log($"a {rotation}");
             rotation = AlignBallRotation(rotationAxis, rotation, distance);
-            //Debug.Log($"b {rotation}");
         }
         ball.localRotation = rotation;
     }

@@ -7,5 +7,6 @@ public class PlayerStatus
     public bool InWater;
     public bool Swimming;
     public int StepsSinceLastGrounded;
+    public int StepsSinceLastJump;
     public float Submergence;
 }

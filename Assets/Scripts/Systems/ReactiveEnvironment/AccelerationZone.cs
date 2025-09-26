@@ -22,9 +22,9 @@ public class AccelerationZone : MonoBehaviour
         }
         
         body.linearVelocity = transform.TransformDirection(velocity);
-        if (body.TryGetComponent(out MovingSphere sphere))
+        if (body.TryGetComponent(out PlayerController player))
         {
-            sphere.PreventSnapToGround();
+            player.Status.StepsSinceLastJump = -1;
         }
     }
     void OnTriggerEnter(Collider other)
