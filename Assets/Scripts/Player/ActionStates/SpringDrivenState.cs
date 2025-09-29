@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PhysicsDrivenState : State<PhysicsDrivenContext, PlayerController>
+public class SpringDrivenState : State<PhysicsDrivenContext, PlayerController>
 {
     //          PlayerController and configSO
     public PlayerController player;
@@ -13,6 +13,21 @@ public class PhysicsDrivenState : State<PhysicsDrivenContext, PlayerController>
           maxAirAcceleration,
           maxClimbAcceleration,
           maxSwimAcceleration;
+
+
+    //          Max acceleration force          
+    float maxAccelerationForce = 100f;
+
+
+    //          Floating spring parameters
+    float rideHeight;
+    float rideSpringStrength;
+    float rideSpringDamper;
+
+
+    //          Upright spring parameters
+    float uprightSpringStrength;
+    float uprightSpringDamper;
 
 
     //          Intent
@@ -51,7 +66,7 @@ public class PhysicsDrivenState : State<PhysicsDrivenContext, PlayerController>
     bool OnGround => groundContactCount > 0;
     bool OnSteep => steepContactCount > 0;
     bool Climbing => climbContactCount > 0 && stepsSinceLastJump > 2;
-    bool InWater => submergence > 0f;
+    bool InWater => submergence > 0f; 
     bool Swimming => submergence >= swimThreshold;  // later move to swimming state
 
 
@@ -111,11 +126,9 @@ public class PhysicsDrivenState : State<PhysicsDrivenContext, PlayerController>
             lastConnectionVelocity;
 
 
-    //          Rigidbody and connected cache
     Rigidbody body,
               connectedBody,
               previousConnectedBody;
-
 
     
     protected override void OnInit()
@@ -538,20 +551,19 @@ public class PhysicsDrivenState : State<PhysicsDrivenContext, PlayerController>
     public override void LateUpdate() { }
     public void UpdatePlayerStatusAndContextValues()
     {
-        player.Status.OnGround = OnGround;
-        player.Status.OnSteep = OnSteep;
-        player.Status.Climbing = Climbing;
-        player.Status.InWater = InWater;
-        player.Status.Swimming = Swimming;
+        player.Status.OnGround    = OnGround;
+        player.Status.OnSteep     = OnSteep;
+        player.Status.Climbing    = Climbing;
+        player.Status.InWater     = InWater;
+        player.Status.Swimming    = Swimming;
         player.Status.Submergence = submergence;
         player.Status.StepsSinceLastGrounded = stepsSinceLastGrounded;
-        player.Status.UpAxis = upAxis;
 
-        player.ContactStatus.ConnectedBody = connectedBody;
-        player.ContactStatus.PreviousConnectedBody = previousConnectedBody;
+        player.ContactStatus.ConnectedBody          = connectedBody;
+        player.ContactStatus.PreviousConnectedBody  = previousConnectedBody;
         player.ContactStatus.LastConnectionVelocity = lastConnectionVelocity;
-        player.ContactStatus.LastContactNormal = lastContactNormal;
-        player.ContactStatus.LastSteepNormal = lastSteepNormal;
+        player.ContactStatus.LastContactNormal      = lastContactNormal;
+        player.ContactStatus.LastSteepNormal        = lastSteepNormal;
     }
     public override void AssignConfigValues(PlayerController controller)
     {
@@ -565,7 +577,7 @@ public class PhysicsDrivenState : State<PhysicsDrivenContext, PlayerController>
 
         maxSpeed = config.maxSpeed;
         maxClimbSpeed = config.maxClimbSpeed;
-        maxSwimSpeed = config.maxSwimSpeed;
+        maxSwimSpeed= config.maxSwimSpeed;
 
         jumpHeight = config.jumpHeight;
         maxAirJumps = config.maxAirJumps;

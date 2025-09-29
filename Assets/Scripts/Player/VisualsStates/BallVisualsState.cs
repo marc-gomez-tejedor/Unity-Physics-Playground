@@ -75,11 +75,11 @@ public class BallVisualsState : State<BallVisualContext, PlayerController>
         float distance = movement.magnitude;
 
         Quaternion rotation = ball.localRotation;
-        if (player.PhysicsContext.ConnectedBody &&
-            player.PhysicsContext.ConnectedBody == player.PhysicsContext.PreviousConnectedBody)
+        if (player.ContactStatus.ConnectedBody &&
+            player.ContactStatus.ConnectedBody == player.ContactStatus.PreviousConnectedBody)
         {
             rotation =
-                Quaternion.Euler(player.PhysicsContext.ConnectedBody.angularVelocity *
+                Quaternion.Euler(player.ContactStatus.ConnectedBody.angularVelocity *
                     (Mathf.Rad2Deg * Time.deltaTime))
                 * rotation;
             if (distance < 0.001f)
@@ -104,9 +104,9 @@ public class BallVisualsState : State<BallVisualContext, PlayerController>
 
     void UpdateActionsParams()
     {
-        lastContactNormal = player.PhysicsContext.LastContactNormal;
-        lastSteepNormal = player.PhysicsContext.LastSteepNormal;
-        lastConnectionVelocity = player.PhysicsContext.LastConnectionVelocity;
+        lastContactNormal = player.ContactStatus.LastContactNormal;
+        lastSteepNormal = player.ContactStatus.LastSteepNormal;
+        lastConnectionVelocity = player.ContactStatus.LastConnectionVelocity;
     }
 
     Quaternion AlignBallRotation(Vector3 rotationAxis, Quaternion rotation, float traveledDistance)

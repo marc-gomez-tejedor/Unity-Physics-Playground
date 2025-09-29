@@ -313,6 +313,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInputSpace: {fileID: 0}
   playerInput: {x: 0, y: 0, z: 0}
+  desiresClimbing: 0
+  physicsDrivenCtx:
+    body: {fileID: 2079295484844422841}
+  ballVisualCtx:
+    body: {fileID: 2079295484844422841}
+    ballTransform: {fileID: 8900136185611824712}
+    ballMesh: {fileID: 5927477978870860223}
   Status:
     OnGround: 0
     OnSteep: 0
@@ -320,17 +327,14 @@ MonoBehaviour:
     InWater: 0
     Swimming: 0
     StepsSinceLastGrounded: 0
+    StepsSinceLastJump: 0
     Submergence: 0
-  PhysicsContext:
+    UpAxis: {x: 0, y: 0, z: 0}
+  ContactStatus:
     ConnectedBody: {fileID: 0}
     PreviousConnectedBody: {fileID: 0}
-    ConnectionVelocity: {x: 0, y: 0, z: 0}
-    LocalGroundNormal: {x: 0, y: 0, z: 0}
-  physicsDrivenCtx:
-    body: {fileID: 2079295484844422841}
-  ballVisualCtx:
-    body: {fileID: 2079295484844422841}
-    ballTransform: {fileID: 8900136185611824712}
-    ballMesh: {fileID: 5927477978870860223}
+    LastConnectionVelocity: {x: 0, y: 0, z: 0}
+    LastContactNormal: {x: 0, y: 0, z: 0}
+    LastSteepNormal: {x: 0, y: 0, z: 0}
   physicsDrivenConfigSO: {fileID: 11400000, guid: 88bd1970ea9840d44b14880326b7a1be, type: 2}
   ballVisualsConfigSO: {fileID: 11400000, guid: 7ce1769ceabcc094ca973120148363b8, type: 2}

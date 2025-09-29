@@ -11,14 +11,10 @@ public enum PlayerMovementMode
 
 public class PlayerController : MonoBehaviour, IInitializable
 {
+    [Header("Input")]
     //          Input and input space
     public Transform playerInputSpace = default;
     public Vector3 playerInput;
-
-
-    //          Public PlayerStatus and physics context
-    public PlayerStatus Status;
-    public PlayerPhysicsContext PhysicsContext;
 
 
     //          Intent
@@ -33,12 +29,20 @@ public class PlayerController : MonoBehaviour, IInitializable
     public event Action<Collider> OnTriggerStayEvent;
 
 
+
+    [Header("States")]
     //          States Context
     //              Actions
     public PhysicsDrivenContext physicsDrivenCtx;
     //              Visuals
     public BallVisualContext ballVisualCtx;
 
+
+    //          Public PlayerStatus and physics context
+    [HideInInspector]
+    public PlayerStatus Status;
+    [HideInInspector]
+    public PlayerContactStatus ContactStatus;
 
 
     //          Action and Visual Statemachines
@@ -60,6 +64,7 @@ public class PlayerController : MonoBehaviour, IInitializable
     public BallVisualsConfigSO BallVisualsConfigSO => ballVisualsConfigSO;
 
 
+    
     public void Initialize()
     {
         //      Action State Machine

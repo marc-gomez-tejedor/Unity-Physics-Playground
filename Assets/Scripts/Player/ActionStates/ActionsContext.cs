@@ -8,9 +8,8 @@ public class PhysicsDrivenContext
 }
 
 [Serializable]
-public class BallVisualContext
+public class SpringDrivenContext
 {
     public Rigidbody body;
-    public Transform ballTransform;
-    public MeshRenderer ballMesh;
 }
+

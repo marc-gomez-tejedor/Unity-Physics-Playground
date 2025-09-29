@@ -1,3 +1,5 @@
+using UnityEngine;
+
 [System.Serializable]
 public class PlayerStatus
 {
@@ -9,4 +11,16 @@ public class PlayerStatus
     public int StepsSinceLastGrounded;
     public int StepsSinceLastJump;
     public float Submergence;
+    public Vector3 UpAxis;
 }
+
+[System.Serializable]
+public class PlayerContactStatus
+{
+    public Rigidbody ConnectedBody;
+    public Rigidbody PreviousConnectedBody;
+    public Vector3 LastConnectionVelocity;
+    public Vector3 LastContactNormal;
+    public Vector3 LastSteepNormal;
+}
+
