@@ -11,5 +11,6 @@ public class PhysicsDrivenContext
 public class SpringDrivenContext
 {
     public Rigidbody body;
+    public Transform raycastOrigin;
 }
 

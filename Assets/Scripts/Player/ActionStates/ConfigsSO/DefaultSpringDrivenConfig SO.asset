@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cb0b72f4d8ecef4a88c9e95d8a37f0f, type: 3}
+  m_Name: DefaultSpringDrivenConfig SO
+  m_EditorClassIdentifier: 
+  maxAcceleration: 20
+  maxAirAcceleration: 1
+  maxClimbAcceleration: 10
+  maxSwimAcceleration: 5
+  rideHeight: 1
+  rideSpringStrength: 30
+  rideSpringDamper: 8
+  maxSpeed: 10
+  maxClimbSpeed: 2
+  maxSwimSpeed: 5
+  jumpHeight: 2
+  maxAirJumps: 0
+  maxClimbAngle: 140
+  maxSnapSpeed: 100
+  probeDistance: 1.5
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 5264
+  stairsMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  climbMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
+  maxGroundAngle: 25
+  maxStairsAngle: 50
+  minGroundDotProduct: 0
+  minStairsDotProduct: 0
+  minClimbDotProduct: 0
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  waterDrag: 1
+  buoyancy: 1
+  swimThreshold: 0.5

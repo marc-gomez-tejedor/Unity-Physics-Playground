@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class SpringDrivenState : State<PhysicsDrivenContext, PlayerController>
+public class SpringDrivenState : State<SpringDrivenContext, PlayerController>
 {
     //          PlayerController and configSO
     public PlayerController player;
-    PhysicsDrivenConfigSO config;
+    SpringDrivenConfigSO config;
 
 
     //      ***later update to spring parameters***
@@ -15,19 +15,10 @@ public class SpringDrivenState : State<PhysicsDrivenContext, PlayerController>
           maxSwimAcceleration;
 
 
-    //          Max acceleration force          
-    float maxAccelerationForce = 100f;
-
-
-    //          Floating spring parameters
-    float rideHeight;
-    float rideSpringStrength;
-    float rideSpringDamper;
-
-
-    //          Upright spring parameters
-    float uprightSpringStrength;
-    float uprightSpringDamper;
+    //          Floating Spring Params
+    float rideHeight,
+        rideSpringStrength,
+        rideSpringDamper;
 
 
     //          Intent
@@ -126,15 +117,23 @@ public class SpringDrivenState : State<PhysicsDrivenContext, PlayerController>
             lastConnectionVelocity;
 
 
+    //          Rigidbody and connected cache
     Rigidbody body,
               connectedBody,
               previousConnectedBody;
 
+
+    //          Raycast origin transform
+    Transform raycastOrigin;
+    float sphereCastRadius;
+    bool didHit;
+    RaycastHit rayHit;
     
     protected override void OnInit()
     {
         body = Context.body;
         body.useGravity = false;
+        raycastOrigin = Context.raycastOrigin;
     }
     public override void Enter()
     {
@@ -191,9 +190,12 @@ public class SpringDrivenState : State<PhysicsDrivenContext, PlayerController>
         stepsSinceLastJump = player.Status.StepsSinceLastJump;
         stepsSinceLastJump++;
         velocity = body.linearVelocity;
-        if (CheckClimbing() || CheckSwimming() ||
-            OnGround || SnapToGround() || CheckSteepContacts())
+        if (Physics.SphereCast(raycastOrigin.position, sphereCastRadius, -upAxis,
+            out RaycastHit hit, probeDistance, probeMask))
         {
+            EvaluateRaycast(hit);
+            didHit = true;
+            rayHit = hit;
             stepsSinceLastGrounded = 0;
             if (stepsSinceLastJump > 1)
             {
@@ -207,7 +209,14 @@ public class SpringDrivenState : State<PhysicsDrivenContext, PlayerController>
         else
         {
             contactNormal = upAxis;
+            didHit = false;
         }
+        /*if (CheckClimbing() || CheckSwimming() ||
+            OnGround || SnapToGround() || CheckSteepContacts())
+        {
+            
+        }*/
+        
         if (connectedBody)
         {
             if (connectedBody.isKinematic || connectedBody.mass >= body.mass)
@@ -236,15 +245,18 @@ public class SpringDrivenState : State<PhysicsDrivenContext, PlayerController>
         {
             velocity *= 1f - waterDrag * submergence * Time.deltaTime;
         }
-        AdjustVelocity();
+        ApplyVelocityAxis();
 
         if (desiredJump)
         {
             desiredJump = false;
             Jump(gravity);
         }
-
-        if (Climbing)
+        if (didHit && stepsSinceLastJump > 0)
+        {
+            ApplySpringFloatingForce(gravity);
+        }
+        /*else if (Climbing)
         {
             velocity -= contactNormal * (maxClimbAcceleration * 0.9f * Time.deltaTime);
         }
@@ -259,7 +271,7 @@ public class SpringDrivenState : State<PhysicsDrivenContext, PlayerController>
         else if (desiresClimbing && OnGround)
         {
             velocity += (gravity - contactNormal * (maxClimbAcceleration * 0.9f)) * Time.deltaTime;
-        }
+        }*/
         else
         {
             velocity += gravity * Time.deltaTime;
@@ -267,6 +279,7 @@ public class SpringDrivenState : State<PhysicsDrivenContext, PlayerController>
     }
     bool CheckClimbing()
     {
+        return false; //placeholder for testing
         if (Climbing)
         {
             if (climbContactCount > 1)
@@ -284,7 +297,7 @@ public class SpringDrivenState : State<PhysicsDrivenContext, PlayerController>
         }
         return false;
     }
-    void AdjustVelocity()
+    void ApplyVelocityAxis()
     {
         float acceleration, speed;
         Vector3 xAxis, zAxis;
@@ -383,8 +396,22 @@ public class SpringDrivenState : State<PhysicsDrivenContext, PlayerController>
         }
         velocity += jumpDirection * jumpSpeed;
     }
+    void ApplySpringFloatingForce(Vector3 gravity)
+    {
+        velocity += gravity * Time.deltaTime;
+        float vertVel = Vector3.Dot(-upAxis, velocity);
+        float vertOtherVel = Vector3.Dot(-upAxis, connectionVelocity);
+        
+        float relVel = vertVel - vertOtherVel;
+        
+        float x = rayHit.distance - rideHeight;
+        float springForce = (x * rideSpringStrength) - (relVel * rideSpringDamper);
+        Debug.Log($"sp{-upAxis * (springForce * Time.fixedDeltaTime / body.mass)}");
+        velocity += -upAxis * (springForce * Time.fixedDeltaTime / body.mass);
+    }
     bool SnapToGround()
     {
+        return false; //placeholder for testing
         if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2 || InWater)
         {
             return false;
@@ -420,6 +447,7 @@ public class SpringDrivenState : State<PhysicsDrivenContext, PlayerController>
     }
     bool CheckSteepContacts()
     {
+        return false; //placeholder for testing
         if (steepContactCount > 1)
         {
             steepNormal.Normalize();
@@ -435,6 +463,7 @@ public class SpringDrivenState : State<PhysicsDrivenContext, PlayerController>
     }
     bool CheckSwimming()
     {
+        return false; //placeholder for testing
         if (Swimming)
         {
             groundContactCount = 0;
@@ -528,6 +557,49 @@ public class SpringDrivenState : State<PhysicsDrivenContext, PlayerController>
             }
         }
     }
+    void EvaluateRaycast(RaycastHit hit)
+    {
+        if (Swimming)
+        {
+            return;
+        }
+        int layer = hit.collider.gameObject.layer;
+        float minDot = GetMinDot(layer);
+        Vector3 normal = hit.normal;
+        float upDot = Vector3.Dot(upAxis, normal);
+        if (upDot >= minDot)
+        {
+            groundContactCount++;
+            contactNormal += normal;
+            if (hit.rigidbody)
+            {
+                connectedBody = hit.rigidbody;
+            }
+        }
+        else
+        {
+            if (upDot > -0.01f)
+            {
+                steepContactCount++;
+                steepNormal += normal;
+                if (groundContactCount == 0)
+                {
+                    connectedBody = hit.rigidbody;
+                }
+            }
+            if (desiresClimbing && upDot >= minClimbDotProduct && (climbMask & (1 << layer)) != 0)
+            {
+                climbContactCount++;
+
+                climbNormal += normal;
+                lastClimbNormal = normal;
+                if (hit.rigidbody)
+                {
+                    connectedBody = hit.rigidbody;
+                }
+            }
+        }
+    }
     void EvaluateSubmergence(Collider collider)
     {
         if (Physics.Raycast
@@ -568,13 +640,17 @@ public class SpringDrivenState : State<PhysicsDrivenContext, PlayerController>
     public override void AssignConfigValues(PlayerController controller)
     {
         player = controller;
-        config = player.PhysicsDrivenConfigSO;
+        config = player.SpringDrivenConfigSO;
 
         maxAcceleration = config.maxAcceleration;
         maxAirAcceleration = config.maxAirAcceleration;
         maxClimbAcceleration = config.maxClimbAcceleration;
         maxSwimAcceleration = config.maxSwimAcceleration;
 
+        rideHeight = config.rideHeight;
+        rideSpringStrength = config.rideSpringStrength;
+        rideSpringDamper = config.rideSpringDamper;
+        
         maxSpeed = config.maxSpeed;
         maxClimbSpeed = config.maxClimbSpeed;
         maxSwimSpeed= config.maxSwimSpeed;

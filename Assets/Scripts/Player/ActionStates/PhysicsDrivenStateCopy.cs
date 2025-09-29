@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PhysicsDrivenStateCopy : State<PhysicsDrivenContext, PlayerController>
+public class PhysicsDrivenStateCopy : State<SpringDrivenContext, PlayerController>
 {
     //          PlayerController and configSO
     public PlayerController player;
@@ -117,11 +117,16 @@ public class PhysicsDrivenStateCopy : State<PhysicsDrivenContext, PlayerControll
               previousConnectedBody;
 
 
+    //          Raycast origin transform
+    Transform raycastOrigin;
+    float sphereCastRadius;
+
 
     protected override void OnInit()
     {
         body = Context.body;
         body.useGravity = false;
+        raycastOrigin = Context.raycastOrigin;
     }
     public override void Enter()
     {
@@ -178,6 +183,11 @@ public class PhysicsDrivenStateCopy : State<PhysicsDrivenContext, PlayerControll
         stepsSinceLastJump = player.Status.StepsSinceLastJump;
         stepsSinceLastJump++;
         velocity = body.linearVelocity;
+        if (Physics.SphereCast(raycastOrigin.position, sphereCastRadius, -upAxis,
+            out RaycastHit hit, probeDistance, probeMask))
+        {
+
+        }
         if (CheckClimbing() || CheckSwimming() ||
             OnGround || SnapToGround() || CheckSteepContacts())
         {
@@ -545,7 +555,6 @@ public class PhysicsDrivenStateCopy : State<PhysicsDrivenContext, PlayerControll
         player.Status.Swimming = Swimming;
         player.Status.Submergence = submergence;
         player.Status.StepsSinceLastGrounded = stepsSinceLastGrounded;
-        player.Status.UpAxis = upAxis;
 
         player.ContactStatus.ConnectedBody = connectedBody;
         player.ContactStatus.PreviousConnectedBody = previousConnectedBody;

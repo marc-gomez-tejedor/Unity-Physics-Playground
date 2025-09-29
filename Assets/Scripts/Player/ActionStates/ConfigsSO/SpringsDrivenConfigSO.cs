@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ActionsConfigs/PhysicsDrivenConfigSO")]
-public class PhysicsDrivenConfigSO : ScriptableObject
+[CreateAssetMenu(menuName = "ActionsConfigs/SpringDrivenConfigSO")]
+public class SpringDrivenConfigSO : ScriptableObject
 {
     [Header("Movement tuning")]
     [Range(0f, 100f)]
@@ -10,7 +10,16 @@ public class PhysicsDrivenConfigSO : ScriptableObject
           maxClimbAcceleration = 10f,
           maxSwimAcceleration = 5f;
 
-    
+
+    [Header("Floating Spring Params")]
+    [Min(0f)]
+    public float rideHeight = 0.5f;
+    [Range(0f, 1000f)]
+    public float rideSpringStrength;
+    [Range(0f, 100f)]
+    public float rideSpringDamper;
+
+
     [Header("Speed caps")]
     [Range(0f, 100f)]
     public float maxSpeed = 10f;

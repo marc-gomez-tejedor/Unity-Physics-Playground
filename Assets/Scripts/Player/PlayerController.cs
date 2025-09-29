@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour, IInitializable
     //          States Context
     //              Actions
     public PhysicsDrivenContext physicsDrivenCtx;
+    public SpringDrivenContext springDrivenCtx;
     //              Visuals
     public BallVisualContext ballVisualCtx;
 
@@ -53,8 +54,11 @@ public class PlayerController : MonoBehaviour, IInitializable
     //          Serializable Action State Configs
     [SerializeField]
     PhysicsDrivenConfigSO physicsDrivenConfigSO;
+    [SerializeField]
+    SpringDrivenConfigSO springDrivenConfigSO;
     //          Public Action State Configs
     public PhysicsDrivenConfigSO PhysicsDrivenConfigSO => physicsDrivenConfigSO;
+    public SpringDrivenConfigSO SpringDrivenConfigSO => springDrivenConfigSO;
 
 
     //          Serializable Visuals State Configs
@@ -70,12 +74,18 @@ public class PlayerController : MonoBehaviour, IInitializable
         //      Action State Machine
         actionsStateMachine = new StateMachine();
         PhysicsDrivenState phsxState = new PhysicsDrivenState();
+        SpringDrivenState springState = new SpringDrivenState();
 
         phsxState.Init(physicsDrivenCtx);
         phsxState.AssignConfigValues(this);
         actionsStateMachine.AddState(phsxState);
 
+        springState.Init(springDrivenCtx);
+        springState.AssignConfigValues(this);
+        actionsStateMachine.AddState(springState);
+
         actionsStateMachine.ChangeState<PhysicsDrivenState>();  // default
+        actionsStateMachine.ChangeState<SpringDrivenState>();  // new default
 
 
         //      Visual State Machine
