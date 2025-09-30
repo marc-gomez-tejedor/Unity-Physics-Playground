@@ -43,6 +43,7 @@ public class SpringDrivenConfigSO : ScriptableObject
     public float maxSnapSpeed = 100f;
     [Min(0f)]
     public float probeDistance = 1f;
+    public float sphereCastRaiuds = 0.5f;
     public LayerMask probeMask = -1,
               stairsMask = -1,
               climbMask = -1,

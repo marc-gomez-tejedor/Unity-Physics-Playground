@@ -67,7 +67,6 @@ public class PlayerController : MonoBehaviour, IInitializable
     //          Public Visuals State Configs
     public BallVisualsConfigSO BallVisualsConfigSO => ballVisualsConfigSO;
 
-
     
     public void Initialize()
     {

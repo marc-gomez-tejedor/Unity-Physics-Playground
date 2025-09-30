@@ -128,7 +128,9 @@ public class SpringDrivenState : State<SpringDrivenContext, PlayerController>
     float sphereCastRadius;
     bool didHit;
     RaycastHit rayHit;
-    
+
+
+
     protected override void OnInit()
     {
         body = Context.body;
@@ -190,6 +192,7 @@ public class SpringDrivenState : State<SpringDrivenContext, PlayerController>
         stepsSinceLastJump = player.Status.StepsSinceLastJump;
         stepsSinceLastJump++;
         velocity = body.linearVelocity;
+        Debug.DrawLine(raycastOrigin.position, raycastOrigin.position - upAxis * probeDistance, Color.yellow);
         if (Physics.SphereCast(raycastOrigin.position, sphereCastRadius, -upAxis,
             out RaycastHit hit, probeDistance, probeMask))
         {
@@ -252,11 +255,11 @@ public class SpringDrivenState : State<SpringDrivenContext, PlayerController>
             desiredJump = false;
             Jump(gravity);
         }
-        if (didHit && stepsSinceLastJump > 0)
+        if (didHit && stepsSinceLastJump > 0 && stepsSinceLastGrounded <= 1)
         {
             ApplySpringFloatingForce(gravity);
         }
-        /*else if (Climbing)
+        else if (Climbing)
         {
             velocity -= contactNormal * (maxClimbAcceleration * 0.9f * Time.deltaTime);
         }
@@ -271,7 +274,7 @@ public class SpringDrivenState : State<SpringDrivenContext, PlayerController>
         else if (desiresClimbing && OnGround)
         {
             velocity += (gravity - contactNormal * (maxClimbAcceleration * 0.9f)) * Time.deltaTime;
-        }*/
+        }
         else
         {
             velocity += gravity * Time.deltaTime;
@@ -279,7 +282,6 @@ public class SpringDrivenState : State<SpringDrivenContext, PlayerController>
     }
     bool CheckClimbing()
     {
-        return false; //placeholder for testing
         if (Climbing)
         {
             if (climbContactCount > 1)
@@ -629,6 +631,7 @@ public class SpringDrivenState : State<SpringDrivenContext, PlayerController>
         player.Status.InWater     = InWater;
         player.Status.Swimming    = Swimming;
         player.Status.Submergence = submergence;
+
         player.Status.StepsSinceLastGrounded = stepsSinceLastGrounded;
 
         player.ContactStatus.ConnectedBody          = connectedBody;
@@ -662,6 +665,7 @@ public class SpringDrivenState : State<SpringDrivenContext, PlayerController>
 
         maxSnapSpeed = config.maxSnapSpeed;
         probeDistance = config.probeDistance;
+        sphereCastRadius = config.sphereCastRaiuds;
         probeMask = config.probeMask;
         stairsMask = config.stairsMask;
         climbMask = config.climbMask;
@@ -679,5 +683,11 @@ public class SpringDrivenState : State<SpringDrivenContext, PlayerController>
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
         minStairsDotProduct = Mathf.Cos(maxStairsAngle * Mathf.Deg2Rad);
         minClimbDotProduct = Mathf.Cos(maxClimbAngle * Mathf.Deg2Rad);
+    }
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(raycastOrigin.position, sphereCastRadius);
+        Gizmos.DrawSphere(raycastOrigin.position-upAxis*probeDistance, sphereCastRadius);
     }
 }

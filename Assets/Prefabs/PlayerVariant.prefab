@@ -132,12 +132,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925109769717687827}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: -0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.49999994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1898878570999871984}
+  m_Father: {fileID: 4395729392698612492}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2909180979355027403
 GameObject:
@@ -712,6 +712,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 734869006835742761}
   - {fileID: 1898878570999871984}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -887,7 +888,9 @@ MonoBehaviour:
   desiresClimbing: 0
   physicsDrivenCtx:
     body: {fileID: 9007952906859307265}
-    raycastOrigin: {fileID: 734869006835742761}
+  springDrivenCtx:
+    body: {fileID: 0}
+    raycastOrigin: {fileID: 0}
   ballVisualCtx:
     body: {fileID: 9007952906859307265}
     ballTransform: {fileID: 1898878570999871984}
@@ -909,6 +912,7 @@ MonoBehaviour:
     LastContactNormal: {x: 0, y: 0, z: 0}
     LastSteepNormal: {x: 0, y: 0, z: 0}
   physicsDrivenConfigSO: {fileID: 11400000, guid: 88bd1970ea9840d44b14880326b7a1be, type: 2}
+  springDrivenConfigSO: {fileID: 0}
   ballVisualsConfigSO: {fileID: 11400000, guid: 7ce1769ceabcc094ca973120148363b8, type: 2}
 --- !u!1 &7486131754279994087
 GameObject:
@@ -1158,7 +1162,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 734869006835742761}
   - {fileID: 3218934381628062990}
   - {fileID: 113499768873010923}
   - {fileID: 8089746576966012126}

@@ -12,24 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb0b72f4d8ecef4a88c9e95d8a37f0f, type: 3}
   m_Name: DefaultSpringDrivenConfig SO
   m_EditorClassIdentifier: 
-  maxAcceleration: 20
-  maxAirAcceleration: 1
-  maxClimbAcceleration: 10
-  maxSwimAcceleration: 5
-  rideHeight: 1
-  rideSpringStrength: 30
-  rideSpringDamper: 8
+  maxAcceleration: 50
+  maxAirAcceleration: 10
+  maxClimbAcceleration: 20
+  maxSwimAcceleration: 15
+  rideHeight: 1.8
+  rideSpringStrength: 20
+  rideSpringDamper: 20
   maxSpeed: 10
   maxClimbSpeed: 2
   maxSwimSpeed: 5
   jumpHeight: 2
-  maxAirJumps: 0
+  maxAirJumps: 1
   maxClimbAngle: 140
   maxSnapSpeed: 100
-  probeDistance: 1.5
+  probeDistance: 1
+  sphereCastRaiuds: 0.5
   probeMask:
     serializedVersion: 2
-    m_Bits: 5264
+    m_Bits: 5329
   stairsMask:
     serializedVersion: 2
     m_Bits: 4294967295
