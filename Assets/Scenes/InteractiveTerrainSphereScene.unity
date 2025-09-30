@@ -735,11 +735,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!4 &164042788 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 734869006835742761, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-  m_PrefabInstance: {fileID: 1765089804826941838}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &174314186
 Mesh:
   m_ObjectHideFlags: 0
@@ -10060,11 +10055,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4395729392698612492, guid: 3859e58709822024e999432a19c9e54d, type: 3}
   m_PrefabInstance: {fileID: 1765089804826941838}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &1575921343 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 9007952906859307265, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-  m_PrefabInstance: {fileID: 1765089804826941838}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1602832358
 Mesh:
   m_ObjectHideFlags: 0
@@ -13262,25 +13252,9 @@ PrefabInstance:
       propertyPath: playerInputSpace
       value: 
       objectReference: {fileID: 738844198}
-    - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: newSpringDrivenConfigSO
-      value: 
-      objectReference: {fileID: 11400000, guid: 8fe380f3a084c454ab4ab787cb624b50, type: 2}
-    - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: newSpringDrivenCtx.body
-      value: 
-      objectReference: {fileID: 1575921343}
-    - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: newSpringDrivenCtx.raycastOrigin
-      value: 
-      objectReference: {fileID: 164042788}
     - target: {fileID: 6731493946712284411, guid: 3859e58709822024e999432a19c9e54d, type: 3}
       propertyPath: m_Name
       value: Player - triggerBody
-      objectReference: {fileID: 0}
-    - target: {fileID: 6879056846281543213, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: m_Radius
-      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
