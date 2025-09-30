@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e54c3462f6d18c7478554fe19cf16beb, type: 3}
-  m_Name: TestingNewSpringSO
+  m_Name: SpringSO-100-10
   m_EditorClassIdentifier: 
   maxAcceleration: 50
   maxAirAcceleration: 10

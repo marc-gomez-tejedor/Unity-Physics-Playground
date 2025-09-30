@@ -46,17 +46,21 @@ public static class MathRaycasts
         // First, try Raycast (precise)
         if (Physics.Raycast(origin, direction, out hit, rayDistance, groundMask))
         {
+            Debug.Log("true ray");
             return true;
         }
 
         // Otherwise, try BoxCast (broader)
         // First lets orientate the pancake
         Quaternion orientation = Quaternion.FromToRotation(Vector3.up, direction);
+        //Quaternion orientation = Quaternion.identity;
         if (Physics.BoxCast(origin, boxHalfExtents, direction, out hit,
             orientation, boxDistance, groundMask))
         {
+            Debug.Log("true box");
             return true;
         }
+        Debug.Log("false");
         return false; // No ground found
     }
 

@@ -69,6 +69,7 @@ public static class MovementMath
         //Debug.DrawLine(_RB.transform.position, _RB.transform.position + (rayDir * springForce), Color.yellow);
 
         //body.AddForce(rayDir * springForce);
+        Debug.Log($"{velocity}, new {velocity + rayDir * springForce / body.mass * timeStep}");
         velocity += rayDir * springForce/body.mass * timeStep;
         return velocity;
         //if (hitBody)

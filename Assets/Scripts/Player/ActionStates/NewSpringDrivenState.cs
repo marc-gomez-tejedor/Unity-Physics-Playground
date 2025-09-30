@@ -255,8 +255,8 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         // downwards raycast
         Debug.DrawLine(raycastOrigin.position, raycastOrigin.position - upAxis * downRayDistance, Color.yellow);
         didDownHit = MathRaycasts.GetBoxInfo(raycastOrigin.position, -upAxis, downRayDistance,
-            downBoxDistance, fwdHalfExtents, probeMask, out downRayHit);
-        if (didDownHit)
+            downBoxDistance, downHalfExtents, probeMask, out downRayHit);
+        if (didDownHit && stepsSinceLastJump > 10)
         {
             stepsSinceLastGrounded = 0;
             EvaluateRaycast(downRayHit);
@@ -296,12 +296,13 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     {
         Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
 
+        Debug.Log($"vel pre update {velocity}");
         if (InWater)
         {
             velocity *= 1f - waterDrag * submergence * Time.deltaTime;
         }
         ApplyVelocityAxis();
-
+        Debug.Log($"vel post vel axis update {velocity}");
         if (desiredJump)
         {
             desiredJump = false;
@@ -317,7 +318,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         }
         else if (OnGround)
         {
-            MovementMath.GetFloatingSpringVelocity(body, upAxis, downRayHit, velocity,
+            velocity = MovementMath.GetFloatingSpringVelocity(body, upAxis, downRayHit, velocity,
                 rideHeight, rideSpringStrength, rideSpringDamper, Time.deltaTime);
         }
         else if (desiresClimbing && OnGround)
@@ -328,6 +329,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         {
             velocity += gravity * Time.deltaTime;
         }
+        Debug.Log($"vel post update {velocity}");
     }
     bool CheckClimbing()
     {
@@ -720,6 +722,8 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         waterMask = config.waterMask;
         downRayDistance = config.downRayDistance;
         fwdRayDistance = config.fwdRayDistance;
+        downRayDistance = config.downBoxDistance;
+        fwdRayDistance = config.fwdBoxDistance;
         downHalfExtents = config.downHalfExtents;
         fwdHalfExtents = config.fwdHalfExtents;
 
