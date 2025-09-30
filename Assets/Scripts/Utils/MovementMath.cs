@@ -42,8 +42,8 @@ public static class MovementMath
             }
         }
     }
-    public static void UpdateFloatingSpringPosition(Rigidbody body, Vector3 upAxis, RaycastHit hit,
-        ref Vector3 velocity, float RideHeight, float RideSpringStrength, float RideSpringDamper, float timeStep)
+    public static Vector3 GetFloatingSpringVelocity(Rigidbody body, Vector3 upAxis, RaycastHit hit,
+        Vector3 velocity, float RideHeight, float RideSpringStrength, float RideSpringDamper, float timeStep)
     {
         // to test
         //Vector3 vel = velocity;  // option A
@@ -70,10 +70,10 @@ public static class MovementMath
 
         //body.AddForce(rayDir * springForce);
         velocity += rayDir * springForce/body.mass * timeStep;
-
-        if (hitBody)
-        {
-            hitBody.AddForceAtPosition(rayDir * -springForce, hit.point);
-        }
+        return velocity;
+        //if (hitBody)
+        //{
+        //    hitBody.AddForceAtPosition(rayDir * -springForce, hit.point);
+        //}
     }
 }

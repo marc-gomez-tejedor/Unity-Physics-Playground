@@ -190,7 +190,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         // cast sphereCasts and set Swimming, Onground, Climb, etc
         UpdateStateParams();
 
-        //UpdateVelocity();
+        UpdateVelocity();
         body.linearVelocity = velocity;
         player.Status.StepsSinceLastJump = stepsSinceLastJump;
 
@@ -229,77 +229,6 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
                 connectedBody = hit.rigidbody;
             }
         }
-    }
-
-    void UpdateStateParams()
-    {
-        // get current velocity
-        velocity = body.linearVelocity;
-
-        // get gravity and upAxis
-        Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
-        
-        // cache params
-        stepsSinceLastGrounded++;
-        stepsSinceLastJump = player.Status.StepsSinceLastJump;
-        stepsSinceLastJump++;
-        didDownHit = false; didFwdHit = false;
-
-        velocity += gravity * Time.deltaTime;
-        // downwards raycast
-        Debug.DrawLine(raycastOrigin.position, raycastOrigin.position - upAxis * downRayDistance, Color.yellow);
-        didDownHit = MathRaycasts.GetBoxInfo(raycastOrigin.position, -upAxis, downRayDistance,
-            downBoxDistance, fwdHalfExtents, probeMask, out downRayHit);
-        if (didDownHit)
-        {
-            EvaluateRaycast(downRayHit);
-            if (groundContactCount > 0)
-            {
-                MovementMath.UpdateFloatingSpringPosition(body, upAxis, downRayHit, ref velocity,
-                    rideHeight, rideSpringStrength, rideSpringDamper, Time.deltaTime);
-            }
-        }
-        // forwards raycast
-        Debug.DrawLine(raycastOrigin.position, raycastOrigin.position + forwardAxis * fwdRayDistance, Color.yellow);
-        didDownHit = MathRaycasts.GetBoxInfo(raycastOrigin.position, forwardAxis, fwdRayDistance,
-            fwdBoxDistance, downHalfExtents, probeMask, out fwdRayHit);
-        if (didFwdHit)
-        {
-            EvaluateRaycast(fwdRayHit);
-        }
-
-
-
-
-
-
-        //if (Physics.SphereCast(raycastOrigin.position, downSphereCastRadius, -upAxis,
-        //    out RaycastHit hit, probeDistance, probeMask))
-        //{
-        //    EvaluateRaycast(hit);
-        //    didDownHit = true;
-        //    downRayHit = hit;
-        //    stepsSinceLastGrounded = 0;
-        //    if (stepsSinceLastJump > 1)
-        //    {
-        //        jumpPhase = 0;
-        //    }
-        //    if (groundContactCount > 1)
-        //    {
-        //        contactNormal.Normalize();
-        //    }
-        //}
-        //else
-        //{
-        //    contactNormal = upAxis;
-        //    didDownHit = false;
-        //}
-        /*if (CheckClimbing() || CheckSwimming() ||
-            OnGround || SnapToGround() || CheckSteepContacts())
-        {
-            
-        }*/
-        /*
         if (connectedBody)
         {
             if (connectedBody.isKinematic || connectedBody.mass >= body.mass)
@@ -307,7 +236,46 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
                 UpdateConnectionState();
             }
         }
-        */
+    }
+
+    void UpdateStateParams()
+    {
+        // get current velocity
+        velocity = body.linearVelocity;
+
+        // get upAxis
+        upAxis = CustomGravity.GetUpAxis(body.position);
+        
+        // cache params
+        stepsSinceLastGrounded++;
+        stepsSinceLastJump = player.Status.StepsSinceLastJump;
+        stepsSinceLastJump++;
+        didDownHit = false; didFwdHit = false;
+
+        // downwards raycast
+        Debug.DrawLine(raycastOrigin.position, raycastOrigin.position - upAxis * downRayDistance, Color.yellow);
+        didDownHit = MathRaycasts.GetBoxInfo(raycastOrigin.position, -upAxis, downRayDistance,
+            downBoxDistance, fwdHalfExtents, probeMask, out downRayHit);
+        if (didDownHit)
+        {
+            stepsSinceLastGrounded = 0;
+            EvaluateRaycast(downRayHit);
+        }
+        else
+        {
+            contactNormal = upAxis;
+        }
+        // forwards raycast
+        //Debug.DrawLine(raycastOrigin.position, raycastOrigin.position + forwardAxis * fwdRayDistance, Color.yellow);
+        //didDownHit = MathRaycasts.GetBoxInfo(raycastOrigin.position, forwardAxis, fwdRayDistance,
+        //    fwdBoxDistance, downHalfExtents, probeMask, out fwdRayHit);
+        //if (didFwdHit)
+        //{
+        //    EvaluateRaycast(fwdRayHit);
+        //}
+        /*if (CheckClimbing() || CheckSwimming() ||
+            OnGround || SnapToGround() || CheckSteepContacts())
+        {*/
     }
     void ClearStateParams()
     {
@@ -339,10 +307,6 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
             desiredJump = false;
             Jump(gravity);
         }
-        //if (didHit && stepsSinceLastJump > 0 && stepsSinceLastGrounded <= 1)
-        //{
-        //    ApplySpringFloatingForce(gravity);
-        //}
         else if (Climbing)
         {
             velocity -= contactNormal * (maxClimbAcceleration * 0.9f * Time.deltaTime);
@@ -351,9 +315,10 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         {
             velocity += gravity * ((1f - buoyancy * submergence) * Time.deltaTime);
         }
-        else if (OnGround && velocity.sqrMagnitude < 0.01f)
+        else if (OnGround)
         {
-            velocity += contactNormal * (Vector3.Dot(gravity, contactNormal) * Time.deltaTime);
+            MovementMath.GetFloatingSpringVelocity(body, upAxis, downRayHit, velocity,
+                rideHeight, rideSpringStrength, rideSpringDamper, Time.deltaTime);
         }
         else if (desiresClimbing && OnGround)
         {
