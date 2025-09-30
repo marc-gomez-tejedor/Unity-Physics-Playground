@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cb0b72f4d8ecef4a88c9e95d8a37f0f, type: 3}
-  m_Name: DefaultSpringDrivenConfig SO
+  m_Script: {fileID: 11500000, guid: e54c3462f6d18c7478554fe19cf16beb, type: 3}
+  m_Name: TestingNewSpringSO
   m_EditorClassIdentifier: 
   maxAcceleration: 50
   maxAirAcceleration: 10
   maxClimbAcceleration: 20
   maxSwimAcceleration: 15
-  rideHeight: 1.8
-  rideSpringStrength: 20
-  rideSpringDamper: 20
+  rideHeight: 1.5
+  rideSpringStrength: 100
+  rideSpringDamper: 15
   maxSpeed: 10
   maxClimbSpeed: 2
   maxSwimSpeed: 5
@@ -26,8 +26,6 @@ MonoBehaviour:
   maxAirJumps: 1
   maxClimbAngle: 140
   maxSnapSpeed: 100
-  probeDistance: 1
-  sphereCastRaiuds: 0.5
   probeMask:
     serializedVersion: 2
     m_Bits: 5329
@@ -40,11 +38,12 @@ MonoBehaviour:
   waterMask:
     serializedVersion: 2
     m_Bits: 0
+  downRayDistance: 3
+  fwdRayDistance: 1
+  downHalfExtents: {x: 1, y: 0.01, z: 1}
+  fwdHalfExtents: {x: 1, y: 0.01, z: 1}
   maxGroundAngle: 40
   maxStairsAngle: 50
-  minGroundDotProduct: 0
-  minStairsDotProduct: 0
-  minClimbDotProduct: 0
   submergenceOffset: 0.5
   submergenceRange: 1
   waterDrag: 1

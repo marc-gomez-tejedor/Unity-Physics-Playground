@@ -13218,29 +13218,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 734869006835742761, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 734869006835742761, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.783
-      objectReference: {fileID: 0}
-    - target: {fileID: 1898878570999871984, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1898878570999871984, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.27
-      objectReference: {fileID: 0}
     - target: {fileID: 4395729392698612492, guid: 3859e58709822024e999432a19c9e54d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4395729392698612492, guid: 3859e58709822024e999432a19c9e54d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.715
+      value: 3.92
       objectReference: {fileID: 0}
     - target: {fileID: 4395729392698612492, guid: 3859e58709822024e999432a19c9e54d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13274,38 +13258,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4497917785270936947, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: m_Radius
-      value: 0.8
-      objectReference: {fileID: 0}
     - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
       propertyPath: playerInputSpace
       value: 
       objectReference: {fileID: 738844198}
     - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: springDrivenConfigSO
+      propertyPath: newSpringDrivenConfigSO
       value: 
-      objectReference: {fileID: 11400000, guid: 1a7f1bd319451834c93af1c55c68d54b, type: 2}
+      objectReference: {fileID: 11400000, guid: 8fe380f3a084c454ab4ab787cb624b50, type: 2}
     - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: springDrivenCtx.body
+      propertyPath: newSpringDrivenCtx.body
       value: 
       objectReference: {fileID: 1575921343}
     - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: springDrivenCtx.raycastOrigin
+      propertyPath: newSpringDrivenCtx.raycastOrigin
       value: 
       objectReference: {fileID: 164042788}
     - target: {fileID: 6731493946712284411, guid: 3859e58709822024e999432a19c9e54d, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Player - triggerBody
       objectReference: {fileID: 0}
-    - target: {fileID: 6879056846281543213, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6879056846281543213, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: e525c8b51b1ecb14bbd275ab0c53f2c4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

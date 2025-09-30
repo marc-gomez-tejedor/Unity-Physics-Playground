@@ -133,7 +133,7 @@ Transform:
   m_GameObject: {fileID: 1925109769717687827}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.49999994, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -735,8 +735,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.875
+  m_Center: {x: 0, y: -0.25, z: 0}
 --- !u!96 &2334822221149257178
 TrailRenderer:
   serializedVersion: 3
@@ -889,6 +889,9 @@ MonoBehaviour:
   physicsDrivenCtx:
     body: {fileID: 9007952906859307265}
   springDrivenCtx:
+    body: {fileID: 9007952906859307265}
+    raycastOrigin: {fileID: 734869006835742761}
+  newSpringDrivenCtx:
     body: {fileID: 0}
     raycastOrigin: {fileID: 0}
   ballVisualCtx:
@@ -912,7 +915,8 @@ MonoBehaviour:
     LastContactNormal: {x: 0, y: 0, z: 0}
     LastSteepNormal: {x: 0, y: 0, z: 0}
   physicsDrivenConfigSO: {fileID: 11400000, guid: 88bd1970ea9840d44b14880326b7a1be, type: 2}
-  springDrivenConfigSO: {fileID: 0}
+  springDrivenConfigSO: {fileID: 11400000, guid: 1a7f1bd319451834c93af1c55c68d54b, type: 2}
+  newSpringDrivenConfigSO: {fileID: 0}
   ballVisualsConfigSO: {fileID: 11400000, guid: 7ce1769ceabcc094ca973120148363b8, type: 2}
 --- !u!1 &7486131754279994087
 GameObject:
@@ -1143,7 +1147,7 @@ GameObject:
   - component: {fileID: 3718610560481107463}
   - component: {fileID: 6879056846281543213}
   m_Layer: 8
-  m_Name: Ball
+  m_Name: Ball - physicalCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1158,7 +1162,7 @@ Transform:
   m_GameObject: {fileID: 8788904828563409927}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: 0.7071068, w: -0.7071068}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1232,7 +1236,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8788904828563409927}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: e525c8b51b1ecb14bbd275ab0c53f2c4, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1242,7 +1246,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_Center: {x: 0, y: 0, z: 0}

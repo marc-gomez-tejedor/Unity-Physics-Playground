@@ -14,3 +14,10 @@ public class SpringDrivenContext
     public Transform raycastOrigin;
 }
 
+[Serializable]
+public class NewSpringDrivenContext
+{
+    public Rigidbody body;
+    public Transform raycastOrigin;
+}
+

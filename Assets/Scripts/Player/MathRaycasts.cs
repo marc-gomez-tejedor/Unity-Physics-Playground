@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class Raycasts
+public static class MathRaycasts
 {
     public static void CastRay(Vector3 Origin, Vector3 Direction,
         ref bool didRaycastHitDown, ref RaycastHit hit,
@@ -40,4 +40,24 @@ public static class Raycasts
             hit = new RaycastHit();
         }
     }
+    public static bool GetBoxInfo(Vector3 origin, Vector3 direction, float rayDistance, 
+        float boxDistance, Vector3 boxHalfExtents, LayerMask groundMask, out RaycastHit hit)
+    {
+        // First, try Raycast (precise)
+        if (Physics.Raycast(origin, direction, out hit, rayDistance, groundMask))
+        {
+            return true;
+        }
+
+        // Otherwise, try BoxCast (broader)
+        // First lets orientate the pancake
+        Quaternion orientation = Quaternion.FromToRotation(Vector3.up, direction);
+        if (Physics.BoxCast(origin, boxHalfExtents, direction, out hit,
+            orientation, boxDistance, groundMask))
+        {
+            return true;
+        }
+        return false; // No ground found
+    }
+
 }

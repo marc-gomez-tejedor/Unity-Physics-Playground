@@ -42,4 +42,38 @@ public static class MovementMath
             }
         }
     }
+    public static void UpdateFloatingSpringPosition(Rigidbody body, Vector3 upAxis, RaycastHit hit,
+        ref Vector3 velocity, float RideHeight, float RideSpringStrength, float RideSpringDamper, float timeStep)
+    {
+        // to test
+        //Vector3 vel = velocity;  // option A
+        //Vector3 vel = body.linearVelocity;  // option B
+        Vector3 rayDir = -upAxis; //this should be =to forcefield
+
+        Vector3 otherVel = Vector3.zero;
+        Rigidbody hitBody = hit.rigidbody;
+        if (hitBody)
+        {
+            otherVel = hitBody.linearVelocity;
+        }
+
+        float rayDirVel = Vector3.Dot(rayDir, velocity);
+        float otherDirVel = Vector3.Dot(rayDir, otherVel);
+
+        float relVel = rayDirVel - otherDirVel;
+
+        float x = hit.distance - RideHeight;
+
+        float springForce = (x * RideSpringStrength) - (relVel * RideSpringDamper);
+
+        //Debug.DrawLine(_RB.transform.position, _RB.transform.position + (rayDir * springForce), Color.yellow);
+
+        //body.AddForce(rayDir * springForce);
+        velocity += rayDir * springForce/body.mass * timeStep;
+
+        if (hitBody)
+        {
+            hitBody.AddForceAtPosition(rayDir * -springForce, hit.point);
+        }
+    }
 }
