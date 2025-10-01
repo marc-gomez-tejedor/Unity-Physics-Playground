@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpringSO-1000-50
   m_EditorClassIdentifier: 
   maxAcceleration: 50
-  maxAirAcceleration: 10
+  maxAirAcceleration: 5
   maxClimbAcceleration: 20
   maxSwimAcceleration: 15
   rideHeight: 1.5
@@ -25,25 +25,25 @@ MonoBehaviour:
   jumpHeight: 3
   maxAirJumps: 1
   snapStepsThreshold: 10
-  crouches: 0
+  crouches: 1
   crouchAcceleration: 20
   probeMask:
     serializedVersion: 2
-    m_Bits: 5265
+    m_Bits: 13521
   climbMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8401
   waterMask:
     serializedVersion: 2
     m_Bits: 0
   downRayDistance: 2
   fwdRayDistance: 1
   downBoxDistance: 2.2
-  fwdBoxDistance: 1
-  downHalfExtents: {x: 0.5, y: 0.01, z: 0.5}
-  fwdHalfExtents: {x: 1, y: 0.01, z: 1}
-  maxGroundAngle: 89
-  maxClimbAngle: 140
+  fwdSphereDistance: 1
+  downHalfExtents: {x: 0.3, y: 0.01, z: 0.3}
+  fwdSphereRadius: 1
+  maxGroundAngle: 70
+  maxClimbAngle: 150
   submergenceOffset: 0.5
   submergenceRange: 1
   waterDrag: 1

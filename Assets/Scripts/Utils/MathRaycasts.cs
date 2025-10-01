@@ -46,7 +46,7 @@ public static class MathRaycasts
         // First, try Raycast (precise)
         if (Physics.Raycast(origin, direction, out hit, rayDistance, groundMask))
         {
-            Debug.Log("true ray");
+            //Debug.Log("true ray");
             return true;
         }
 
@@ -58,10 +58,28 @@ public static class MathRaycasts
         if (Physics.BoxCast(origin, boxHalfExtents, direction, out hit,
             orientation, boxDistance, groundMask))
         {
-            Debug.Log("true box");
+            //Debug.Log("true box");
             return true;
         }
-        Debug.Log("false");
+        //Debug.Log("false");
+        return false; // No ground found
+    }
+    public static bool GetSphereInfo(Vector3 origin, Vector3 direction, float rayDistance, 
+        float sphereDistance, float radius, LayerMask groundMask, out RaycastHit hit)
+    {
+        // First, try Raycast (precise)
+        if (Physics.Raycast(origin, direction, out hit, rayDistance, groundMask))
+        {
+            //Debug.Log("true ray");
+            return true;
+        }
+
+        if (Physics.SphereCast(origin, radius, direction, out hit, sphereDistance, groundMask))
+        {
+            Debug.Log("true sphere");
+            return true;
+        }
+        //Debug.Log("false");
         return false; // No ground found
     }
     public static void UpdateBoxInfo(Vector3 origin, Vector3 direction, float rayDistance, 
@@ -70,7 +88,7 @@ public static class MathRaycasts
         // First, try Raycast (precise)
         if (Physics.Raycast(origin, direction, out hit, rayDistance, groundMask))
         {
-            Debug.Log("true ray");
+            //Debug.Log("true ray");
         }
 
         // Otherwise, try BoxCast (broader)
@@ -81,8 +99,8 @@ public static class MathRaycasts
         if (Physics.BoxCast(origin, boxHalfExtents, direction, out hit,
             orientation, boxDistance, groundMask))
         {
-            Debug.Log("true box");
+            //Debug.Log("true box");
         }
-        Debug.Log("false");
+        //Debug.Log("false");
     }
 }

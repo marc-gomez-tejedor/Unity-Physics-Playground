@@ -18,6 +18,7 @@ public class SpringDrivenContext
 public class NewSpringDrivenContext
 {
     public Rigidbody body;
-    public Transform raycastOrigin;
+    public Transform raycastTopOrigin;
+    public Transform raycastCenterOrigin;
 }
 

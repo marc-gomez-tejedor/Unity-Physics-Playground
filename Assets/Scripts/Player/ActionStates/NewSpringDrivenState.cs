@@ -70,16 +70,17 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
 
 
     //          Probing & snap params
-    Transform raycastOrigin;
+    Transform raycastDownOrigin;
+    Transform raycastFwdOrigin;
     float downRayDistance, fwdRayDistance;
     LayerMask probeMask = -1,
               climbMask = -1,
               waterMask = 0;
-    float downBoxDistance, fwdBoxDistance;
+    float downBoxDistance, fwdSphereDistance;
     RaycastHit downRayHit, fwdRayHit;
 
     Vector3 downHalfExtents;  // flat "pancake"
-    Vector3 fwdHalfExtents;  // flat "pancake"
+    float fwdSphereRadius;  
 
 
     //          Angle limits & precomputed values
@@ -137,7 +138,8 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     {
         body = Context.body;
         body.useGravity = false;
-        raycastOrigin = Context.raycastOrigin;
+        raycastDownOrigin = Context.raycastTopOrigin;
+        raycastFwdOrigin = Context.raycastCenterOrigin;
     }
     public override void Enter()
     {
@@ -207,8 +209,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         stepsSinceLastGrounded++;
         stepsSinceLastJump = player.Status.StepsSinceLastJump;
         stepsSinceLastJump++;
-
-        
+                
 
         if (CheckRaycasts() || CheckSwimming() || CheckSteepContacts())
         {
@@ -240,9 +241,9 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         bool temp = false;
 
         // forwards raycast
-        Debug.DrawLine(raycastOrigin.position, raycastOrigin.position + forwardAxis * fwdRayDistance, Color.cyan);
-        if (MathRaycasts.GetBoxInfo(raycastOrigin.position, forwardAxis, fwdRayDistance,
-            fwdBoxDistance, downHalfExtents, probeMask, out fwdRayHit))
+        Debug.DrawLine(raycastFwdOrigin.position, raycastFwdOrigin.position + forwardAxis * fwdRayDistance, Color.cyan);
+        if (MathRaycasts.GetSphereInfo(raycastFwdOrigin.position, forwardAxis,
+            fwdRayDistance, fwdSphereDistance, fwdSphereRadius, climbMask, out fwdRayHit))
         {
             EvaluateRaycast(fwdRayHit);
             if (CheckClimbing())
@@ -252,8 +253,8 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         }
 
         // downwards raycast
-        Debug.DrawLine(raycastOrigin.position, raycastOrigin.position - upAxis * downRayDistance, Color.yellow);
-        if (MathRaycasts.GetBoxInfo(raycastOrigin.position, -upAxis, downRayDistance,
+        Debug.DrawLine(raycastDownOrigin.position, raycastDownOrigin.position - upAxis * downRayDistance, Color.yellow);
+        if (MathRaycasts.GetBoxInfo(raycastDownOrigin.position, -upAxis, downRayDistance,
             downBoxDistance, downHalfExtents, probeMask, out downRayHit))
         {
             EvaluateRaycast(downRayHit);
@@ -313,6 +314,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
 
         if (InWater)
         {
+            Debug.Log("onwater");
             velocity *= 1f - waterDrag * submergence * Time.deltaTime;
             velocity += gravity * ((1f - buoyancy * submergence) * Time.deltaTime);
         }
@@ -324,10 +326,12 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         }
         else if (Climbing)
         {
+            Debug.Log("climbing");
             velocity -= contactNormal * (maxClimbAcceleration * 0.9f * Time.deltaTime);
         }
         else if (OnGround && stepsSinceLastJump > snapStepsThreshold)
         {
+            Debug.Log("onground");
             if (desiresClimbing && crouches)  // mini crouch while slowing down
             {
                 velocity += (gravity - contactNormal * (crouchAcceleration * 0.9f)) * Time.deltaTime;
@@ -357,6 +361,8 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
             contactNormal = climbNormal;
             return true;
         }
+        groundContactCount = 0;
+        contactNormal = Vector3.zero;
         return false;
     }
     void ApplyVelocityAxis()
@@ -635,12 +641,14 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         probeMask = config.probeMask;
         climbMask = config.climbMask;
         waterMask = config.waterMask;
+
         downRayDistance = config.downRayDistance;
-        fwdRayDistance = config.fwdRayDistance;
         downBoxDistance = config.downBoxDistance;
-        fwdRayDistance = config.fwdBoxDistance;
         downHalfExtents = config.downHalfExtents;
-        fwdHalfExtents = config.fwdHalfExtents;
+
+        fwdRayDistance = config.fwdRayDistance;
+        fwdSphereDistance = config.fwdSphereDistance;
+        fwdSphereRadius = config.fwdSphereRadius;
 
         maxGroundAngle = config.maxGroundAngle;
 

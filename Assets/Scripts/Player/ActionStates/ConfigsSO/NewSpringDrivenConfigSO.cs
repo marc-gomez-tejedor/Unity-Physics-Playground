@@ -53,9 +53,10 @@ public class NewSpringDrivenConfigSO : ScriptableObject
     [Min(0f)]
     public float downBoxDistance = 1f;
     [Min(0f)]
-    public float fwdBoxDistance = 1f;
+    public float fwdSphereDistance = 1f;
     public Vector3 downHalfExtents = new Vector3(1f, 0.01f, 1f);
-    public Vector3 fwdHalfExtents = new Vector3(1f, 0.01f, 1f);
+    [Min(0.1f)]
+    public float fwdSphereRadius = 1f;
 
 
     [Header("Angle limits & precomputed values")]
