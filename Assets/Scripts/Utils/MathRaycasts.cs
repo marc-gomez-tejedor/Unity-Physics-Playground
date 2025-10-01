@@ -64,5 +64,25 @@ public static class MathRaycasts
         Debug.Log("false");
         return false; // No ground found
     }
+    public static void UpdateBoxInfo(Vector3 origin, Vector3 direction, float rayDistance, 
+        float boxDistance, Vector3 boxHalfExtents, LayerMask groundMask, out RaycastHit hit)
+    {
+        // First, try Raycast (precise)
+        if (Physics.Raycast(origin, direction, out hit, rayDistance, groundMask))
+        {
+            Debug.Log("true ray");
+        }
 
+        // Otherwise, try BoxCast (broader)
+        // First lets orientate the pancake
+        Quaternion orientation = Quaternion.FromToRotation(Vector3.up, direction);
+        //Quaternion orientation = Quaternion.identity;
+        DebugBoxCast.SimpleDrawBoxCast(origin, boxHalfExtents, orientation, direction, boxDistance, Color.cyan);
+        if (Physics.BoxCast(origin, boxHalfExtents, direction, out hit,
+            orientation, boxDistance, groundMask))
+        {
+            Debug.Log("true box");
+        }
+        Debug.Log("false");
+    }
 }

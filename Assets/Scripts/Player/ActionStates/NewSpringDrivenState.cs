@@ -41,6 +41,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     //          Jump params
     float jumpHeight;
     int maxAirJumps;
+    int snapStepsThreshold;
 
 
     //          Jump & Contact counters (runtime)
@@ -69,15 +70,12 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
 
 
     //          Probing & snap params
-    float maxSnapSpeed;
     Transform raycastOrigin;
     float downRayDistance, fwdRayDistance;
     LayerMask probeMask = -1,
-              stairsMask = -1,
               climbMask = -1,
               waterMask = 0;
     float downBoxDistance, fwdBoxDistance;
-    bool didDownHit, didFwdHit;
     RaycastHit downRayHit, fwdRayHit;
 
     Vector3 downHalfExtents;  // flat "pancake"
@@ -85,10 +83,8 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
 
 
     //          Angle limits & precomputed values
-    float maxGroundAngle,
-          maxStairsAngle;
+    float maxGroundAngle;
     float minGroundDotProduct,
-          minStairsDotProduct,
           minClimbDotProduct;
 
 
@@ -129,7 +125,6 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     Rigidbody body,
               connectedBody,
               previousConnectedBody;
-    List<Rigidbody> connectedBodies = new List<Rigidbody>();
 
 
     protected override void OnInit()
@@ -179,14 +174,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     }
     public override void FixedUpdate()
     {
-        // vel = rigidbody.vel
-        // getGrav -> desiredVel to axis -> raycasts ->
-        // Swimming -> Jumping -> OnClimb ->
-        // OnGround -> else -> OnAir ->
-        // connectedVel and relVel -> transpose to plane ->
-        // addvel to rigidbody 
-                
-        // cast sphereCasts and set Swimming, Onground, Climb, etc
+        // cast boxCasts and set Swimming, Onground, Climb, etc
         UpdateStateParams();
 
         UpdateVelocity();
@@ -209,7 +197,6 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         }
         else
         {
-            // else if its steep or a wall
             if (upDot > -0.01f)
             {
                 steepContactCount++;
@@ -228,16 +215,8 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
                 connectedBody = hit.rigidbody;
             }
         }
-        if (connectedBody)
-        {
-            if (connectedBody.isKinematic || connectedBody.mass >= body.mass)
-            {
-                UpdateConnectionState();
-            }
-        }
     }
     /// <TODO>
-    /// FIX BOXCAST NOT WORKING -SEARCH UP SOME BOXCAST TUTORIAL-
     /// LATER ON KEEP ADDING MORE MECHANICS:
     ///     ADD FWD CAST AGAIN -> USE IT TO GETCLIMB 
     ///     -> CLIMB:FLOATSPRINGFORCE TO WALL
@@ -254,32 +233,58 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         stepsSinceLastGrounded++;
         stepsSinceLastJump = player.Status.StepsSinceLastJump;
         stepsSinceLastJump++;
-        didDownHit = false; didFwdHit = false;
 
-        // downwards raycast
-        Debug.DrawLine(raycastOrigin.position, raycastOrigin.position - upAxis * downRayDistance, Color.yellow);
-        didDownHit = MathRaycasts.GetBoxInfo(raycastOrigin.position, -upAxis, downRayDistance,
-            downBoxDistance, downHalfExtents, probeMask, out downRayHit);
-        if (didDownHit && stepsSinceLastJump > 10)
+        
+
+        if (CheckRaycasts() || CheckSwimming() || CheckSteepContacts())
         {
             stepsSinceLastGrounded = 0;
-            EvaluateRaycast(downRayHit);
+            
+            if (stepsSinceLastJump > snapStepsThreshold)
+            {
+                jumpPhase = 0;
+            }
+            if (groundContactCount > 1)
+            {
+                contactNormal.Normalize();
+            }
         }
         else
         {
             contactNormal = upAxis;
         }
+        if (connectedBody)
+        {
+            if (connectedBody.isKinematic || connectedBody.mass >= body.mass)
+            {
+                UpdateConnectionState();
+            }
+        }
+    }
+    bool CheckRaycasts()
+    {
+        bool temp = false;
+
         // forwards raycast
         //Debug.DrawLine(raycastOrigin.position, raycastOrigin.position + forwardAxis * fwdRayDistance, Color.yellow);
-        //didDownHit = MathRaycasts.GetBoxInfo(raycastOrigin.position, forwardAxis, fwdRayDistance,
+        //MathRaycasts.UpdateBoxInfo(raycastOrigin.position, forwardAxis, fwdRayDistance,
         //    fwdBoxDistance, downHalfExtents, probeMask, out fwdRayHit);
         //if (didFwdHit)
         //{
         //    EvaluateRaycast(fwdRayHit);
+        //    temp = CheckClimbing();
         //}
-        /*if (CheckClimbing() || CheckSwimming() ||
-            OnGround || SnapToGround() || CheckSteepContacts())
-        {*/
+
+        // downwards raycast
+        Debug.DrawLine(raycastOrigin.position, raycastOrigin.position - upAxis * downRayDistance, Color.yellow);
+        if (MathRaycasts.GetBoxInfo(raycastOrigin.position, -upAxis, downRayDistance,
+            downBoxDistance, downHalfExtents, probeMask, out downRayHit))
+        {
+            EvaluateRaycast(downRayHit);
+            if (OnGround || CheckSteepContacts()) temp = true;
+        }
+        
+        return temp;
     }
     void ClearStateParams()
     {
@@ -292,21 +297,17 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         previousConnectedBody = connectedBody;
         connectedBody = null;
         submergence = 0f;
-
-
-        connectedBodies.Clear();
     }
     void UpdateVelocity()
     {
         Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
 
-        Debug.Log($"vel pre update {velocity}");
         if (InWater)
         {
             velocity *= 1f - waterDrag * submergence * Time.deltaTime;
+            velocity += gravity * ((1f - buoyancy * submergence) * Time.deltaTime);
         }
         ApplyVelocityAxis();
-        Debug.Log($"vel post vel axis update {velocity}");
         if (desiredJump)
         {
             desiredJump = false;
@@ -316,24 +317,19 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         {
             velocity -= contactNormal * (maxClimbAcceleration * 0.9f * Time.deltaTime);
         }
-        else if (InWater)
+        else if (OnGround && stepsSinceLastJump > snapStepsThreshold)
         {
-            velocity += gravity * ((1f - buoyancy * submergence) * Time.deltaTime);
-        }
-        else if (OnGround)
-        {
+            if (desiresClimbing)
+            {
+                velocity += (gravity - contactNormal * (maxClimbAcceleration * 0.9f)) * Time.deltaTime;
+            }
             velocity = MovementMath.GetFloatingSpringVelocity(body, upAxis, downRayHit, velocity,
                 rideHeight, rideSpringStrength, rideSpringDamper, Time.deltaTime);
-        }
-        else if (desiresClimbing && OnGround)
-        {
-            velocity += (gravity - contactNormal * (maxClimbAcceleration * 0.9f)) * Time.deltaTime;
-        }
+        }        
         else
         {
             velocity += gravity * Time.deltaTime;
         }
-        Debug.Log($"vel post update {velocity}");
     }
     bool CheckClimbing()
     {
@@ -454,58 +450,8 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         }
         velocity += jumpDirection * jumpSpeed;
     }
-    void ApplySpringFloatingForce(Vector3 gravity)
-    {
-        velocity += gravity * Time.deltaTime;
-        float vertVel = Vector3.Dot(-upAxis, velocity);
-        float vertOtherVel = Vector3.Dot(-upAxis, connectionVelocity);
-
-        float relVel = vertVel - vertOtherVel;
-
-        //float x = rayHit.distance - rideHeight;
-        //float springForce = (x * rideSpringStrength) - (relVel * rideSpringDamper);
-        //Debug.Log($"sp{-upAxis * (springForce * Time.fixedDeltaTime / body.mass)}");
-        //velocity += -upAxis * (springForce * Time.fixedDeltaTime / body.mass);
-    }
-    bool SnapToGround()
-    {
-        return false; //placeholder for testing
-        if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2 || InWater)
-        {
-            return false;
-        }
-        float speed = velocity.magnitude;
-        if (speed > maxSnapSpeed)
-        {
-            return false;
-        }
-        //if (!Physics.Raycast
-        //    (
-        //        body.position, -upAxis, out RaycastHit hit,
-        //        probeDistance, probeMask, QueryTriggerInteraction.Ignore
-        //    ))
-        //{
-        //    return false;
-        //}
-        //float upDot = Vector3.Dot(upAxis, hit.normal);
-        //if (upDot < GetMinDot(hit.collider.gameObject.layer))
-        //{
-        //    return false;
-        //}
-        //groundContactCount = 1;
-        //contactNormal = hit.normal;
-
-        //float dot = Vector3.Dot(velocity, hit.normal);
-        //if (dot > 0f)
-        //{
-        //    velocity = (velocity - hit.normal * dot).normalized * speed;
-        //}
-        //connectedBody = hit.rigidbody;
-        //return true;
-    }
     bool CheckSteepContacts()
     {
-        return false; //placeholder for testing
         if (steepContactCount > 1)
         {
             steepNormal.Normalize();
@@ -521,7 +467,6 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     }
     bool CheckSwimming()
     {
-        return false; //placeholder for testing
         if (Swimming)
         {
             groundContactCount = 0;
@@ -530,12 +475,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         }
         return false;
     }
-    // prob not gonna be used
-    float GetMinDot(int layer)
-    {
-        return (stairsMask & (1 << layer)) == 0 ? minGroundDotProduct : minStairsDotProduct;
-    }
-
+    
     //void Subscribe()
     //{
     //    UnSubscribe();
@@ -687,9 +627,10 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         player.Status.Climbing = Climbing;
         player.Status.InWater = InWater;
         player.Status.Swimming = Swimming;
-        player.Status.Submergence = submergence;
-
         player.Status.StepsSinceLastGrounded = stepsSinceLastGrounded;
+        player.Status.Submergence = submergence;
+        player.Status.UpAxis = upAxis;
+
 
         player.ContactStatus.ConnectedBody = connectedBody;
         player.ContactStatus.PreviousConnectedBody = previousConnectedBody;
@@ -717,12 +658,11 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
 
         jumpHeight = config.jumpHeight;
         maxAirJumps = config.maxAirJumps;
+        snapStepsThreshold = config.snapStepsThreshold;
 
         maxClimbAngle = config.maxClimbAngle;
 
-        maxSnapSpeed = config.maxSnapSpeed;
         probeMask = config.probeMask;
-        stairsMask = config.stairsMask;
         climbMask = config.climbMask;
         waterMask = config.waterMask;
         downRayDistance = config.downRayDistance;
@@ -733,7 +673,6 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         fwdHalfExtents = config.fwdHalfExtents;
 
         maxGroundAngle = config.maxGroundAngle;
-        maxStairsAngle = config.maxStairsAngle;
 
         submergenceOffset = config.submergenceOffset;
         submergenceRange = config.submergenceRange;
@@ -742,13 +681,6 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         swimThreshold = config.swimThreshold;
 
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
-        minStairsDotProduct = Mathf.Cos(maxStairsAngle * Mathf.Deg2Rad);
         minClimbDotProduct = Mathf.Cos(maxClimbAngle * Mathf.Deg2Rad);
     }
-    //public void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.yellow;
-    //    Gizmos.DrawSphere(raycastOrigin.position, sphereCastRadius);
-    //    Gizmos.DrawSphere(raycastOrigin.position - upAxis * probeDistance, sphereCastRadius);
-    //}
 }

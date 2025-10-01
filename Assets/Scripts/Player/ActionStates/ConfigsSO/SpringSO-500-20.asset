@@ -24,14 +24,10 @@ MonoBehaviour:
   maxSwimSpeed: 5
   jumpHeight: 3
   maxAirJumps: 1
-  maxClimbAngle: 140
-  maxSnapSpeed: 100
+  snapStepsThreshold: 10
   probeMask:
     serializedVersion: 2
-    m_Bits: 5329
-  stairsMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 5265
   climbMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -42,10 +38,10 @@ MonoBehaviour:
   fwdRayDistance: 1
   downBoxDistance: 2.2
   fwdBoxDistance: 1
-  downHalfExtents: {x: 0.6, y: 0.01, z: 0.6}
+  downHalfExtents: {x: 0.5, y: 0.01, z: 0.5}
   fwdHalfExtents: {x: 1, y: 0.01, z: 1}
-  maxGroundAngle: 40
-  maxStairsAngle: 50
+  maxGroundAngle: 89
+  maxClimbAngle: 140
   submergenceOffset: 0.5
   submergenceRange: 1
   waterDrag: 1

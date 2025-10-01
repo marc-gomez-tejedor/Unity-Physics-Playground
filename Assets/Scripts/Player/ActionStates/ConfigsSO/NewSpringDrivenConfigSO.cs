@@ -32,17 +32,12 @@ public class NewSpringDrivenConfigSO : ScriptableObject
     public float jumpHeight = 2f;
     [Range(0, 5)]
     public int maxAirJumps = 0;
-
-
-    [Header("Climb tuning")]
-    [Range(90f, 180f)]
-    public float maxClimbAngle = 140f;
+    [Range(0, 20)]
+    public int snapStepsThreshold = 10;
 
 
     [Header("Probing & snap params")]
-    public float maxSnapSpeed = 100f;
     public LayerMask probeMask = -1,
-              stairsMask = -1,
               climbMask = -1,
               waterMask = 0;
     [Min(0f)]
@@ -59,8 +54,9 @@ public class NewSpringDrivenConfigSO : ScriptableObject
 
     [Header("Angle limits & precomputed values")]
     [Range(0f, 90f)]
-    public float maxGroundAngle = 25f,
-          maxStairsAngle = 50f;
+    public float maxGroundAngle = 89f;
+    [Range(90f, 180f)]
+    public float maxClimbAngle = 140f;
 
 
     [Header("Water-specific tuning")]
