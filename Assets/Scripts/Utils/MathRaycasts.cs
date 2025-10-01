@@ -54,6 +54,7 @@ public static class MathRaycasts
         // First lets orientate the pancake
         Quaternion orientation = Quaternion.FromToRotation(Vector3.up, direction);
         //Quaternion orientation = Quaternion.identity;
+        DebugBoxCast.SimpleDrawBoxCast(origin, boxHalfExtents, orientation, direction, boxDistance, Color.cyan);
         if (Physics.BoxCast(origin, boxHalfExtents, direction, out hit,
             orientation, boxDistance, groundMask))
         {

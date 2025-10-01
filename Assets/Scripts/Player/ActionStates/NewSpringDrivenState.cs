@@ -727,7 +727,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         waterMask = config.waterMask;
         downRayDistance = config.downRayDistance;
         fwdRayDistance = config.fwdRayDistance;
-        downRayDistance = config.downBoxDistance;
+        downBoxDistance = config.downBoxDistance;
         fwdRayDistance = config.fwdBoxDistance;
         downHalfExtents = config.downHalfExtents;
         fwdHalfExtents = config.fwdHalfExtents;

@@ -40,9 +40,9 @@ MonoBehaviour:
     m_Bits: 0
   downRayDistance: 2
   fwdRayDistance: 1
-  downBoxDistance: 2
+  downBoxDistance: 2.2
   fwdBoxDistance: 1
-  downHalfExtents: {x: 10, y: 3, z: 10}
+  downHalfExtents: {x: 0.6, y: 0.01, z: 0.6}
   fwdHalfExtents: {x: 1, y: 0.01, z: 1}
   maxGroundAngle: 40
   maxStairsAngle: 50
