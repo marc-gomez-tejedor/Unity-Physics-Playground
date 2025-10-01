@@ -36,6 +36,12 @@ public class NewSpringDrivenConfigSO : ScriptableObject
     public int snapStepsThreshold = 10;
 
 
+    [Header("Can crouch")]
+    public bool crouches;
+    [Range(0f, 100f)]
+    public float crouchAcceleration;
+
+
     [Header("Probing & snap params")]
     public LayerMask probeMask = -1,
               climbMask = -1,

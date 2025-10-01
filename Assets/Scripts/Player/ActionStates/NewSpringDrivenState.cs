@@ -127,6 +127,12 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
               previousConnectedBody;
 
 
+    //          Can crouch
+    bool crouches;
+    float crouchAcceleration;
+
+
+
     protected override void OnInit()
     {
         body = Context.body;
@@ -183,39 +189,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
 
         ClearStateParams();
     }
-    void EvaluateRaycast(RaycastHit hit)
-    {
-        int layer = hit.collider.gameObject.layer;
-        Vector3 normal = hit.normal;
-        float upDot = Vector3.Dot(upAxis, normal);
-        // check if its not steeper than maxGroundAngle
-        if (upDot >= minGroundDotProduct)
-        {
-            groundContactCount++;
-            contactNormal += normal;
-            connectedBody = hit.rigidbody;
-        }
-        else
-        {
-            if (upDot > -0.01f)
-            {
-                steepContactCount++;
-                steepNormal += normal;
-                if (groundContactCount == 0)
-                {
-                    connectedBody = hit.rigidbody;
-                }
-            }
-            if (desiresClimbing && upDot >= minClimbDotProduct && (climbMask & (1 << layer)) != 0)
-            {
-                climbContactCount++;
-
-                climbNormal += normal;
-                lastClimbNormal = normal;
-                connectedBody = hit.rigidbody;
-            }
-        }
-    }
+    
     /// <TODO>
     /// LATER ON KEEP ADDING MORE MECHANICS:
     ///     ADD FWD CAST AGAIN -> USE IT TO GETCLIMB 
@@ -266,14 +240,16 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         bool temp = false;
 
         // forwards raycast
-        //Debug.DrawLine(raycastOrigin.position, raycastOrigin.position + forwardAxis * fwdRayDistance, Color.yellow);
-        //MathRaycasts.UpdateBoxInfo(raycastOrigin.position, forwardAxis, fwdRayDistance,
-        //    fwdBoxDistance, downHalfExtents, probeMask, out fwdRayHit);
-        //if (didFwdHit)
-        //{
-        //    EvaluateRaycast(fwdRayHit);
-        //    temp = CheckClimbing();
-        //}
+        Debug.DrawLine(raycastOrigin.position, raycastOrigin.position + forwardAxis * fwdRayDistance, Color.cyan);
+        if (MathRaycasts.GetBoxInfo(raycastOrigin.position, forwardAxis, fwdRayDistance,
+            fwdBoxDistance, downHalfExtents, probeMask, out fwdRayHit))
+        {
+            EvaluateRaycast(fwdRayHit);
+            if (CheckClimbing())
+            {
+                return true;
+            }
+        }
 
         // downwards raycast
         Debug.DrawLine(raycastOrigin.position, raycastOrigin.position - upAxis * downRayDistance, Color.yellow);
@@ -285,6 +261,39 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         }
         
         return temp;
+    }
+    void EvaluateRaycast(RaycastHit hit)
+    {
+        int layer = hit.collider.gameObject.layer;
+        Vector3 normal = hit.normal;
+        float upDot = Vector3.Dot(upAxis, normal);
+        // check if its not steeper than maxGroundAngle
+        if (upDot >= minGroundDotProduct)
+        {
+            groundContactCount++;
+            contactNormal += normal;
+            connectedBody = hit.rigidbody;
+        }
+        else
+        {
+            if (upDot > -0.01f)
+            {
+                steepContactCount++;
+                steepNormal += normal;
+                if (groundContactCount == 0)
+                {
+                    connectedBody = hit.rigidbody;
+                }
+            }
+            if (desiresClimbing && upDot >= minClimbDotProduct && (climbMask & (1 << layer)) != 0)
+            {
+                climbContactCount++;
+
+                climbNormal += normal;
+                lastClimbNormal = normal;
+                connectedBody = hit.rigidbody;
+            }
+        }
     }
     void ClearStateParams()
     {
@@ -319,9 +328,9 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         }
         else if (OnGround && stepsSinceLastJump > snapStepsThreshold)
         {
-            if (desiresClimbing)
+            if (desiresClimbing && crouches)  // mini crouch while slowing down
             {
-                velocity += (gravity - contactNormal * (maxClimbAcceleration * 0.9f)) * Time.deltaTime;
+                velocity += (gravity - contactNormal * (crouchAcceleration * 0.9f)) * Time.deltaTime;
             }
             velocity = MovementMath.GetFloatingSpringVelocity(body, upAxis, downRayHit, velocity,
                 rideHeight, rideSpringStrength, rideSpringDamper, Time.deltaTime);
@@ -556,49 +565,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     //        }
     //    }
     //}
-    //void EvaluateRaycast(RaycastHit hit)
-    //{
-    //    if (Swimming)
-    //    {
-    //        return;
-    //    }
-    //    int layer = hit.collider.gameObject.layer;
-    //    float minDot = GetMinDot(layer);
-    //    Vector3 normal = hit.normal;
-    //    float upDot = Vector3.Dot(upAxis, normal);
-    //    if (upDot >= minDot)
-    //    {
-    //        groundContactCount++;
-    //        contactNormal += normal;
-    //        if (hit.rigidbody)
-    //        {
-    //            connectedBody = hit.rigidbody;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (upDot > -0.01f)
-    //        {
-    //            steepContactCount++;
-    //            steepNormal += normal;
-    //            if (groundContactCount == 0)
-    //            {
-    //                connectedBody = hit.rigidbody;
-    //            }
-    //        }
-    //        if (desiresClimbing && upDot >= minClimbDotProduct && (climbMask & (1 << layer)) != 0)
-    //        {
-    //            climbContactCount++;
-
-    //            climbNormal += normal;
-    //            lastClimbNormal = normal;
-    //            if (hit.rigidbody)
-    //            {
-    //                connectedBody = hit.rigidbody;
-    //            }
-    //        }
-    //    }
-    //}
+    
     //void EvaluateSubmergence(Collider collider)
     //{
     //    if (Physics.Raycast
@@ -659,6 +626,9 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         jumpHeight = config.jumpHeight;
         maxAirJumps = config.maxAirJumps;
         snapStepsThreshold = config.snapStepsThreshold;
+
+        crouches = config.crouches;
+        crouchAcceleration = config.crouchAcceleration;
 
         maxClimbAngle = config.maxClimbAngle;
 
