@@ -13208,6 +13208,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 254981682172031742, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2909180979355027403, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639878663012225038, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4231233737172703081, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4395729392698612492, guid: 3859e58709822024e999432a19c9e54d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -13252,9 +13268,29 @@ PrefabInstance:
       propertyPath: playerInputSpace
       value: 
       objectReference: {fileID: 738844198}
+    - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: newSpringDrivenConfigSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 8fe380f3a084c454ab4ab787cb624b50, type: 2}
+    - target: {fileID: 4642839792177780589, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6033629623214661851, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6731493946712284411, guid: 3859e58709822024e999432a19c9e54d, type: 3}
       propertyPath: m_Name
       value: Player - triggerBody
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486131754279994087, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8628809944334576492, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

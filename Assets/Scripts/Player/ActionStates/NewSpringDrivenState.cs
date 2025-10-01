@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Diagnostics;
 
 public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerController>
 {
@@ -237,7 +236,12 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
             }
         }
     }
-
+    /// <TODO>
+    /// FIX BOXCAST NOT WORKING -SEARCH UP SOME BOXCAST TUTORIAL-
+    /// LATER ON KEEP ADDING MORE MECHANICS:
+    ///     ADD FWD CAST AGAIN -> USE IT TO GETCLIMB 
+    ///     -> CLIMB:FLOATSPRINGFORCE TO WALL
+    /// </TODO>
     void UpdateStateParams()
     {
         // get current velocity
@@ -413,6 +417,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         if (OnGround)
         {
             jumpDirection = contactNormal;
+            jumpPhase = 0;
         }
         else if (OnSteep)
         {

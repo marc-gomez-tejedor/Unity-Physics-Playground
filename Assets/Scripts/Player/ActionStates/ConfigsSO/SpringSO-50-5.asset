@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e54c3462f6d18c7478554fe19cf16beb, type: 3}
-  m_Name: SpringSO-100-10
+  m_Name: SpringSO-50-5
   m_EditorClassIdentifier: 
   maxAcceleration: 50
-  maxAirAcceleration: 0
+  maxAirAcceleration: 10
   maxClimbAcceleration: 20
   maxSwimAcceleration: 15
   rideHeight: 1.5
-  rideSpringStrength: 100
-  rideSpringDamper: 10
+  rideSpringStrength: 50
+  rideSpringDamper: 5
   maxSpeed: 10
   maxClimbSpeed: 2
   maxSwimSpeed: 5
   jumpHeight: 3
-  maxAirJumps: 0
+  maxAirJumps: 1
   maxClimbAngle: 140
   maxSnapSpeed: 100
   probeMask:
