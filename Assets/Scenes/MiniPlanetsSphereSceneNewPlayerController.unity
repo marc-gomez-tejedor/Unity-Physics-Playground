@@ -2187,9 +2187,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 738844198}
     - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: newSpringDrivenConfigSO
+      propertyPath: ballVisualsConfigSO
       value: 
-      objectReference: {fileID: 11400000, guid: 4b4bde6395f3fb046ab6cff7c65eb9c2, type: 2}
+      objectReference: {fileID: 11400000, guid: 7ce1769ceabcc094ca973120148363b8, type: 2}
     - target: {fileID: 6731493946712284411, guid: 3859e58709822024e999432a19c9e54d, type: 3}
       propertyPath: m_Name
       value: PlayerVariant
@@ -3021,7 +3021,7 @@ MonoBehaviour:
   maxVerticalAngle: 60
   alignDelay: 5
   alignSmoothRange: 45
-  upAlignmentSpeed: 100
+  upAlignmentSpeed: 360
 --- !u!1001 &738951927
 PrefabInstance:
   m_ObjectHideFlags: 0

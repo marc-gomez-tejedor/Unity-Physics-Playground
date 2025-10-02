@@ -39,9 +39,9 @@ MonoBehaviour:
   downRayDistance: 2
   fwdRayDistance: 1
   downBoxDistance: 2.2
-  fwdSphereDistance: 1
+  fwdSphereDistance: 1.5
   downHalfExtents: {x: 0.3, y: 0.01, z: 0.3}
-  fwdSphereRadius: 1
+  fwdSphereRadius: 1.5
   maxGroundAngle: 70
   maxClimbAngle: 150
   submergenceOffset: 0.5

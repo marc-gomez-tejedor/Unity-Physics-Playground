@@ -118,7 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 734869006835742761}
   m_Layer: 8
-  m_Name: RaycastOrigin
+  m_Name: RaycastOriginTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -257,7 +257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 152508202095012244}
   m_Layer: 8
-  m_Name: RaycastOrigin (1)
+  m_Name: RaycastOriginCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,7 +272,7 @@ Transform:
   m_GameObject: {fileID: 3025133360202728751}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.368, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -925,8 +925,8 @@ MonoBehaviour:
     raycastOrigin: {fileID: 734869006835742761}
   newSpringDrivenCtx:
     body: {fileID: 9007952906859307265}
-    raycastDownOrigin: {fileID: 0}
-    raycastFwdOrigin: {fileID: 0}
+    raycastTopOrigin: {fileID: 734869006835742761}
+    raycastCenterOrigin: {fileID: 152508202095012244}
   ballVisualCtx:
     body: {fileID: 9007952906859307265}
     ballTransform: {fileID: 1898878570999871984}
