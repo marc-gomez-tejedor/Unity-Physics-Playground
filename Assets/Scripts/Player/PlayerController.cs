@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour, IInitializable
     public PhysicsDrivenContext physicsDrivenCtx;
     public SpringDrivenContext springDrivenCtx;
     public NewSpringDrivenContext newSpringDrivenCtx;
+    public SpringDrivenMothershipContext SpringDrivenMothershipCtx;
     //              Visuals
     public BallVisualContext ballVisualCtx;
 
@@ -59,10 +60,13 @@ public class PlayerController : MonoBehaviour, IInitializable
     SpringDrivenConfigSO springDrivenConfigSO;
     [SerializeField]
     NewSpringDrivenConfigSO newSpringDrivenConfigSO;
+    [SerializeField]
+    NewSpringDrivenConfigSO springDrivenMothershipSO;
     //          Public Action State Configs
     public PhysicsDrivenConfigSO PhysicsDrivenConfigSO => physicsDrivenConfigSO;
     public SpringDrivenConfigSO SpringDrivenConfigSO => springDrivenConfigSO;
     public NewSpringDrivenConfigSO NewSpringDrivenConfigSO => newSpringDrivenConfigSO;
+    public NewSpringDrivenConfigSO SpringDrivenMothershipSO => springDrivenMothershipSO;
 
 
     //          Serializable Visuals State Configs
@@ -79,6 +83,7 @@ public class PlayerController : MonoBehaviour, IInitializable
         PhysicsDrivenState phsxState = new PhysicsDrivenState();
         SpringDrivenState springState = new SpringDrivenState();
         NewSpringDrivenState newSpringState = new NewSpringDrivenState();
+        SpringDrivenInMothership SpringInMothershipState = new SpringDrivenInMothership();
 
         phsxState.Init(physicsDrivenCtx);
         phsxState.AssignConfigValues(this);
@@ -92,9 +97,14 @@ public class PlayerController : MonoBehaviour, IInitializable
         newSpringState.AssignConfigValues(this);
         actionsStateMachine.AddState(newSpringState);
 
+        SpringInMothershipState.Init(SpringDrivenMothershipCtx);
+        SpringInMothershipState.AssignConfigValues(this);
+        actionsStateMachine.AddState(SpringInMothershipState);
+
         actionsStateMachine.ChangeState<PhysicsDrivenState>();  // default
         actionsStateMachine.ChangeState<SpringDrivenState>();  // new default
         actionsStateMachine.ChangeState<NewSpringDrivenState>();  // new default
+        //actionsStateMachine.ChangeState<SpringDrivenInMothership>();  // new default
 
 
         //      Visual State Machine

@@ -927,6 +927,10 @@ MonoBehaviour:
     body: {fileID: 9007952906859307265}
     raycastTopOrigin: {fileID: 734869006835742761}
     raycastCenterOrigin: {fileID: 152508202095012244}
+  SpringDrivenMothershipCtx:
+    body: {fileID: 9007952906859307265}
+    raycastTopOrigin: {fileID: 734869006835742761}
+    raycastCenterOrigin: {fileID: 152508202095012244}
   ballVisualCtx:
     body: {fileID: 9007952906859307265}
     ballTransform: {fileID: 1898878570999871984}
@@ -950,6 +954,7 @@ MonoBehaviour:
   physicsDrivenConfigSO: {fileID: 11400000, guid: 88bd1970ea9840d44b14880326b7a1be, type: 2}
   springDrivenConfigSO: {fileID: 11400000, guid: 1a7f1bd319451834c93af1c55c68d54b, type: 2}
   newSpringDrivenConfigSO: {fileID: 11400000, guid: 8fe380f3a084c454ab4ab787cb624b50, type: 2}
+  springDrivenMothershipSO: {fileID: 11400000, guid: 1831cb52d6f6eca4a9e793b4e08a3c0f, type: 2}
   ballVisualsConfigSO: {fileID: 11400000, guid: 7ce1769ceabcc094ca973120148363b8, type: 2}
 --- !u!1 &7486131754279994087
 GameObject:

@@ -2186,10 +2186,6 @@ PrefabInstance:
       propertyPath: playerInputSpace
       value: 
       objectReference: {fileID: 738844198}
-    - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
-      propertyPath: ballVisualsConfigSO
-      value: 
-      objectReference: {fileID: 11400000, guid: 7ce1769ceabcc094ca973120148363b8, type: 2}
     - target: {fileID: 6731493946712284411, guid: 3859e58709822024e999432a19c9e54d, type: 3}
       propertyPath: m_Name
       value: PlayerVariant

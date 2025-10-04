@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerController>
+public class SpringDrivenInMothership : State<SpringDrivenMothershipContext, PlayerController>
 {
     //          PlayerController and configSO
     public PlayerController player;
@@ -80,7 +80,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     RaycastHit downRayHit, fwdRayHit;
 
     Vector3 downHalfExtents;  // flat "pancake"
-    float fwdSphereRadius;  
+    float fwdSphereRadius;
 
 
     //          Angle limits & precomputed values
@@ -125,7 +125,8 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     //          Rigidbody and connected cache
     Rigidbody body,
               connectedBody,
-              previousConnectedBody;
+              previousConnectedBody,
+              mothershipRB;
 
 
     //          Can crouch
@@ -140,6 +141,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         body.useGravity = false;
         raycastDownOrigin = Context.raycastTopOrigin;
         raycastFwdOrigin = Context.raycastCenterOrigin;
+        mothershipRB = Context.mothershipRB;
     }
     public override void Enter()
     {
@@ -191,11 +193,10 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
 
         ClearStateParams();
     }
-    
+
     /// <TODO>
     /// LATER ON KEEP ADDING MORE MECHANICS:
-    ///     ADD FWD CAST AGAIN -> USE IT TO GETCLIMB 
-    ///     -> CLIMB:FLOATSPRINGFORCE TO WALL
+    ///     CLIMB:FLOATSPRINGFORCE TO WALL
     /// </TODO>
     void UpdateStateParams()
     {
@@ -204,17 +205,17 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
 
         // get upAxis
         upAxis = CustomGravity.GetUpAxis(body.position);
-        
+
         // cache params
         stepsSinceLastGrounded++;
         stepsSinceLastJump = player.Status.StepsSinceLastJump;
         stepsSinceLastJump++;
-                
+
 
         if (CheckRaycasts() || CheckSwimming() || CheckSteepContacts())
         {
             stepsSinceLastGrounded = 0;
-            
+
             if (stepsSinceLastJump > snapStepsThreshold)
             {
                 jumpPhase = 0;
@@ -231,7 +232,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         if (connectedBody)
         {
             if (connectedBody.isKinematic || connectedBody.mass >= body.mass)
-            {
+            { 
                 UpdateConnectionState();
             }
         }
@@ -260,7 +261,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
             EvaluateRaycast(downRayHit);
             if (OnGround || CheckSteepContacts()) temp = true;
         }
-        
+
         return temp;
     }
     void EvaluateRaycast(RaycastHit hit)
@@ -311,7 +312,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     void UpdateVelocity()
     {
         Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
-
+        Debug.Log(gravity);
         if (InWater)
         {
             //Debug.Log("onwater");
@@ -338,11 +339,13 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
             }
             velocity = MovementMath.GetFloatingSpringVelocity(body, upAxis, downRayHit, velocity,
                 rideHeight, rideSpringStrength, rideSpringDamper, Time.deltaTime);
-        }        
+        }
         else
         {
-            velocity += gravity * Time.deltaTime;
+            //velocity += gravity * Time.deltaTime;
         }
+
+        Debug.Log($"vel3 {velocity} connvel: {connectionVelocity}");
     }
     bool CheckClimbing()
     {
@@ -396,28 +399,32 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         zAxis = MathUtils.ProjectDirectionOnContactPlane(zAxis, contactNormal);
 
         Vector3 relativeVelocity = velocity - connectionVelocity;
+        Debug.Log($"vel {velocity} connvel: {connectionVelocity}, relvel:{relativeVelocity}");
+        //Vector3 adjustment;
+        //adjustment.x = input.x * speed - Vector3.Dot(relativeVelocity, xAxis);
+        //adjustment.z = input.z * speed - Vector3.Dot(relativeVelocity, zAxis);
+        //adjustment.y = Swimming ? input.y * speed - Vector3.Dot(relativeVelocity, upAxis) : 0f;
+        //adjustment.x = - Vector3.Dot(relativeVelocity, xAxis);
+        //adjustment.z = - Vector3.Dot(relativeVelocity, zAxis);
+        //adjustment.y = - Vector3.Dot(relativeVelocity, upAxis);
+        //adjustment = Vector3.ClampMagnitude(adjustment, acceleration * Time.deltaTime);
 
-        Vector3 adjustment;
-        adjustment.x = input.x * speed - Vector3.Dot(relativeVelocity, xAxis);
-        adjustment.z = input.z * speed - Vector3.Dot(relativeVelocity, zAxis);
-        adjustment.y = Swimming ? input.y * speed - Vector3.Dot(relativeVelocity, upAxis) : 0f;
-
-        adjustment = Vector3.ClampMagnitude(adjustment, acceleration * Time.deltaTime);
-
-        velocity += xAxis * adjustment.x + zAxis * adjustment.z;
-        if (Swimming)
-        {
-            velocity += upAxis * adjustment.y;
-        }
+        //velocity += xAxis * adjustment.x + zAxis * adjustment.z;
+        //if (Swimming)
+        //{
+        //    velocity += upAxis * adjustment.y;
+        //}
+        velocity -= relativeVelocity;
+        Debug.Log($"vel2 {velocity} connvel: {connectionVelocity}");
     }
+    /// <summary>
+    /// here implement method to predict next physic step's linear velocity at point
+    /// </summary>
     void UpdateConnectionState()
     {
         if (connectedBody == previousConnectedBody)
         {
-            Vector3 connectionMovement =
-                connectedBody.transform.TransformPoint(connectionLocalPosition) -
-                connectionWorldPosition;
-            connectionVelocity = connectionMovement / Time.deltaTime;
+            connectionVelocity = connectedBody.GetPointVelocity(downRayHit.point);
         }
         connectionWorldPosition = body.position;
         connectionLocalPosition = connectedBody.transform.InverseTransformPoint(connectionWorldPosition);
@@ -490,7 +497,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         }
         return false;
     }
-    
+
     //void Subscribe()
     //{
     //    UnSubscribe();
@@ -571,7 +578,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     //        }
     //    }
     //}
-    
+
     //void EvaluateSubmergence(Collider collider)
     //{
     //    if (Physics.Raycast
@@ -614,7 +621,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     public override void AssignConfigValues(PlayerController controller)
     {
         player = controller;
-        config = player.NewSpringDrivenConfigSO;
+        config = player.SpringDrivenMothershipSO;
 
         maxAcceleration = config.maxAcceleration;
         maxAirAcceleration = config.maxAirAcceleration;

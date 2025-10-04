@@ -22,3 +22,11 @@ public class NewSpringDrivenContext
     public Transform raycastCenterOrigin;
 }
 
+[Serializable]
+public class SpringDrivenMothershipContext
+{
+    public Rigidbody body;
+    public Transform raycastTopOrigin;
+    public Transform raycastCenterOrigin;
+    public Rigidbody mothershipRB;
+}

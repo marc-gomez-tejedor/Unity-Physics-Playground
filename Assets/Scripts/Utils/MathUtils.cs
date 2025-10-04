@@ -6,6 +6,10 @@ public static class MathUtils
     {
         return (direction - normal * Vector3.Dot(direction, normal)).normalized;
     }
+    public static Vector3 ProjectVectorOnContactPlane(Vector3 direction, Vector3 normal)
+    {
+        return (direction - normal * Vector3.Dot(direction, normal));
+    }
     public static float GetAngle(Vector2 direction)
     {
         float angle = Mathf.Acos(direction.y) * Mathf.Rad2Deg;

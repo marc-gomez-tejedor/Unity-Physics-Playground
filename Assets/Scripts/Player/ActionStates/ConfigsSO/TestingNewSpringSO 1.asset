@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e54c3462f6d18c7478554fe19cf16beb, type: 3}
+  m_Name: TestingNewSpringSO 1
+  m_EditorClassIdentifier: 
+  maxAcceleration: 50
+  maxAirAcceleration: 0
+  maxClimbAcceleration: 20
+  maxSwimAcceleration: 15
+  rideHeight: 0.5
+  rideSpringStrength: 100
+  rideSpringDamper: 10
+  maxSpeed: 10
+  maxClimbSpeed: 2
+  maxSwimSpeed: 5
+  jumpHeight: 3
+  maxAirJumps: 0
+  snapStepsThreshold: 10
+  crouches: 1
+  crouchAcceleration: 20
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 13521
+  climbMask:
+    serializedVersion: 2
+    m_Bits: 8401
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
+  downRayDistance: 2
+  fwdRayDistance: 1
+  downBoxDistance: 2.2
+  fwdSphereDistance: 1.5
+  downHalfExtents: {x: 0.3, y: 0.01, z: 0.3}
+  fwdSphereRadius: 1.5
+  maxGroundAngle: 70
+  maxClimbAngle: 150
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  waterDrag: 1
+  buoyancy: 1
+  swimThreshold: 0.5
