@@ -551,7 +551,27 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: weaponsCtx.body
+      value: 
+      objectReference: {fileID: 916689607}
+    - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
       propertyPath: playerInputSpace
+      value: 
+      objectReference: {fileID: 738844198}
+    - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: defaultWeaponsConfigSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 1507b7aa54bc8b042ad5b212073e5161, type: 2}
+    - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: weaponsCtx.raycastTopOrigin
+      value: 
+      objectReference: {fileID: 265216917}
+    - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: weaponsCtx.raycastCenterOrigin
+      value: 
+      objectReference: {fileID: 1000909372}
+    - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: weaponsCtx.orbitCameraTransform
       value: 
       objectReference: {fileID: 738844198}
     - target: {fileID: 6731493946712284411, guid: 3859e58709822024e999432a19c9e54d, type: 3}
@@ -1720,6 +1740,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91d3d80497d635941a1449633adba523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &916689607 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 9007952906859307265, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+  m_PrefabInstance: {fileID: 481215412}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1000909372 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 152508202095012244, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+  m_PrefabInstance: {fileID: 481215412}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1118559795
 Mesh:
   m_ObjectHideFlags: 0
@@ -2687,6 +2717,10 @@ PrefabInstance:
       propertyPath: focus
       value: 
       objectReference: {fileID: 265216917}
+    - target: {fileID: 2970449550589862107, guid: 6ca7d1774d17f0f41aa1dccdc5345cde, type: 3}
+      propertyPath: focusRadius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2970449550589862107, guid: 6ca7d1774d17f0f41aa1dccdc5345cde, type: 3}
       propertyPath: focusCentering
       value: 0.99

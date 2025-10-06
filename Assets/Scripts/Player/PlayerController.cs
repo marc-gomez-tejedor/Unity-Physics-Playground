@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour, IInitializable
     public event Action<Collider> OnTriggerStayEvent;
 
 
-
     [Header("States")]
     //          States Context
     //              Actions
@@ -37,6 +36,8 @@ public class PlayerController : MonoBehaviour, IInitializable
     public SpringDrivenContext springDrivenCtx;
     public NewSpringDrivenContext newSpringDrivenCtx;
     public SpringDrivenMothershipContext SpringDrivenMothershipCtx;
+    //              Weapons
+    public DefaultWeaponsContext weaponsCtx;
     //              Visuals
     public BallVisualContext ballVisualCtx;
 
@@ -50,6 +51,7 @@ public class PlayerController : MonoBehaviour, IInitializable
 
     //          Action and Visual Statemachines
     StateMachine actionsStateMachine;
+    StateMachine weaponStateMachine;
     StateMachine visualsStateMachine;
 
 
@@ -69,6 +71,13 @@ public class PlayerController : MonoBehaviour, IInitializable
     public NewSpringDrivenConfigSO SpringDrivenMothershipSO => springDrivenMothershipSO;
 
 
+    //          Serializable Weapons State Configs
+    [SerializeField]
+    DefaultWeaponsConfigSO defaultWeaponsConfigSO;
+    //          Public Weapons State Configs
+    public DefaultWeaponsConfigSO DefaultWeaponsConfigSO => defaultWeaponsConfigSO;
+
+
     //          Serializable Visuals State Configs
     [SerializeField]
     BallVisualsConfigSO ballVisualsConfigSO;
@@ -78,8 +87,14 @@ public class PlayerController : MonoBehaviour, IInitializable
     
     public void Initialize()
     {
-        //      Action State Machine
+        InitActionsStateMachine();
+        InitWeaponsStateMachine();
+        InitVisualsStateMachine();
+    }
+    void InitActionsStateMachine()
+    {
         actionsStateMachine = new StateMachine();
+
         PhysicsDrivenState phsxState = new PhysicsDrivenState();
         SpringDrivenState springState = new SpringDrivenState();
         NewSpringDrivenState newSpringState = new NewSpringDrivenState();
@@ -101,21 +116,34 @@ public class PlayerController : MonoBehaviour, IInitializable
         SpringInMothershipState.AssignConfigValues(this);
         actionsStateMachine.AddState(SpringInMothershipState);
 
-        actionsStateMachine.ChangeState<PhysicsDrivenState>();  // default
-        actionsStateMachine.ChangeState<SpringDrivenState>();  // new default
-        actionsStateMachine.ChangeState<NewSpringDrivenState>();  // new default
-        //actionsStateMachine.ChangeState<SpringDrivenInMothership>();  // new default
+        actionsStateMachine.ChangeState<PhysicsDrivenState>();
+        actionsStateMachine.ChangeState<SpringDrivenState>();
+        actionsStateMachine.ChangeState<NewSpringDrivenState>();
+        //actionsStateMachine.ChangeState<SpringDrivenInMothership>();
+    }
+    void InitWeaponsStateMachine()
+    {
+        weaponStateMachine = new StateMachine();
 
+        DefaultWeaponsState dfWeaponsState = new DefaultWeaponsState();
 
-        //      Visual State Machine
+        dfWeaponsState.Init(weaponsCtx);
+        dfWeaponsState.AssignConfigValues(this);
+        weaponStateMachine.AddState(dfWeaponsState);
+
+        weaponStateMachine.ChangeState<DefaultWeaponsState>();
+    }
+    void InitVisualsStateMachine()
+    {
         visualsStateMachine = new StateMachine();
+
         BallVisualsState ballVisualState = new BallVisualsState();
 
         ballVisualState.Init(ballVisualCtx);
         ballVisualState.AssignConfigValues(this);
         visualsStateMachine.AddState(ballVisualState);
 
-        visualsStateMachine.ChangeState<BallVisualsState>();  // default
+        visualsStateMachine.ChangeState<BallVisualsState>();
     }
     void Update()
     {
@@ -129,7 +157,11 @@ public class PlayerController : MonoBehaviour, IInitializable
         visualsStateMachine.Update();
     }
 
-    void FixedUpdate() => actionsStateMachine.FixedUpdate();
+    void FixedUpdate()
+    {
+        weaponStateMachine.FixedUpdate();
+        actionsStateMachine.FixedUpdate();
+    }
 
     void OnCollisionEnter(Collision collision)
     {

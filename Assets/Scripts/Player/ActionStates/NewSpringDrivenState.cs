@@ -136,10 +136,6 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
 
     protected override void OnInit()
     {
-        body = Context.body;
-        body.useGravity = false;
-        raycastDownOrigin = Context.raycastTopOrigin;
-        raycastFwdOrigin = Context.raycastCenterOrigin;
     }
     public override void Enter()
     {
@@ -613,6 +609,11 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     }
     public override void AssignConfigValues(PlayerController controller)
     {
+        body = Context.body;
+        body.useGravity = false;
+        raycastDownOrigin = Context.raycastTopOrigin;
+        raycastFwdOrigin = Context.raycastCenterOrigin;
+
         player = controller;
         config = player.NewSpringDrivenConfigSO;
 
