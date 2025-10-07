@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "VisualsConfigs/BallVisualsConfigSO")]
 public class BallVisualsConfigSO : ScriptableObject
 {
+    public GameObject prefab;
+
     [Min(0.1f)]
     public float ballRadius = 0.5f;
 

@@ -3,6 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerStatus
 {
+    public GameObject visualObject;
     public bool OnGround;
     public bool OnSteep;
     public bool Climbing;

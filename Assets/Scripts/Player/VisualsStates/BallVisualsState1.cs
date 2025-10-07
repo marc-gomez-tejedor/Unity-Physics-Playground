@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BallVisualsState : State<BallVisualContext, PlayerController>
+public class BallVisualsState1 : State<BallVisualContext, PlayerController>
 {
     //          PlayerController and configSO
     PlayerController player;
@@ -145,7 +145,7 @@ public class BallVisualsState : State<BallVisualContext, PlayerController>
     public override void AssignConfigValues(PlayerController controller)
     {
         player = controller;
-        config = player.BallVisualsConfigSO;
+        config = player.MultiBallVisualsConfigSO;
 
         defaultMaterial = config.defaultMaterial;
         climbingMaterial = config.climbingMaterial;

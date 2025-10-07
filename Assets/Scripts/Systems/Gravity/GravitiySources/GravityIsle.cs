@@ -6,6 +6,9 @@ public class GravityIsle : GravitySource
     [SerializeField]
     float gravity = 9.81f; //positive pulls, negative repels
 
+    [SerializeField]
+    Transform pullCenter;
+
     [SerializeField, Min(0f)]
     float outerRadius = 10f, outerFalloffRadius = 15f;
 
@@ -26,17 +29,19 @@ public class GravityIsle : GravitySource
         Vector3 dir = -transform.up;
         Vector3 vector = transform.position - position;
         float distance = vector.magnitude;
-        float upVec = Vector3.Dot(-dir, vector);
-        if (upVec > 0f || distance > outerFalloffRadius)
+        float upVec = Vector3.Dot(-dir, -vector);
+        if (upVec < 0f || distance > outerFalloffRadius)
         {
+            Debug.Log($"zero: t:{transform.position}, v:{vector}, u:{upVec}, d:{distance}");
             return Vector3.zero;
         }
+        float g = gravity;
         if (distance > outerRadius)
         {
-            gravity *= 1f - (distance - outerRadius) * outerFalloffFactor;
-            dir = vector.normalized;
+            g *= 1f - (distance - outerRadius) * outerFalloffFactor;
         }
-        return gravity * dir;
+        Debug.Log($"one: g:{g} dir{dir} t:{transform.position}, v:{vector}, u:{upVec}, d:{distance}");
+        return g * dir;
     }
     void OnDrawGizmos()
     {

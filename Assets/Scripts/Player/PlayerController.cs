@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour, IInitializable
     public DefaultWeaponsContext weaponsCtx;
     //              Visuals
     public BallVisualContext ballVisualCtx;
+    public BallVisualContext multiBallVisualCtx;
 
 
     //          Public PlayerStatus and physics context
@@ -81,8 +82,11 @@ public class PlayerController : MonoBehaviour, IInitializable
     //          Serializable Visuals State Configs
     [SerializeField]
     BallVisualsConfigSO ballVisualsConfigSO;
+    [SerializeField]
+    BallVisualsConfigSO multiBallVisualsConfigSO;
     //          Public Visuals State Configs
     public BallVisualsConfigSO BallVisualsConfigSO => ballVisualsConfigSO;
+    public BallVisualsConfigSO MultiBallVisualsConfigSO => multiBallVisualsConfigSO;
 
     
     public void Initialize()
@@ -138,12 +142,18 @@ public class PlayerController : MonoBehaviour, IInitializable
         visualsStateMachine = new StateMachine();
 
         BallVisualsState ballVisualState = new BallVisualsState();
+        BallVisualsState1 multiBallVisualState = new BallVisualsState1();
 
         ballVisualState.Init(ballVisualCtx);
         ballVisualState.AssignConfigValues(this);
         visualsStateMachine.AddState(ballVisualState);
 
+        multiBallVisualState.Init(ballVisualCtx);
+        multiBallVisualState.AssignConfigValues(this);
+        visualsStateMachine.AddState(multiBallVisualState);
+
         visualsStateMachine.ChangeState<BallVisualsState>();
+        visualsStateMachine.ChangeState<BallVisualsState1>();
     }
     void Update()
     {

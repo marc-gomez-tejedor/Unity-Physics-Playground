@@ -5,6 +5,4 @@ using UnityEngine;
 public class BallVisualContext
 {
     public Rigidbody body;
-    public Transform ballTransform;
-    public MeshRenderer ballMesh;
 }
