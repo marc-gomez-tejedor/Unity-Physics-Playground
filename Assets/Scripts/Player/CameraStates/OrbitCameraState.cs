@@ -1,57 +1,61 @@
 using UnityEngine;
 
-[RequireComponent (typeof(Camera))]
-public class OrbitCamera : MonoBehaviour
+[RequireComponent(typeof(Camera))]
+public class OrbitCameraState : State<OrbitCameraContext, PlayerController>
 {
-    [SerializeField]
+    PlayerController player;
+    OrbitCameraConfigSO config;
+ 
     Transform focus = default;
+    Camera regularCamera;
+    Transform cameraTransform;
+
+    float verticalOffset;
     Vector3 focusPoint, previousFocusPoint;
 
-    [SerializeField]
     LayerMask obstructionMask = -1;
 
-    [SerializeField, Range(1f, 20f)]
-    float distance = 5f;
-    [SerializeField, Min(0f)]
-    float focusRadius = 1f;
-    [SerializeField, Range(0f, 1f)]
-    float focusCentering = 0.5f;
+    float distance;
+    float focusRadius;
+    float focusCentering;
 
     Vector2 orbitAngles = new Vector2(45f, 0f);
-    [SerializeField, Range(1f, 360f)]
-    float rotationSpeed = 90f;
-    [SerializeField, Range(-89f, 89f)]
-    float minVerticalAngle = -30f, maxVerticalAngle = 60f;
+    float rotationSpeed;
+    float minVerticalAngle, maxVerticalAngle;
 
-    [SerializeField, Min(0f)]
-    float alignDelay = 5f;
-    [SerializeField, Range(0f, 90f)]
-    float alignSmoothRange = 45f;
+    float alignDelay;
+    float alignSmoothRange;
     float lastManualRotationTime;
 
-    [SerializeField, Min(0f)]
-    float upAlignmentSpeed = 360f;
-
-    Camera regularCamera;
+    float upAlignmentSpeed;
 
     Quaternion gravityAlignment = Quaternion.identity;
 
     Quaternion orbitRotation;
 
-    void OnValidate()
-    {
-        maxVerticalAngle = Mathf.Max(maxVerticalAngle, minVerticalAngle);
-    }
-    void Awake()
-    {
-        regularCamera = GetComponent<Camera>();
-        focusPoint = focus.position;
-        transform.localRotation = orbitRotation = Quaternion.Euler(orbitAngles);
-        lastManualRotationTime = Time.unscaledTime;
-        OnValidate();
-    }
 
-    void LateUpdate()
+    protected override void OnInit()
+    {
+    }
+    public override void Enter()
+    {
+        Debug.Log($"Enter {this.GetType()}");
+        maxVerticalAngle = Mathf.Max(maxVerticalAngle, minVerticalAngle);
+        focusPoint = focus.position + player.Status.UpAxis * verticalOffset;
+        cameraTransform.localRotation = orbitRotation = Quaternion.Euler(orbitAngles);
+        lastManualRotationTime = Time.unscaledTime;
+        //Subscribe();
+    }
+    public override void Exit()
+    {
+        Debug.Log($"Exit {this.GetType()}");
+        //UnSubscribe();
+    }
+    public override void Update() { }
+
+    public override void FixedUpdate() { }
+
+    public override void LateUpdate()
     {
         UpdateGravityAlignment();
         UpdateFocusPoint();
@@ -82,12 +86,12 @@ public class OrbitCamera : MonoBehaviour
             rectPosition = castFrom + castDirection * hit.distance;
             lookPosition = rectPosition - rectoOffset;
         }
-        transform.SetPositionAndRotation(lookPosition, lookRotation);
+        cameraTransform.SetPositionAndRotation(lookPosition, lookRotation);
     }
     void UpdateFocusPoint()
     {
         previousFocusPoint = focusPoint;
-        Vector3 targetPoint = focus.position;
+        Vector3 targetPoint = focus.position + player.Status.UpAxis * verticalOffset;
         if (focusRadius > 0f)
         {
             float distance = Vector3.Distance(targetPoint, focusPoint);
@@ -181,6 +185,30 @@ public class OrbitCamera : MonoBehaviour
         {
             orbitAngles.y -= 360f;
         }
+    }
+    public override void AssignConfigValues(PlayerController controller)
+    {
+        player = controller;
+        config = player.OrbitCameraConfigSO;
+
+        verticalOffset = config.verticalOffset;
+        obstructionMask = config.obstructionMask;
+
+        distance = config.distance;
+        focusRadius = config.focusRadius;
+        focusCentering = config.focusCentering;
+
+        rotationSpeed = config.rotationSpeed;
+        minVerticalAngle = config.minVerticalAngle;
+        maxVerticalAngle = config.maxVerticalAngle;
+
+        alignDelay = config.alignDelay;
+        alignSmoothRange = config.alignSmoothRange;
+        upAlignmentSpeed = config.upAlignmentSpeed;
+
+        regularCamera = Context.camera;
+        cameraTransform = Context.cameraTransform;
+        focus = Context.focus;
     }
 
     Vector3 CameraHalfExtends

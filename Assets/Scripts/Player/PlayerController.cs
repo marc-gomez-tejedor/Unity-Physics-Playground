@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour, IInitializable
     //              Visuals
     public BallVisualContext ballVisualCtx;
     public BallVisualContext multiBallVisualCtx;
+    //              Camera
+    public OrbitCameraContext orbitCameraCtx;
 
 
     //          Public PlayerStatus and physics context
@@ -50,10 +52,11 @@ public class PlayerController : MonoBehaviour, IInitializable
     public PlayerContactStatus ContactStatus;
 
 
-    //          Action and Visual Statemachines
+    //          Statemachines
     StateMachine actionsStateMachine;
     StateMachine weaponStateMachine;
     StateMachine visualsStateMachine;
+    StateMachine camerasStateeMachine;
 
 
     //          Serializable Action State Configs
@@ -88,12 +91,20 @@ public class PlayerController : MonoBehaviour, IInitializable
     public BallVisualsConfigSO BallVisualsConfigSO => ballVisualsConfigSO;
     public BallVisualsConfigSO MultiBallVisualsConfigSO => multiBallVisualsConfigSO;
 
-    
+
+    //          Serializable Cameras State Configs
+    [SerializeField]
+    OrbitCameraConfigSO orbitCameraConfigSO;
+    //          Public Weapons State Configs
+    public OrbitCameraConfigSO OrbitCameraConfigSO => orbitCameraConfigSO;
+
+
     public void Initialize()
     {
         InitActionsStateMachine();
         InitWeaponsStateMachine();
         InitVisualsStateMachine();
+        InitCamerasStateMachine();
     }
     void InitActionsStateMachine()
     {
@@ -155,6 +166,18 @@ public class PlayerController : MonoBehaviour, IInitializable
         visualsStateMachine.ChangeState<BallVisualsState>();
         visualsStateMachine.ChangeState<BallVisualsState1>();
     }
+    void InitCamerasStateMachine()
+    {
+        camerasStateeMachine = new StateMachine();
+
+        OrbitCameraState orbitCameraState = new OrbitCameraState();
+
+        orbitCameraState.Init(orbitCameraCtx);
+        orbitCameraState.AssignConfigValues(this);
+        camerasStateeMachine.AddState(orbitCameraState);
+
+        camerasStateeMachine.ChangeState<OrbitCameraState>();
+    }
     void Update()
     {
         playerInput.x = Input.GetAxis("Horizontal");
@@ -171,6 +194,10 @@ public class PlayerController : MonoBehaviour, IInitializable
     {
         weaponStateMachine.FixedUpdate();
         actionsStateMachine.FixedUpdate();
+    }
+    void LateUpdate()
+    {
+        camerasStateeMachine.LateUpdate();
     }
 
     void OnCollisionEnter(Collision collision)
