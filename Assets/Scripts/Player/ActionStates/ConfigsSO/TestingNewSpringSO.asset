@@ -16,13 +16,13 @@ MonoBehaviour:
   maxAirAcceleration: 5
   maxClimbAcceleration: 20
   maxSwimAcceleration: 15
-  rideHeight: 1.5
+  rideHeight: 1
   rideSpringStrength: 100
   rideSpringDamper: 10
-  maxSpeed: 10
-  maxClimbSpeed: 2
-  maxSwimSpeed: 5
-  jumpHeight: 3
+  maxSpeed: 12
+  maxClimbSpeed: 5
+  maxSwimSpeed: 10
+  jumpHeight: 5
   maxAirJumps: 2
   snapStepsThreshold: 10
   crouches: 1
