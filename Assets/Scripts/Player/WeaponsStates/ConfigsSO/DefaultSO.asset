@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1666073a95018c54fad0e9bf6f926014, type: 3}
   m_Name: DefaultSO
   m_EditorClassIdentifier: 
+  prefab: {fileID: 6390384080674652363, guid: 0c286dfcce64b8047807fe23eb10459d, type: 3}
   maximumDistance: 20
   mask:
     serializedVersion: 2

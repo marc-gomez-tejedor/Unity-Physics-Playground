@@ -22,6 +22,8 @@ public class GravityBox : GravitySource
     }
     void OnValidate()
     {
+        gravityType = GravityType.GravityBox;
+
         boundaryDistance = Vector3.Max(boundaryDistance, Vector3.zero);
         float maxInner = Mathf.Min(Mathf.Min(boundaryDistance.x, boundaryDistance.y), boundaryDistance.z);
         innerDistance = Mathf.Min(innerDistance, maxInner);

@@ -16,6 +16,8 @@ public class GravityIsle : GravitySource
 
     void OnValidate()
     {
+        gravityType = GravityType.GravityIsle;
+
         outerFalloffRadius = Mathf.Max(outerFalloffRadius, outerRadius);
 
         outerFalloffFactor = 1f / (outerFalloffRadius - outerRadius);
@@ -32,7 +34,7 @@ public class GravityIsle : GravitySource
         float upVec = Vector3.Dot(-dir, -vector);
         if (upVec < 0f || distance > outerFalloffRadius)
         {
-            Debug.Log($"zero: t:{transform.position}, v:{vector}, u:{upVec}, d:{distance}");
+            //Debug.Log($"zero: t:{transform.position}, v:{vector}, u:{upVec}, d:{distance}");
             return Vector3.zero;
         }
         float g = gravity;
@@ -40,7 +42,7 @@ public class GravityIsle : GravitySource
         {
             g *= 1f - (distance - outerRadius) * outerFalloffFactor;
         }
-        Debug.Log($"one: g:{g} dir{dir} t:{transform.position}, v:{vector}, u:{upVec}, d:{distance}");
+        //Debug.Log($"one: g:{g} dir{dir} t:{transform.position}, v:{vector}, u:{upVec}, d:{distance}");
         return g * dir;
     }
     void OnDrawGizmos()

@@ -8,6 +8,14 @@ public class GravityPlane : GravitySource
     [SerializeField, Min(0f)]
     float range = 1f;
 
+    void Awake()
+    {
+        OnValidate();
+    }
+    void OnValidate()
+    {
+        gravityType = GravityType.GravityPlane;
+    }
     public override Vector3 GetGravity(Vector3 position)
     {
         Vector3 up = transform.up;

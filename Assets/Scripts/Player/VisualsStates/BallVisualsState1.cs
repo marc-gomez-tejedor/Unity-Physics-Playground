@@ -48,6 +48,11 @@ public class BallVisualsState1 : State<BallVisualContext, PlayerController>
     }
     public override void Update() 
     {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            player.visualsStateMachine.ChangeState<BallVisualsState>();
+        }
+
         UpdateActionsParams();
         Vector3 rotationPlaneNormal = lastContactNormal;
         Material ballMaterial = defaultMaterial;

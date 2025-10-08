@@ -160,7 +160,7 @@ public class OrbitCameraState : State<OrbitCameraContext, PlayerController>
     void UpdateGravityAlignment()
     {
         Vector3 fromUp = gravityAlignment * Vector3.up;
-        Vector3 toUp = CustomGravity.GetUpAxis(focusPoint);
+        Vector3 toUp = CustomGravity.GetUpAxis(focusPoint, GravityType.GravityCastedByPlayer);
         float dot = Mathf.Clamp(Vector3.Dot(fromUp, toUp), -1f, 1f);
         float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
         float maxAngle = upAlignmentSpeed * Time.deltaTime;

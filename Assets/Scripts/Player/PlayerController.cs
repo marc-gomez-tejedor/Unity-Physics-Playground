@@ -53,10 +53,10 @@ public class PlayerController : MonoBehaviour, IInitializable
 
 
     //          Statemachines
-    StateMachine actionsStateMachine;
-    StateMachine weaponStateMachine;
-    StateMachine visualsStateMachine;
-    StateMachine camerasStateeMachine;
+    public StateMachine actionsStateMachine;
+    public StateMachine weaponStateMachine;
+    public StateMachine visualsStateMachine;
+    public StateMachine camerasStateeMachine;
 
 
     //          Serializable Action State Configs
@@ -187,16 +187,23 @@ public class PlayerController : MonoBehaviour, IInitializable
         desiresClimbing = Input.GetButton("Climb");
 
         actionsStateMachine.Update();
+        weaponStateMachine.Update();
         visualsStateMachine.Update();
+        //camerasStateeMachine.Update(); // currently unused
     }
 
     void FixedUpdate()
     {
-        weaponStateMachine.FixedUpdate();
         actionsStateMachine.FixedUpdate();
+        weaponStateMachine.FixedUpdate();
+        //visualsStateMachine.FixedUpdate();  // currently unused
+        //camerasStateeMachine.FixedUpdate();  // currently unused
     }
     void LateUpdate()
     {
+        //actionsStateMachine.LateUpdate();  // currently unused
+        //weaponStateMachine.LateUpdate();  // currently unused
+        //visualsStateMachine.LateUpdate();  // currently unused
         camerasStateeMachine.LateUpdate();
     }
 

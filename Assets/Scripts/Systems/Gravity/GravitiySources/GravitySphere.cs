@@ -15,6 +15,7 @@ public class GravitySphere : GravitySource
 
     void OnValidate()
     {
+
         innerFalloffRadius = Mathf.Max(innerFalloffRadius, 0f);
         innerRadius = Mathf.Max(innerRadius, innerFalloffRadius);
         outerRadius = Mathf.Max(outerRadius, innerRadius);

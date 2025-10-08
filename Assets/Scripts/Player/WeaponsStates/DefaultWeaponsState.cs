@@ -7,6 +7,11 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
     DefaultWeaponsConfigSO config;
 
 
+    //          Gravity spheres
+    GravitySphere pushSphere;
+    GravitySphere pullSphere;
+
+
     //          Raycast params
     Transform cameraTransform;
     float distance;
@@ -22,15 +27,53 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
     }
     public override void Enter()
     {
-        Debug.Log($"Enter {this.GetType()}");
+        GameObject inst = GameObject.Instantiate(config.prefab, player.transform);
+        player.Status.weaponObject = inst;
+        Transform t = inst.transform.Find("pushSphere");
+        pushSphere = t.GetComponent<GravitySphere>();
+
+        t = inst.transform.Find("pullSphere");
+        pullSphere = t.GetComponent<GravitySphere>();
+        //Debug.Log($"Enter {this.GetType()}");
     }
     public override void Exit()
     {
-        Debug.Log($"Exit {this.GetType()}");
+        GameObject.Destroy(player.Status.weaponObject);
+        //Debug.Log($"Exit {this.GetType()}");
     }
     public override void Update()
     {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            SwapPullSphere();
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            SwapPushSphere();
+        }
         UpdatePlayerStatusAndContextValues();
+    }
+    void SwapPullSphere()
+    {
+        if (pullSphere.enabled)
+        {
+            pullSphere.enabled = false;
+            Debug.Log("disabled");
+            Debug.Log(pullSphere.enabled);
+            return;
+        }
+        pullSphere.enabled = true;
+        Debug.Log("enabled");
+        Debug.Log(pullSphere.enabled);
+    }
+    void SwapPushSphere()
+    {
+        if (pushSphere.enabled)
+        {
+            pushSphere.enabled = false;
+                return;
+        }
+        pushSphere.enabled = true;
     }
     public override void FixedUpdate()
     {
@@ -55,7 +98,7 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
     {
         player = controller;
         config = player.DefaultWeaponsConfigSO;
-
+        
         distance = config.maximumDistance;
         layerMask = config.mask;
 

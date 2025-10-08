@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerStatus
 {
     public GameObject visualObject;
+    public GameObject weaponObject;
     public bool OnGround;
     public bool OnSteep;
     public bool Climbing;

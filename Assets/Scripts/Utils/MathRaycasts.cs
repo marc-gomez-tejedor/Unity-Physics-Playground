@@ -76,7 +76,7 @@ public static class MathRaycasts
 
         if (Physics.SphereCast(origin, radius, direction, out hit, sphereDistance, groundMask))
         {
-            Debug.Log("true sphere");
+            //Debug.Log("true sphere");
             return true;
         }
         //Debug.Log("false");

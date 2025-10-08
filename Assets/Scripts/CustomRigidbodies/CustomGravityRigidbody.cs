@@ -61,7 +61,7 @@ public class CustomGravityRigidbody : MonoBehaviour
                 floatDelay = 0f;
             }
         }
-        gravity = CustomGravity.GetGravity(body.position);
+        gravity = CustomGravity.GetGravity(body.position, GravityType.GravityIsle);
         if (submergence > 0f)
         {
             float drag = Mathf.Max(0f, 1f - waterDrag * submergence * Time.deltaTime);

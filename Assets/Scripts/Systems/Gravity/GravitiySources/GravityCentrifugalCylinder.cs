@@ -20,6 +20,8 @@ public class GravityCentrifugalCylinder : GravitySource
 
     void OnValidate()
     {
+        gravityType = GravityType.GravityCentrifugalCylinder;
+
         angularVelocitySquared = angularVelocity * angularVelocity;
     }
     void Awake()

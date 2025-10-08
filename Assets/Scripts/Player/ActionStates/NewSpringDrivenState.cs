@@ -199,7 +199,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         velocity = body.linearVelocity;
 
         // get upAxis
-        upAxis = CustomGravity.GetUpAxis(body.position);
+        upAxis = CustomGravity.GetUpAxis(body.position, GravityType.GravityCastedByPlayer);
         
         // cache params
         stepsSinceLastGrounded++;
@@ -306,7 +306,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     }
     void UpdateVelocity()
     {
-        Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
+        Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis, GravityType.GravityCastedByPlayer);
 
         if (InWater)
         {
