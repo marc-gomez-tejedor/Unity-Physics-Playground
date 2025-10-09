@@ -206,7 +206,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         velocity = body.linearVelocity;
 
         // get upAxis
-        upAxis = CustomGravity.GetUpAxis(body.position, playerGravityQuery);                
+        upAxis = CustomGravity.GetUpAxis(body.position, playerGravityQuery.ExcludeMask);                
 
         if (CheckRaycasts() || CheckSwimming() || CheckSteepContacts())
         {

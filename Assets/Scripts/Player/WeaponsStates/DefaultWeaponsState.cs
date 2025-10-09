@@ -109,8 +109,13 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
                 targetPosition = p + direction.normalized * distance;
             }
         }
+        if (enabled)
+        {
+            player.Status.StepsSinceLastJump = -1;
+            gravityRay.hitPosition = targetPosition;
+        }
         gravityRay.enabled = enabled;
-        gravityRay.hitPosition = targetPosition;
+        
         Debug.DrawLine(originPosition.position, targetPosition, Color.magenta);
         ClearStateParams();
     }

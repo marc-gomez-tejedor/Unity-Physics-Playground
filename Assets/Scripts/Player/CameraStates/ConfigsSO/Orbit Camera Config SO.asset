@@ -19,9 +19,9 @@ MonoBehaviour:
   distance: 5
   focusRadius: 1
   focusCentering: 0.99
-  rotationSpeed: 90
-  minVerticalAngle: -30
-  maxVerticalAngle: 60
+  rotationSpeed: 320
+  minVerticalAngle: -45
+  maxVerticalAngle: 80
   alignDelay: 5
   alignSmoothRange: 45
   upAlignmentSpeed: 360

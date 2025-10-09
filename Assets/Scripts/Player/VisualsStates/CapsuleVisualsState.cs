@@ -35,7 +35,7 @@ public class CapsuleVisualsState : State<CapsuleVisualContext, PlayerController>
         player.Status.visualObject = inst;
 
         capsule = inst.transform;
-        meshRenderer = inst.GetComponent<MeshRenderer>();
+        meshRenderer = inst.GetComponentInChildren<MeshRenderer>();
     }
     public override void Update() 
     {
