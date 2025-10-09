@@ -5,6 +5,7 @@ public class PlayerStatus
 {
     public GameObject visualObject;
     public GameObject weaponObject;
+    public GravityQuerySettings playerGravityQuery;
     public bool OnGround;
     public bool OnSteep;
     public bool Climbing;

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController>
@@ -10,6 +11,7 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
     //          Gravity spheres
     GravitySphere pushSphere;
     GravitySphere pullSphere;
+    GravityRayByPlayer gravityRay;
 
 
     //          Raycast params
@@ -22,6 +24,10 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
     Transform originPosition;
     Vector3 targetPosition;
 
+
+    //          intent
+    bool desiresToRay;
+
     protected override void OnInit()
     {
     }
@@ -29,11 +35,17 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
     {
         GameObject inst = GameObject.Instantiate(config.prefab, player.transform);
         player.Status.weaponObject = inst;
+        GravityQuerySettings GravityQuery = new(excludeMask: config.ExcludeMask, includeMask: config.IncludeMask);
+        player.Status.playerGravityQuery = GravityQuery;
         Transform t = inst.transform.Find("pushSphere");
         pushSphere = t.GetComponent<GravitySphere>();
 
         t = inst.transform.Find("pullSphere");
         pullSphere = t.GetComponent<GravitySphere>();
+
+        t = inst.transform.Find("gravRay");
+        gravityRay = t.GetComponent<GravityRayByPlayer>();
+        gravityRay.enabled = false;
         //Debug.Log($"Enter {this.GetType()}");
     }
     public override void Exit()
@@ -50,6 +62,11 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
         if (Input.GetKeyDown(KeyCode.O))
         {
             SwapPushSphere();
+        }
+        if (Input.GetMouseButton(0))
+        {
+            desiresToRay = true;
+            Debug.Log("moouse pressed");
         }
         UpdatePlayerStatusAndContextValues();
     }
@@ -79,20 +96,32 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
     {
         Vector3 p = cameraTransform.position;
         Vector3 direction = cameraTransform.forward;
-        if (Physics.Raycast(p, direction, out RaycastHit hit, distance, layerMask))
+        bool enabled = false;
+        if (desiresToRay)
         {
-            targetPosition = hit.point;
+            if (Physics.Raycast(p, direction, out RaycastHit hit, distance, layerMask))
+            {
+                targetPosition = hit.point;
+                enabled = true;
+            }
+            else
+            {
+                targetPosition = p + direction.normalized * distance;
+            }
         }
-        else
-        {
-            targetPosition = p + direction.normalized * distance;
-        }
+        gravityRay.enabled = enabled;
+        gravityRay.hitPosition = targetPosition;
         Debug.DrawLine(originPosition.position, targetPosition, Color.magenta);
+        ClearStateParams();
+    }
+    void ClearStateParams()
+    {
+        desiresToRay = false;
+
     }
     public override void LateUpdate() { }
     public void UpdatePlayerStatusAndContextValues()
     {
-
     }
     public override void AssignConfigValues(PlayerController controller)
     {
@@ -100,7 +129,7 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
         config = player.DefaultWeaponsConfigSO;
         
         distance = config.maximumDistance;
-        layerMask = config.mask;
+        layerMask = config.layerMask;
 
         cameraTransform = Context.orbitCameraTransform;
         originPosition = Context.raycastCenterOrigin;

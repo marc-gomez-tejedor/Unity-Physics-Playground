@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 6390384080674652363, guid: 0c286dfcce64b8047807fe23eb10459d, type: 3}
   maximumDistance: 20
-  mask:
+  layerMask:
     serializedVersion: 2
-    m_Bits: 5833
+    m_Bits: 5841

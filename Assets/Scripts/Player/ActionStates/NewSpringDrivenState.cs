@@ -126,6 +126,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     Rigidbody body,
               connectedBody,
               previousConnectedBody;
+    GravityQuerySettings playerGravityQuery;
 
 
     //          Can crouch
@@ -195,17 +196,17 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     /// </TODO>
     void UpdateStateParams()
     {
-        // get current velocity
-        velocity = body.linearVelocity;
-
-        // get upAxis
-        upAxis = CustomGravity.GetUpAxis(body.position, GravityType.GravityCastedByPlayer);
-        
         // cache params
         stepsSinceLastGrounded++;
         stepsSinceLastJump = player.Status.StepsSinceLastJump;
         stepsSinceLastJump++;
-                
+        playerGravityQuery = player.Status.playerGravityQuery;
+
+        // get current velocity
+        velocity = body.linearVelocity;
+
+        // get upAxis
+        upAxis = CustomGravity.GetUpAxis(body.position, playerGravityQuery);                
 
         if (CheckRaycasts() || CheckSwimming() || CheckSteepContacts())
         {
@@ -306,7 +307,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
     }
     void UpdateVelocity()
     {
-        Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis, GravityType.GravityCastedByPlayer);
+        Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis, playerGravityQuery);
 
         if (InWater)
         {
