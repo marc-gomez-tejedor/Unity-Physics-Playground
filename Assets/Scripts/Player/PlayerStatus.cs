@@ -14,6 +14,7 @@ public class PlayerStatus
     public int StepsSinceLastJump;
     public float Submergence;
     public Vector3 UpAxis;
+    public Vector3 ForwardAxis;
 }
 
 [System.Serializable]

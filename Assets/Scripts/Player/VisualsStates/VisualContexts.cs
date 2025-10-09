@@ -6,3 +6,9 @@ public class BallVisualContext
 {
     public Rigidbody body;
 }
+
+[Serializable]
+public class CapsuleVisualContext
+{
+    public Rigidbody body;
+}

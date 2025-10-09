@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,8 +44,8 @@ public class BallVisualsState : State<BallVisualContext, PlayerController>
         GameObject inst = GameObject.Instantiate(config.prefab, player.transform);
         player.Status.visualObject = inst;
 
-        ball = player.Status.visualObject.transform;
-        meshRenderer = ball.GetComponent<MeshRenderer>();
+        ball = inst.transform;
+        meshRenderer = inst.GetComponent<MeshRenderer>();
     }
     public override void Update() 
     {

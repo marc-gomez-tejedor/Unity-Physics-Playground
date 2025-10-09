@@ -1630,9 +1630,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 265216917}
     - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: capsuleVisualCtx.body
+      value: 
+      objectReference: {fileID: 916689607}
+    - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
       propertyPath: orbitCameraCtx.camera
       value: 
       objectReference: {fileID: 876840531445070719}
+    - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
+      propertyPath: capsuleVisualsConfigSO
+      value: 
+      objectReference: {fileID: 11400000, guid: d8a0609dc61966c408a965fc783d7460, type: 2}
     - target: {fileID: 4512469471640663803, guid: 3859e58709822024e999432a19c9e54d, type: 3}
       propertyPath: defaultWeaponsConfigSO
       value: 

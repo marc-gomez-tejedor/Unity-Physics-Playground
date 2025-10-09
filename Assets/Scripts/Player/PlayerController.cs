@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour, IInitializable
     //              Visuals
     public BallVisualContext ballVisualCtx;
     public BallVisualContext multiBallVisualCtx;
+    public CapsuleVisualContext capsuleVisualCtx;
     //              Camera
     public OrbitCameraContext orbitCameraCtx;
 
@@ -87,9 +88,12 @@ public class PlayerController : MonoBehaviour, IInitializable
     BallVisualsConfigSO ballVisualsConfigSO;
     [SerializeField]
     BallVisualsConfigSO multiBallVisualsConfigSO;
+    [SerializeField]
+    CapsuleVisualsConfigSO capsuleVisualsConfigSO;
     //          Public Visuals State Configs
     public BallVisualsConfigSO BallVisualsConfigSO => ballVisualsConfigSO;
     public BallVisualsConfigSO MultiBallVisualsConfigSO => multiBallVisualsConfigSO;
+    public CapsuleVisualsConfigSO CapsuleVisualsConfigSO => capsuleVisualsConfigSO;
 
 
     //          Serializable Cameras State Configs
@@ -154,6 +158,7 @@ public class PlayerController : MonoBehaviour, IInitializable
 
         BallVisualsState ballVisualState = new BallVisualsState();
         BallVisualsState1 multiBallVisualState = new BallVisualsState1();
+        CapsuleVisualsState capsuleBallVisualState = new CapsuleVisualsState();
 
         ballVisualState.Init(ballVisualCtx);
         ballVisualState.AssignConfigValues(this);
@@ -163,8 +168,13 @@ public class PlayerController : MonoBehaviour, IInitializable
         multiBallVisualState.AssignConfigValues(this);
         visualsStateMachine.AddState(multiBallVisualState);
 
+        capsuleBallVisualState.Init(capsuleVisualCtx);
+        capsuleBallVisualState.AssignConfigValues(this);
+        visualsStateMachine.AddState(capsuleBallVisualState);
+
         visualsStateMachine.ChangeState<BallVisualsState>();
         visualsStateMachine.ChangeState<BallVisualsState1>();
+        visualsStateMachine.ChangeState<CapsuleVisualsState>();
     }
     void InitCamerasStateMachine()
     {

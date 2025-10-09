@@ -599,6 +599,7 @@ public class NewSpringDrivenState : State<NewSpringDrivenContext, PlayerControll
         player.Status.StepsSinceLastGrounded = stepsSinceLastGrounded;
         player.Status.Submergence = submergence;
         player.Status.UpAxis = upAxis;
+        player.Status.ForwardAxis = forwardAxis;
 
 
         player.ContactStatus.ConnectedBody = connectedBody;
