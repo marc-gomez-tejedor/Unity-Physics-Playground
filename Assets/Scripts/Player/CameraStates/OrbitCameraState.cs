@@ -51,7 +51,16 @@ public class OrbitCameraState : State<OrbitCameraContext, PlayerController>
         Debug.Log($"Exit {this.GetType()}");
         //UnSubscribe();
     }
-    public override void Update() { }
+    public override void Update() 
+    {
+        /// fix this new state
+        /// also add new action state for Hooking, and make that WASD is in a plane perpendicular to HookDir
+        /// so if u W: then u go up in regards to hook dir, etc
+        /*if (player.Status.Hooking)
+        {
+            player.camerasStateeMachine.ChangeState<TargetLockedCameraState>();
+        }*/
+    }
 
     public override void FixedUpdate() { }
 

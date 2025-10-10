@@ -66,7 +66,7 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
         if (Input.GetMouseButton(0))
         {
             desiresToRay = true;
-            Debug.Log("moouse pressed");
+            //Debug.Log("moouse pressed");
         }
         UpdatePlayerStatusAndContextValues();
     }
@@ -99,30 +99,32 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
         bool enabled = false;
         if (desiresToRay)
         {
-            if (Physics.Raycast(p, direction, out RaycastHit hit, distance, layerMask))
+            if (player.Status.Hooking)
             {
-                targetPosition = hit.point;
                 enabled = true;
+            }
+            else if (Physics.Raycast(p, direction, out RaycastHit hit, distance, layerMask))
+            {
+                enabled = true;
+                targetPosition = hit.point;
+                player.Status.HookPoint = targetPosition; 
+                player.Status.StepsSinceLastJump = -1;
+                gravityRay.hitPosition = targetPosition;
             }
             else
             {
                 targetPosition = p + direction.normalized * distance;
             }
         }
-        if (enabled)
-        {
-            player.Status.StepsSinceLastJump = -1;
-            gravityRay.hitPosition = targetPosition;
-        }
         gravityRay.enabled = enabled;
-        
+        player.Status.Hooking = enabled;
+        Debug.Log(enabled);
         Debug.DrawLine(originPosition.position, targetPosition, Color.magenta);
         ClearStateParams();
     }
     void ClearStateParams()
     {
         desiresToRay = false;
-
     }
     public override void LateUpdate() { }
     public void UpdatePlayerStatusAndContextValues()

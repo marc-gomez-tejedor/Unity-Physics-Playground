@@ -6452,6 +6452,10 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 120
       objectReference: {fileID: 0}
+    - target: {fileID: 8160427570183540743, guid: 2cd81563376f14a4b844815d84bb4eff, type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8648009399444399573, guid: 2cd81563376f14a4b844815d84bb4eff, type: 3}
       propertyPath: m_LocalScale.x
       value: 8

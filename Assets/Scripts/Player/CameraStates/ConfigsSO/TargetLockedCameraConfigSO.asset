@@ -9,19 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ca1a952abea8614eb6a1b9e702f7b1d, type: 3}
-  m_Name: Orbit Camera Config SO
+  m_Script: {fileID: 11500000, guid: 47ad82b1c87fe2d45891129d2da80d25, type: 3}
+  m_Name: TargetLockedCameraConfigSO
   m_EditorClassIdentifier: 
   verticalOffset: 2
   obstructionMask:
     serializedVersion: 2
     m_Bits: 5881
   distance: 6
-  focusRadius: 1
-  focusCentering: 0.99
-  rotationSpeed: 320
-  minVerticalAngle: -45
-  maxVerticalAngle: 80
-  alignDelay: 5
-  alignSmoothRange: 45
-  upAlignmentSpeed: 360

@@ -331,6 +331,10 @@ MonoBehaviour:
     camera: {fileID: 3301117324042056429}
     cameraTransform: {fileID: 5408120952627711256}
     focus: {fileID: 563704314989157312}
+  tagetLockedCameraCtx:
+    camera: {fileID: 3301117324042056429}
+    cameraTransform: {fileID: 5408120952627711256}
+    focus: {fileID: 563704314989157312}
   Status:
     visualObject: {fileID: 0}
     weaponObject: {fileID: 0}
@@ -344,6 +348,8 @@ MonoBehaviour:
     Submergence: 0
     UpAxis: {x: 0, y: 0, z: 0}
     ForwardAxis: {x: 0, y: 0, z: 0}
+    Hooking: 0
+    HookPoint: {x: 0, y: 0, z: 0}
   ContactStatus:
     ConnectedBody: {fileID: 0}
     PreviousConnectedBody: {fileID: 0}
@@ -359,6 +365,7 @@ MonoBehaviour:
   multiBallVisualsConfigSO: {fileID: 11400000, guid: 7ce1769ceabcc094ca973120148363b8, type: 2}
   capsuleVisualsConfigSO: {fileID: 11400000, guid: d8a0609dc61966c408a965fc783d7460, type: 2}
   orbitCameraConfigSO: {fileID: 11400000, guid: 9d0285609c2a48f46b973c8961cc062a, type: 2}
+  targetLockedCameraConfigSO: {fileID: 11400000, guid: e14dfcd128b8b654eaacea8e65a4d5ac, type: 2}
 --- !u!1001 &5690039813085544157
 PrefabInstance:
   m_ObjectHideFlags: 0

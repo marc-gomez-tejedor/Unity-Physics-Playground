@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour, IInitializable
     public CapsuleVisualContext capsuleVisualCtx;
     //              Camera
     public OrbitCameraContext orbitCameraCtx;
+    public TargetLockedCameraContext tagetLockedCameraCtx;
 
 
     //          Public PlayerStatus and physics context
@@ -99,8 +100,11 @@ public class PlayerController : MonoBehaviour, IInitializable
     //          Serializable Cameras State Configs
     [SerializeField]
     OrbitCameraConfigSO orbitCameraConfigSO;
-    //          Public Weapons State Configs
+    [SerializeField]
+    TargetLockedCameraConfigSO targetLockedCameraConfigSO;
+    //          Public Cameras State Configs
     public OrbitCameraConfigSO OrbitCameraConfigSO => orbitCameraConfigSO;
+    public TargetLockedCameraConfigSO TargetLockedCameraConfigSO => targetLockedCameraConfigSO;
 
 
     public void Initialize()
@@ -181,10 +185,15 @@ public class PlayerController : MonoBehaviour, IInitializable
         camerasStateeMachine = new StateMachine();
 
         OrbitCameraState orbitCameraState = new OrbitCameraState();
+        TargetLockedCameraState targetCameraState = new TargetLockedCameraState();
 
         orbitCameraState.Init(orbitCameraCtx);
         orbitCameraState.AssignConfigValues(this);
         camerasStateeMachine.AddState(orbitCameraState);
+
+        targetCameraState.Init(tagetLockedCameraCtx);
+        targetCameraState.AssignConfigValues(this);
+        camerasStateeMachine.AddState(targetCameraState);
 
         camerasStateeMachine.ChangeState<OrbitCameraState>();
     }
@@ -199,7 +208,7 @@ public class PlayerController : MonoBehaviour, IInitializable
         actionsStateMachine.Update();
         weaponStateMachine.Update();
         visualsStateMachine.Update();
-        //camerasStateeMachine.Update(); // currently unused
+        camerasStateeMachine.Update();
     }
 
     void FixedUpdate()

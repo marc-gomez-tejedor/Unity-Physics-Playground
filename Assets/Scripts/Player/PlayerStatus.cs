@@ -16,6 +16,9 @@ public class PlayerStatus
     public float Submergence;
     public Vector3 UpAxis;
     public Vector3 ForwardAxis;
+
+    public bool Hooking;
+    public Vector3 HookPoint;
 }
 
 [System.Serializable]
