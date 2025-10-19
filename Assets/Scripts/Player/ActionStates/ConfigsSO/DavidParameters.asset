@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e54c3462f6d18c7478554fe19cf16beb, type: 3}
-  m_Name: BestNewSpringSO
+  m_Name: DavidParameters
   m_EditorClassIdentifier: 
-  maxAcceleration: 50
+  maxAcceleration: 80
   maxAirAcceleration: 0
   maxClimbAcceleration: 20
   maxSwimAcceleration: 15
   rideHeight: 1
-  rideSpringStrength: 100
+  rideSpringStrength: 200
   rideSpringDamper: 20
-  maxSpeed: 12
+  maxSpeed: 15
   maxClimbSpeed: 5
   maxSwimSpeed: 10
-  jumpHeight: 5
-  maxAirJumps: 2
+  jumpHeight: 6
+  maxAirJumps: 3
   snapStepsThreshold: 10
   crouches: 1
   crouchAcceleration: 20
@@ -42,7 +42,7 @@ MonoBehaviour:
   fwdSphereDistance: 1.5
   downHalfExtents: {x: 0.3, y: 0.01, z: 0.3}
   fwdSphereRadius: 1.5
-  maxGroundAngle: 80
+  maxGroundAngle: 85
   maxClimbAngle: 150
   submergenceOffset: 0.5
   submergenceRange: 1

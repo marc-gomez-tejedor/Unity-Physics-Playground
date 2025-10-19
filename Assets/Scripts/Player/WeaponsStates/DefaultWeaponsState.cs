@@ -63,7 +63,7 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
         {
             SwapPushSphere();
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetKey(KeyCode.E))
         {
             desiresToRay = true;
             //Debug.Log("moouse pressed");
@@ -108,7 +108,7 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
                 enabled = true;
                 targetPosition = hit.point;
                 player.Status.HookPoint = targetPosition; 
-                player.Status.StepsSinceLastJump = -1;
+                //player.Status.StepsSinceLastJump = -1;
                 gravityRay.hitPosition = targetPosition;
             }
             else
