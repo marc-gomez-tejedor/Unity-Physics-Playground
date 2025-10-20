@@ -81,10 +81,34 @@ half4 frag(Varyings IN) : SV_Target
     //float4 colorSample = SAMPLE_TEXTURE2D(_ColorMap, sampler_ColorMap, IN.uv);
     float4 worldColor = { 0, 0, 0, 0 };
     //worldColor.rg = IN.worldpos.xy * 0.5 + 0.5;
-    float left = step(0.1, IN.local01.x);
-    float bottom = step(0.1, IN.local01.y);
-    float c = left * bottom;
-    worldColor = float4(c,c,c,c);
-    half4 color = _BaseColor * worldColor;
+    float2 a = float2(0.005, 0.015);
+    float2 b = float2(0.025, 0.025);
+    float2 lbBorders = smoothstep(a, b, IN.local01.xy);
+    float2 trBorders = smoothstep(a, b, 1.0-IN.local01.xy);
+    half4 color;
+    color = half4(1, 1, 1, 1);
+    
+    //paint red (unpaint blue and green)
+    float m = smoothstep(0.25, 0.26, IN.local01.x);
+    m += smoothstep(0.6, 0.59, IN.local01.y);
+    m = clamp(m, 0, 1);
+    color.gb = float2(m, m);
+    
+    float2 lt1 = float2(0., 0.42);
+    float2 lt2 = float2(0.25, 0.6);
+    float2 ltQ = step(lt2, IN.local01.xy);
+    ltQ += step(lt1, 1-IN.local01.xy);
+    ltQ *= (smoothstep(0.26, 0.261, IN.local01.x) + smoothstep(0.241, 0.24, IN.local01.x));
+    ltQ *= (smoothstep(0.12, 0.121, IN.local01.x) + smoothstep(0.101, 0.1, IN.local01.x) +
+    smoothstep(0.601, 0.6, IN.local01.y));
+    color.rgba *= ltQ.x * ltQ.y;
+    color.rgba = clamp(color.rgba,0,1);
+    color.rgba *= 0.4;
+    
+    
+    //color = half4(c, c, c, c);
+    //float c = lbBorders.x * lbBorders.y * trBorders.x * trBorders.y;
+    //worldColor = float4(c,c,c,c);
+    //half4 color = _BaseColor * worldColor;
     return color;
 }
