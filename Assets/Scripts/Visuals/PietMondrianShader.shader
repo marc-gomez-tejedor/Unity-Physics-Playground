@@ -1,5 +1,5 @@
 // This shader fills the mesh shape with a color predefined in the code.
-Shader "MarcsShaders/MyLit"
+Shader "MarcsShaders/PietMondrian"
 {
     // The properties block of the Unity shader. In this example this block is empty
     // because the output color is predefined in the fragment shader code.
@@ -30,7 +30,7 @@ Shader "MarcsShaders/MyLit"
             // This line defines the name of the fragment shader. 
             #pragma fragment frag
 
-            #include "MyLitForwardLitPass.hlsl"
+            #include "PietMondrianHLSL.hlsl"
             ENDHLSL
         }
     } 

@@ -1,103 +1,37 @@
-Shader "Graph/PointSurface"
+// This shader fills the mesh shape with a color predefined in the code.
+Shader "MarcsShaders/PointSurface"
 {
+    // The properties block of the Unity shader. In this example this block is empty
+    // because the output color is predefined in the fragment shader code.
     Properties
     {
-        _BaseColor ("Base Color", Color) = (1,1,1,1)
+        [Header(Surface options)]
+        [MainColor] _BaseColor ("Base Color", Color) = (1,1,1,1)
+        [MainTexture] _ColorMap  ("Texture", 2D) = "white" {}
         _Smoothness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
     }
 
+    // The SubShader block containing the Shader code. 
     SubShader
     {
-        Tags { "RenderType"="Opaque" "RenderPipeline"="UniversalRenderPipeline" }
-        LOD 100
+        // SubShader Tags define when and under which conditions a SubShader block or
+        // a pass is executed.
+        Tags { "RenderType" = "Opaque" "RenderPipeline" = "UniversalRenderPipeline" }
 
         Pass
         {
-            Name "ForwardLit"
-            Tags { "LightMode"="UniversalForward" }
-
+            Name "ForwardLit"  // for debugging
+            Tags{"LightMode" = "UniversalForward"}
+            // The HLSL code block. Unity SRP uses the HLSL language.
             HLSLPROGRAM
-
+            // This line defines the name of the vertex shader. 
             #pragma vertex vert
+            // This line defines the name of the fragment shader. 
             #pragma fragment frag
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceData.hlsl"
 
-            struct Attributes
-            {
-                float4 positionOS : POSITION;
-                float3 normalOS   : NORMAL;
-            };
-
-            struct Varyings
-            {
-                float4 positionHCS : SV_POSITION;
-                float3 worldPos    : TEXCOORD0;
-                float3 normalWS    : TEXCOORD1;
-            };
-
-            CBUFFER_START(UnityPerMaterial)
-                float4 _BaseColor;
-                float _Smoothness;
-                float _Metallic;
-            CBUFFER_END
-
-            Varyings vert (Attributes IN)
-            {
-                Varyings OUT;
-                OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
-                OUT.worldPos = TransformObjectToWorld(IN.positionOS.xyz);
-                OUT.normalWS = TransformObjectToWorldNormal(IN.normalOS);
-                return OUT;
-            }
-
-            // "ConfigureSurface"
-            void ConfigureSurface(Varyings IN, inout SurfaceData surfaceData)
-            {   
-                float3 worldColor = {0.0,0.0,0.0};
-                worldColor.rg = IN.worldPos.xy * 0.5 + 0.5;
-                // worldColor = abs(normalize(worldColor)); // optional: nicer mapping
-                float3 albedo = worldColor * _BaseColor.rgb;
-                surfaceData.albedo = albedo;
-                surfaceData.specular = 0.5;     // specular intensity
-                surfaceData.metallic = _Metallic;
-                surfaceData.smoothness = _Smoothness;
-                surfaceData.normalTS = half3(0.0, 0.0, 1.0);
-                surfaceData.occlusion = 1.0;    // default full occlusion
-                surfaceData.emission = 0.0;     // no emissive color
-                surfaceData.alpha = 0.0;
-                surfaceData.clearCoatMask = 0.0;
-                surfaceData.clearCoatSmoothness = 0.0;
-            }
-
-
-            half4 frag (Varyings IN) : SV_Target
-            {
-                SurfaceData surfaceData;
-                ConfigureSurface(IN, surfaceData);
-
-                // Compute lighting (URP helper)
-                // InputData lightingInput;
-                // lightingInput.positionWS = IN.worldPos;
-                // lightingInput.normalWS = normalize(IN.normalWS);
-                // lightingInput.viewDirectionWS = GetWorldSpaceViewDir(IN.worldPos);
-                // lightingInput.shadowCoord = TransformWorldToShadowCoord(IN.worldPos);
-                // lightingInput.bakedGI = SAMPLE_GI(IN.worldPos, lightingInput.normalWS);
-                // lightingInput.vertexLighting = 0;
-                // lightingInput.normalizedScreenSpaceUV = GetNormalizedScreenSpaceUV(IN.positionHCS);
-                // lightingInput.fogCoord = 0;
-
-                // Apply main light (PBR lighting)
-                // half4 color = UniversalFragmentPBR(lightingInput, surfaceData);
-                // _BaseColor.rgb = float3(IN.worldPos);
-                half4 color = _BaseColor;
-                color.rgb *= surfaceData.albedo;
-                return color;
-            }
-
+            #include "PointSurfaceHLSL.hlsl"
             ENDHLSL
         }
-    }
+    } 
 }

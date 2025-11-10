@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityType: 128
-  gravity: 30
+  gravity: 50
   maxDistance: 200
   hitPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &8311236834043376066

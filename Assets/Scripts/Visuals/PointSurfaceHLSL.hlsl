@@ -122,13 +122,6 @@ half4 frag(Varyings IN) : SV_Target
     color.rgba = clamp(color.rgba,0,1);
     color.rgba *= 0.35;
     
-    float pct = 0.0;
-    half2 center = half2(0.5, 0.5);
-    half2 st = IN.local01;
-    
-    pct = distance(st, center);
-    color.rgba = pct*pct;
-    
     
     //color = half4(c, c, c, c);
     //float c = lbBorders.x * lbBorders.y * trBorders.x * trBorders.y;

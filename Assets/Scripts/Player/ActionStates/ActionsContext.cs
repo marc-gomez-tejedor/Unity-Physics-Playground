@@ -23,6 +23,14 @@ public class NewSpringDrivenContext
 }
 
 [Serializable]
+public class ResponsiveSpringDrivenContext
+{
+    public Rigidbody body;
+    public Transform raycastTopOrigin;
+    public Transform raycastCenterOrigin;
+}
+
+[Serializable]
 public class SpringDrivenMothershipContext
 {
     public Rigidbody body;

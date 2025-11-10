@@ -15,4 +15,12 @@ public static class MathUtils
         float angle = Mathf.Acos(direction.y) * Mathf.Rad2Deg;
         return direction.x < 0f ? 360f - angle : angle;
     }
+
+    public static float GetDotFactor(float dot, float factor)
+    {
+        float offset = (factor - 1f) / 2f;
+        float res = (1f + offset) - dot * offset;
+        Debug.Log(res);
+        return res;
+    }
 }

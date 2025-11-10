@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour, IInitializable
     public PhysicsDrivenContext physicsDrivenCtx;
     public SpringDrivenContext springDrivenCtx;
     public NewSpringDrivenContext newSpringDrivenCtx;
+    public ResponsiveSpringDrivenContext responsiveSpringDrivenCtx;
     public SpringDrivenMothershipContext SpringDrivenMothershipCtx;
     //              Weapons
     public DefaultWeaponsContext weaponsCtx;
@@ -69,11 +70,14 @@ public class PlayerController : MonoBehaviour, IInitializable
     [SerializeField]
     NewSpringDrivenConfigSO newSpringDrivenConfigSO;
     [SerializeField]
+    ResponsiveSpringDrivenConfigSO responsiveSpringDrivenConfigSO;
+    [SerializeField]
     NewSpringDrivenConfigSO springDrivenMothershipSO;
     //          Public Action State Configs
     public PhysicsDrivenConfigSO PhysicsDrivenConfigSO => physicsDrivenConfigSO;
     public SpringDrivenConfigSO SpringDrivenConfigSO => springDrivenConfigSO;
     public NewSpringDrivenConfigSO NewSpringDrivenConfigSO => newSpringDrivenConfigSO;
+    public ResponsiveSpringDrivenConfigSO ResponsiveSpringDrivenConfigSO => responsiveSpringDrivenConfigSO;
     public NewSpringDrivenConfigSO SpringDrivenMothershipSO => springDrivenMothershipSO;
 
 
@@ -121,6 +125,7 @@ public class PlayerController : MonoBehaviour, IInitializable
         PhysicsDrivenState phsxState = new PhysicsDrivenState();
         SpringDrivenState springState = new SpringDrivenState();
         NewSpringDrivenState newSpringState = new NewSpringDrivenState();
+        ResponsiveSpringDrivenState responsiveSpringState = new ResponsiveSpringDrivenState();
         SpringDrivenInMothership SpringInMothershipState = new SpringDrivenInMothership();
 
         phsxState.Init(physicsDrivenCtx);
@@ -135,13 +140,19 @@ public class PlayerController : MonoBehaviour, IInitializable
         newSpringState.AssignConfigValues(this);
         actionsStateMachine.AddState(newSpringState);
 
+        responsiveSpringState.Init(responsiveSpringDrivenCtx);
+        responsiveSpringState.AssignConfigValues(this);
+        actionsStateMachine.AddState(responsiveSpringState);
+
         SpringInMothershipState.Init(SpringDrivenMothershipCtx);
         SpringInMothershipState.AssignConfigValues(this);
         actionsStateMachine.AddState(SpringInMothershipState);
 
+
         actionsStateMachine.ChangeState<PhysicsDrivenState>();
         actionsStateMachine.ChangeState<SpringDrivenState>();
         actionsStateMachine.ChangeState<NewSpringDrivenState>();
+        actionsStateMachine.ChangeState<ResponsiveSpringDrivenState>();
         //actionsStateMachine.ChangeState<SpringDrivenInMothership>();
     }
     void InitWeaponsStateMachine()

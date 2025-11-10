@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35cff49e90eda3b4296ab6c52cf5d3c4, type: 3}
+  m_Name: ResponsiveConfigSO
+  m_EditorClassIdentifier: 
+  maxAcceleration: 200
+  dotAccelerationFactor: 10
+  maxAirAcceleration: 20
+  maxClimbAcceleration: 50
+  maxSwimAcceleration: 10
+  rideHeight: 1
+  rideSpringStrength: 200
+  rideSpringDamper: 20
+  maxSpeed: 20
+  maxClimbSpeed: 5
+  maxSwimSpeed: 10
+  jumpHeight: 20
+  maxAirJumps: 3
+  snapStepsThreshold: 10
+  crouches: 1
+  crouchAcceleration: 0
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  climbMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
+  downRayDistance: 1
+  fwdRayDistance: 1
+  downBoxDistance: 1
+  fwdSphereDistance: 1
+  downHalfExtents: {x: 1, y: 0.01, z: 1}
+  fwdSphereRadius: 1
+  maxGroundAngle: 89
+  maxClimbAngle: 140
+  submergenceOffset: 0.5
+  submergenceRange: 1
+  waterDrag: 1
+  buoyancy: 1
+  swimThreshold: 0.5

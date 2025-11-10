@@ -5,7 +5,7 @@ public class Graph : MonoBehaviour
     [SerializeField]
     Transform pointPrefab;
 
-    [SerializeField, Range(10, 1000)]
+    [SerializeField, Range(1, 1000)]
     int resolution = 10;
 
     void Awake()
@@ -18,7 +18,7 @@ public class Graph : MonoBehaviour
             Transform point = Instantiate(pointPrefab);
             position.x = (i + 0.5f) * step - 1f;
             //position.y = Mathf.Pow(Mathf.Cos(position.x*10f)*0.93f, 32f);
-            position.y = position.x * position.x * position.x;
+            position.y = position.x * position.x/* * position.x*/;
             point.localPosition = position;
             point.localScale = scale;
             point.SetParent(transform, false);
