@@ -1,8 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, PlayerController>
-{
+/// <summary>
+/// modify this to instead of being an state, be a Context modifier, so that way, 
+/// once you upgrade the dash in any way, this script modifies DashContext on player
+/// so that everytime the action state calls for it in the update, 
+/// it will be set correctly to its correct parameters
+/// </summary>
+public class DashState : State<DashContext, PlayerController>
+{ 
     //          PlayerController and configSO
     public PlayerController player;
     ResponsiveSpringDrivenConfigSO config;
@@ -26,7 +32,6 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
     //          Intent
     bool desiredJump;
     bool desiresClimbing;
-    bool desiredDash;
 
 
     //          Speed caps
@@ -174,7 +179,6 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
         else
         {
             desiredJump |= player.desiredJump;
-            desiredDash |= player.desiredDash;
             desiresClimbing = player.desiresClimbing;
         }
 
@@ -319,12 +323,7 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
             velocity += gravity * ((1f - buoyancy * submergence) * Time.deltaTime);
         }
         ApplyVelocityAxis();
-        if (desiredDash)
-        {
-            desiredDash = false;
-            Dash();
-        }
-        else if (desiredJump)
+        if (desiredJump)
         {
             desiredJump = false;
             Jump(gravity);
@@ -343,7 +342,7 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
             }
             velocity = MovementMath.GetFloatingSpringVelocity(body, upAxis, downRayHit, velocity,
                 rideHeight, rideSpringStrength, rideSpringDamper, Time.deltaTime);
-        }
+        }        
         else
         {
             velocity += gravity * Time.deltaTime;
@@ -429,10 +428,6 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
         }
         connectionWorldPosition = body.position;
         connectionLocalPosition = connectedBody.transform.InverseTransformPoint(connectionWorldPosition);
-    }
-    void Dash()
-    {
-        // dashear en input + camera forward y tal
     }
     void Jump(Vector3 gravity)
     {

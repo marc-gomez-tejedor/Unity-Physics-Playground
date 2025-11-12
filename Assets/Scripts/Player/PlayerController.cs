@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour, IInitializable
 
     //          Intent
     public bool desiredJump { get; private set; }
+    public bool desiredDash { get; private set; }
     [SerializeField] public bool desiresClimbing;
 
 
@@ -214,6 +215,7 @@ public class PlayerController : MonoBehaviour, IInitializable
         playerInput.z = Input.GetAxis("Vertical");
         playerInput.y = Input.GetAxis("UpDown");
         desiredJump = Input.GetButtonDown("Jump");
+        desiredDash = Input.GetButtonDown("Dash");
         desiresClimbing = Input.GetButton("Climb");
 
         actionsStateMachine.Update();

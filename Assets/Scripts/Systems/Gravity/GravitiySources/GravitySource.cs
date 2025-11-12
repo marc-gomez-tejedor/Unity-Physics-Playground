@@ -7,12 +7,13 @@ public class GravitySource : MonoBehaviour
 
     [Tooltip("If true, this gravity only affects when explicitly included.")]
     public virtual bool RequireExplicitInclude => false;
+    public float scale = 9.8f;
 
     public GravityType GravityType => gravityType;
 
     public virtual Vector3 GetGravity(Vector3 position)
     {
-        return Physics.gravity;
+        return Vector3.down * scale;
     }
     void OnEnable()
     {
