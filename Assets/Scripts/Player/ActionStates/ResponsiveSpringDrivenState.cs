@@ -44,6 +44,7 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
     float jumpHeight;
     int maxAirJumps;
     int snapStepsThreshold;
+    float dashSpeed;
 
 
     //          Jump & Contact counters (runtime)
@@ -433,6 +434,17 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
     void Dash()
     {
         // dashear en input + camera forward y tal
+        Vector3 dashDirection;
+        dashDirection = player.playerInputSpace.right * input.x;
+        dashDirection += player.playerInputSpace.forward * input.z;
+        dashDirection.Normalize();
+        if (dashDirection.magnitude < 0.1)
+        {
+            dashDirection = player.playerInputSpace.forward;
+        }
+
+        velocity += dashDirection * dashSpeed;
+        Debug.Log($"{velocity}, {dashDirection}");
     }
     void Jump(Vector3 gravity)
     {
@@ -651,6 +663,7 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
         jumpHeight = config.jumpHeight;
         maxAirJumps = config.maxAirJumps;
         snapStepsThreshold = config.snapStepsThreshold;
+        dashSpeed = config.dashSpeed;
 
         crouches = config.crouches;
         crouchAcceleration = config.crouchAcceleration;

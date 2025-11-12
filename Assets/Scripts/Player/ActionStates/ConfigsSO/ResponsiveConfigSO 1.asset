@@ -26,6 +26,7 @@ MonoBehaviour:
   jumpHeight: 6
   maxAirJumps: 3
   snapStepsThreshold: 10
+  dashSpeed: 30
   crouches: 1
   crouchAcceleration: 0
   probeMask:

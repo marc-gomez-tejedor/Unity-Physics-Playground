@@ -35,6 +35,8 @@ public class ResponsiveSpringDrivenConfigSO : ScriptableObject
     public int maxAirJumps = 0;
     [Range(0, 20)]
     public int snapStepsThreshold = 10;
+    [Range(0f, 1000f)]
+    public float dashSpeed = 1000f;
 
 
     [Header("Can crouch")]

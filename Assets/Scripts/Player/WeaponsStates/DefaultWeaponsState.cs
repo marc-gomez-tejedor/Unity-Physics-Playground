@@ -118,7 +118,7 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
         }
         gravityRay.enabled = enabled;
         player.Status.Hooking = enabled;
-        Debug.Log(enabled);
+        //Debug.Log(enabled);
         Debug.DrawLine(originPosition.position, targetPosition, Color.magenta);
         ClearStateParams();
     }
