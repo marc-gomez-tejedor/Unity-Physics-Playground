@@ -29,6 +29,11 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
     bool desiresToRay;
     enumState CurrentWeaponState = enumState.None;
 
+    //          cache timer
+    float basicAttackThresholdTimer;
+    float basicAttackThresholdMinimumTimer;
+    float timer;
+
     protected override void OnInit()
     {
     }
@@ -69,6 +74,30 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
             desiresToRay = true;
             //Debug.Log("moouse pressed");
 
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (timer < basicAttackThresholdMinimumTimer)
+            {
+                player.Status.CurrentAttackState = enumState.BasicAttacking;
+            }
+            else
+            {
+                player.Status.CurrentAttackState = enumState.BasicAttack;
+                timer = 0;
+            }                
+        }
+        else
+        {
+            timer += Time.deltaTime;
+            if (timer >= basicAttackThresholdTimer)
+            {
+                player.Status.CurrentAttackState = enumState.None;
+            }
+            else
+            {
+                player.Status.CurrentAttackState = enumState.BasicAttacking;
+            }
         }
         UpdatePlayerStatusAndContextValues();
     }
@@ -139,6 +168,10 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
         
         distance = config.maximumDistance;
         layerMask = config.layerMask;
+
+        basicAttackThresholdTimer = config.basicAttackThresholdTimer;
+        basicAttackThresholdMinimumTimer = config.basicAttackThresholdMinimumTimer;
+
 
         cameraTransform = Context.orbitCameraTransform;
         originPosition = Context.raycastCenterOrigin;

@@ -10,6 +10,11 @@ public class PlayerStatusLogger : MonoBehaviour
 
     void Update()
     {
-        UIText.text = player.Status.CurrentMoveState.ToString();
+        enumState currentPlayerState = player.Status.CurrentAttackState;
+        if (currentPlayerState == enumState.None)
+        {
+            currentPlayerState = player.Status.CurrentMoveState;
+        }
+        UIText.text = currentPlayerState.ToString();
     }
 }

@@ -12,10 +12,11 @@ public enum enumState
     Falling = 7,
     Walking = 8,
     Crouching = 9,
-    BasicAttacking = 10,
-    Ability1ing = 11,
-    Ability2ing = 12,
-    Ultimating = 13,
+    BasicAttack = 10,
+    BasicAttacking = 11,
+    Ability1ing = 12,
+    Ability2ing = 13,
+    Ultimating = 14,
 };
 
 [System.Serializable]
