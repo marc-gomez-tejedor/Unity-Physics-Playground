@@ -45,6 +45,7 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
     float jumpHeight;
     int maxAirJumps;
     int snapStepsThreshold;
+    float jumpingFactor;
     float dashSpeed;
 
 
@@ -355,8 +356,17 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
         }
         else
         {
-            CurrentState = enumState.Falling;
-            velocity += gravity * Time.deltaTime;
+            // either this or set jumping animation to have at least x seconds of anim
+            if (stepsSinceLastJump <= snapStepsThreshold)
+            {
+                CurrentState = enumState.Jumping;
+                velocity += gravity * Time.deltaTime;
+            }
+            else
+            {
+                CurrentState = enumState.Falling;
+                velocity += gravity * Time.deltaTime * jumpingFactor; // in order to feel snappier jumps
+            }                
         }
     }
     bool CheckClimbing()
@@ -562,6 +572,7 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
         }
         jumpDirection = (jumpDirection + upAxis).normalized;
         float alignedSpeed = Vector3.Dot(velocity, jumpDirection);
+        jumpSpeed = jumpSpeed - alignedSpeed;
 
         if (alignedSpeed > 0f)
         {
@@ -744,6 +755,7 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
         jumpHeight = config.jumpHeight;
         maxAirJumps = config.maxAirJumps;
         snapStepsThreshold = config.snapStepsThreshold;
+        jumpingFactor = config.jumpingFactor;
         dashSpeed = config.dashSpeed;
 
         crouches = config.crouches;

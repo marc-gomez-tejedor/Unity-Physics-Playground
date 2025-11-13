@@ -20,12 +20,13 @@ MonoBehaviour:
   rideHeight: 1
   rideSpringStrength: 200
   rideSpringDamper: 20
-  maxSpeed: 10
+  maxSpeed: 15
   maxClimbSpeed: 5
   maxSwimSpeed: 10
-  jumpHeight: 6
+  jumpHeight: 8
   maxAirJumps: 3
-  snapStepsThreshold: 10
+  snapStepsThreshold: 3
+  jumpingFactor: 2.25
   dashSpeed: 30
   crouches: 1
   crouchAcceleration: 0
@@ -51,3 +52,4 @@ MonoBehaviour:
   waterDrag: 1
   buoyancy: 1
   swimThreshold: 0.5
+  idleTimerThreshold: 1
