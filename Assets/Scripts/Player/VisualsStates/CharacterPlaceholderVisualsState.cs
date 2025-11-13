@@ -20,6 +20,10 @@ public class CharacterPlaceholderVisualsState : State<CharacterPlaceholderVisual
     enumState playerState = enumState.None;
 
 
+    //          Last contact cache
+    Vector3 lastContactNormal, lastSteepNormal, lastConnectionVelocity;
+
+
     protected override void OnInit()
     {
     }
@@ -34,14 +38,25 @@ public class CharacterPlaceholderVisualsState : State<CharacterPlaceholderVisual
     }
     public override void Update() 
     {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            player.visualsStateMachine.ChangeState<BallVisualsState>();
+        }
         UpdateActionsParams();
+        Vector3 normal = lastContactNormal;
+        if (!player.Status.OnGround && player.Status.OnSteep)
+        {
+            normal = lastSteepNormal;
+        }
+        Vector3 movement = (Context.body.linearVelocity - lastConnectionVelocity) * Time.deltaTime;
+        movement -= normal * Vector3.Dot(movement, normal);
 
         Quaternion rotation = characterModel.localRotation;
 
         Quaternion newAlignment = Quaternion.FromToRotation(characterModel.up, upAxis);
         Vector3 newLocalForward = newAlignment * characterModel.forward;
         rotation = newAlignment * rotation;
-        rotation = Quaternion.FromToRotation(newLocalForward, forwardAxis) * rotation;
+        rotation = Quaternion.FromToRotation(newLocalForward, movement.normalized) * rotation;
         characterModel.localRotation = rotation;
     }
 
@@ -60,6 +75,9 @@ public class CharacterPlaceholderVisualsState : State<CharacterPlaceholderVisual
             playerState = currentPlayerState;
             animator.SetTrigger(playerState.ToString());
         }
+        lastContactNormal = player.ContactStatus.LastContactNormal;
+        lastSteepNormal = player.ContactStatus.LastSteepNormal;
+        lastConnectionVelocity = player.ContactStatus.LastConnectionVelocity;        
     }
     public override void FixedUpdate() { }
     public override void LateUpdate() { }

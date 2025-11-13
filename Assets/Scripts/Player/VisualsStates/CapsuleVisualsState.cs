@@ -41,7 +41,7 @@ public class CapsuleVisualsState : State<CapsuleVisualContext, PlayerController>
     {
         if (Input.GetKeyDown(KeyCode.U))
         {
-            player.visualsStateMachine.ChangeState<BallVisualsState>();
+            player.visualsStateMachine.ChangeState<CharacterPlaceholderVisualsState>();
         }
 
         UpdateActionsParams();
