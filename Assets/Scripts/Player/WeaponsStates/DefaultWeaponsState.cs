@@ -27,6 +27,7 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
 
     //          intent
     bool desiresToRay;
+    enumState CurrentWeaponState = enumState.None;
 
     protected override void OnInit()
     {
@@ -67,6 +68,7 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
         {
             desiresToRay = true;
             //Debug.Log("moouse pressed");
+
         }
         UpdatePlayerStatusAndContextValues();
     }

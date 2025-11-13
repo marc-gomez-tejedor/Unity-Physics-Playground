@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, PlayerController>
@@ -64,6 +65,9 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
     bool Climbing => climbContactCount > 0 && stepsSinceLastJump > 2;
     bool InWater => submergence > 0f;
     bool Swimming => submergence >= swimThreshold;  // later move to swimming state
+    enumState CurrentState = enumState.Idle;
+    float idleThreshold;
+    float cacheIdleTimer = 0;
 
 
     //          Timing counters
@@ -171,6 +175,7 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
         if (Swimming)
         {
             desiresClimbing = false;
+            CurrentState = enumState.Swimming;
         }
         else
         {
@@ -322,17 +327,20 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
         ApplyVelocityAxis();
         if (desiredDash)
         {
+            CurrentState = enumState.Dashing;
             desiredDash = false;
             Dash();
         }
         else if (desiredJump)
         {
+            CurrentState = enumState.Jumping;
             desiredJump = false;
             Jump(gravity);
         }
         else if (Climbing)
         {
             //Debug.Log("climbing");
+            CurrentState = enumState.Climbing;
             velocity -= contactNormal * (maxClimbAcceleration * 0.9f * Time.deltaTime);
         }
         else if (OnGround && stepsSinceLastJump > snapStepsThreshold)
@@ -347,6 +355,7 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
         }
         else
         {
+            CurrentState = enumState.Falling;
             velocity += gravity * Time.deltaTime;
         }
     }
@@ -397,6 +406,7 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
             speed = OnGround && desiresClimbing ? maxClimbSpeed : maxSpeed;
             xAxis = rightAxis;
             zAxis = forwardAxis;
+            
         }
         xAxis = MathUtils.ProjectDirectionOnContactPlane(xAxis, contactNormal);
         zAxis = MathUtils.ProjectDirectionOnContactPlane(zAxis, contactNormal);
@@ -411,12 +421,82 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
         float dot = Vector3.Dot(adjustment.normalized, relativeVelocity.normalized);
         //acceleration = acceleration * MathUtils.GetDotFactor(dot, dotAccelerationFactor);
 
+        //UpdateCurrentStateBasedOnAdjustmentVelocityWithIdleTimer(adjustment);
+        UpdateCurrentStateBasedOnAdjustmentVelocitySimple(adjustment);
+        
+        
         adjustment = Vector3.ClampMagnitude(adjustment, acceleration * Time.deltaTime);
 
         velocity += xAxis * adjustment.x + zAxis * adjustment.z;
         if (Swimming)
         {
             velocity += upAxis * adjustment.y;
+            CurrentState = enumState.Swimming;
+        }
+    }
+
+    void UpdateCurrentStateBasedOnAdjustmentVelocityWithIdleTimer(Vector3 adjustment)
+    {
+        if (!Climbing && OnGround)
+        {
+            CurrentState = enumState.Running;
+            if (adjustment.magnitude < 0.5f)
+            {
+                cacheIdleTimer += Time.deltaTime;
+            }
+            else
+            {
+                cacheIdleTimer = 0f;
+            }
+            if (cacheIdleTimer > idleThreshold)
+            {
+                CurrentState = enumState.Idle;
+            }
+            if (desiresClimbing)
+            {
+                if (crouches)
+                {
+                    CurrentState = enumState.Crouching;
+                }
+                else
+                {
+                    CurrentState = enumState.Walking;
+                    if (cacheIdleTimer > idleThreshold)
+                    {
+                        CurrentState = enumState.Idle;
+                    }
+                }
+            }
+        }
+        else
+        {
+            cacheIdleTimer = 0f;
+        }
+    }
+
+    void UpdateCurrentStateBasedOnAdjustmentVelocitySimple(Vector3 adjustment)
+    {
+        if (!Climbing && OnGround)
+        {
+            CurrentState = enumState.Running;
+            if (adjustment.magnitude < 0.5f)
+            {
+                CurrentState = enumState.Idle;
+            }
+            if (desiresClimbing)
+            {
+                if (crouches)
+                {
+                    CurrentState = enumState.Crouching;
+                }
+                else
+                {
+                    if (CurrentState != enumState.Idle)
+                    {
+                        CurrentState = enumState.Walking;
+                    }                    
+                }
+            }
         }
     }
     void UpdateConnectionState()
@@ -629,6 +709,7 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
         player.Status.UpAxis = upAxis;
         player.Status.ForwardAxis = forwardAxis;
 
+        player.Status.CurrentMoveState = CurrentState;
 
         player.ContactStatus.ConnectedBody = connectedBody;
         player.ContactStatus.PreviousConnectedBody = previousConnectedBody;
@@ -689,6 +770,7 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
         waterDrag = config.waterDrag;
         buoyancy = config.buoyancy;
         swimThreshold = config.swimThreshold;
+        idleThreshold = config.idleTimerThreshold;
 
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
         minClimbDotProduct = Mathf.Cos(maxClimbAngle * Mathf.Deg2Rad);

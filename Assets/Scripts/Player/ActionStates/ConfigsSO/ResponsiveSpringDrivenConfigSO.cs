@@ -79,4 +79,6 @@ public class ResponsiveSpringDrivenConfigSO : ScriptableObject
     public float buoyancy = 1f;
     [Range(0.01f, 1f)]
     public float swimThreshold = 0.5f;
+    [Range(0f, 10f)]
+    public float idleTimerThreshold = 1f;
 }
