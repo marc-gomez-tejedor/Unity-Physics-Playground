@@ -18,7 +18,7 @@ MonoBehaviour:
   maxClimbAcceleration: 50
   maxSwimAcceleration: 10
   rideHeight: 1
-  rideSpringStrength: 200
+  rideSpringStrength: 100
   rideSpringDamper: 20
   maxSpeed: 15
   maxClimbSpeed: 5

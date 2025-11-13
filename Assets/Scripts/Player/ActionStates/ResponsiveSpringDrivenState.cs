@@ -489,7 +489,7 @@ public class ResponsiveSpringDrivenState : State<ResponsiveSpringDrivenContext, 
         if (!Climbing && OnGround)
         {
             CurrentState = enumState.Running;
-            if (adjustment.magnitude < 0.5f)
+            if (adjustment.magnitude < 0.5f && input.magnitude < 0.5f)
             {
                 CurrentState = enumState.Idle;
             }
