@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour, IInitializable
     public BallVisualContext ballVisualCtx;
     public BallVisualContext multiBallVisualCtx;
     public CapsuleVisualContext capsuleVisualCtx;
+    public CharacterPlaceholderVisualContext characterPhVisualCtx;
     //              Camera
     public OrbitCameraContext orbitCameraCtx;
     public TargetLockedCameraContext tagetLockedCameraCtx;
@@ -96,10 +97,13 @@ public class PlayerController : MonoBehaviour, IInitializable
     BallVisualsConfigSO multiBallVisualsConfigSO;
     [SerializeField]
     CapsuleVisualsConfigSO capsuleVisualsConfigSO;
+    [SerializeField]
+    CharacterPlaceholderVisualsConfigSO characterPlaceholderVisualsConfigSO;
     //          Public Visuals State Configs
     public BallVisualsConfigSO BallVisualsConfigSO => ballVisualsConfigSO;
     public BallVisualsConfigSO MultiBallVisualsConfigSO => multiBallVisualsConfigSO;
     public CapsuleVisualsConfigSO CapsuleVisualsConfigSO => capsuleVisualsConfigSO;
+    public CharacterPlaceholderVisualsConfigSO CharacterPlaceholderVisualsConfigSO => characterPlaceholderVisualsConfigSO;
 
 
     //          Serializable Cameras State Configs
@@ -175,6 +179,7 @@ public class PlayerController : MonoBehaviour, IInitializable
         BallVisualsState ballVisualState = new BallVisualsState();
         BallVisualsState1 multiBallVisualState = new BallVisualsState1();
         CapsuleVisualsState capsuleBallVisualState = new CapsuleVisualsState();
+        CharacterPlaceholderVisualsState characterPlaceholderVisualState = new CharacterPlaceholderVisualsState();
 
         ballVisualState.Init(ballVisualCtx);
         ballVisualState.AssignConfigValues(this);
@@ -188,9 +193,14 @@ public class PlayerController : MonoBehaviour, IInitializable
         capsuleBallVisualState.AssignConfigValues(this);
         visualsStateMachine.AddState(capsuleBallVisualState);
 
+        characterPlaceholderVisualState.Init(characterPhVisualCtx);
+        characterPlaceholderVisualState.AssignConfigValues(this);
+        visualsStateMachine.AddState(characterPlaceholderVisualState);
+
         visualsStateMachine.ChangeState<BallVisualsState>();
         visualsStateMachine.ChangeState<BallVisualsState1>();
         visualsStateMachine.ChangeState<CapsuleVisualsState>();
+        visualsStateMachine.ChangeState<CharacterPlaceholderVisualsState>();
     }
     void InitCamerasStateMachine()
     {

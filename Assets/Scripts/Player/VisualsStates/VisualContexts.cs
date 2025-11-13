@@ -12,3 +12,9 @@ public class CapsuleVisualContext
 {
     public Rigidbody body;
 }
+
+[Serializable]
+public class CharacterPlaceholderVisualContext
+{
+    public Rigidbody body;
+}

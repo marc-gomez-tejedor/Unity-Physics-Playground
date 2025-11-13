@@ -39,7 +39,7 @@ public class PlayerStatus
     public Vector3 HookPoint;
 
     public enumState CurrentMoveState;
-    public enumState CurrentAttackState;
+    public enumState CurrentAttackState = enumState.None;
 }
 
 [System.Serializable]
