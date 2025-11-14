@@ -69,7 +69,7 @@ public class DefaultWeaponsState : State<DefaultWeaponsContext, PlayerController
         {
             SwapPushSphere();
         }
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.E) || Input.GetMouseButton(1))
         {
             desiresToRay = true;
             //Debug.Log("moouse pressed");

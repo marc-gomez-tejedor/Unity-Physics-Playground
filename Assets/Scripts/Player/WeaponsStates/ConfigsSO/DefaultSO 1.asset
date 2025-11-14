@@ -19,3 +19,5 @@ MonoBehaviour:
     m_Bits: 5841
   ExcludeMask: 32
   IncludeMask: 128
+  basicAttackThresholdTimer: 0.4
+  basicAttackThresholdMinimumTimer: 0.15

@@ -20,7 +20,7 @@ MonoBehaviour:
   focusRadius: 1
   focusCentering: 0.99
   rotationSpeed: 320
-  minVerticalAngle: -45
+  minVerticalAngle: -80
   maxVerticalAngle: 80
   alignDelay: 5
   alignSmoothRange: 45
